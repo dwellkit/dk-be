@@ -103,7 +103,7 @@ X-Xss-Protection → 1; mode=block
 
 DEVISE USER AUTH DOCS
 =====================
-The following routes are available for use by your client. These routes live relative to the path at which this engine is mounted (`auth` by default). These routes correspond to the defaults used by the [ng-token-auth](https://github.com/lynndylanhurley/ng-token-auth) module for angular.js.
+The following routes are available for use by your client.
 
 | path | method | purpose |
 |:-----|:-------|:--------|
