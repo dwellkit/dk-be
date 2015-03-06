@@ -64,3 +64,11 @@ group :development, :test do
   gem 'better_errors'
 end
 
+group :production do
+  # allow front end to hit us
+  gem 'rack-cors'
+
+  # heroku likes this
+  gem 'rails_12factor'
+end
+
