@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   # IF USERS WANT AUTH WITHOUT TOKEN DEVISE ROUTES MUST COME FIRST
-
+  default_url_options :host => "localhost:3000"
   mount_devise_token_auth_for 'User', at: 'auth'
 
   # later might want to namespace the api...
