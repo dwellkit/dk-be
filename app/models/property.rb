@@ -3,6 +3,12 @@ class Property < ActiveRecord::Base
   has_many :groundskeepers
   has_many :users, through: :groundskeepers
 
+  # MERGE CONFLIC WITH IAN (3 LINES BELOW)
+  has_many :insurances
+  has_many :warranties
+  has_one :address
+  ########################################
+
   def add( property_location )
     self.street_address = property_location[:street_address]
     self.city = property_location[:city]

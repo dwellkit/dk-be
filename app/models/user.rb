@@ -4,9 +4,15 @@ class User < ActiveRecord::Base
   # Include default devise modules.
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable
-  # include DeviseTokenAuth::Concerns::User
+
   has_many :groundskeepers
   has_many :properties, through: :groundskeepers
+
+  #MERGE CONFLICT WITH IAN (3 LINES BELOW)
+  has_many :items
+  has_many :contacts, as: :reachable
+  has_many :reminders
+  #########################
 
   before_save :ensure_authentication_token
 
