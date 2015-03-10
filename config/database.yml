@@ -4,5 +4,5 @@ development:
   encoding: unicode
   database: dev-dk
   pool: 5
-  username: dylandechant
-  password:
+
+
