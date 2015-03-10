@@ -55,7 +55,7 @@ sample [BODY] response:
 ```
 {
     "user": {
-        "email": "test@ttt.com",
+        "email": "test@test.com",
         "authentication_token": "gaCEXmumUaZXif9GkQg6"
     }
 }
