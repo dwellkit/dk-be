@@ -1,4 +1,4 @@
-class Groundskeeper < ActiveRecord::Migration
+class CreateGroundskeeper < ActiveRecord::Migration
   def change
     create_table :groundskeepers, id: false do |t|
       t.integer :user_id

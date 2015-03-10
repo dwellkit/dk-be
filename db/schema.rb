@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310160641) do
+ActiveRecord::Schema.define(version: 20150310205537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(version: 20150310160641) do
   end
 
   create_table "properties", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "rooms"
     t.integer  "sqft"
     t.integer  "lotsize"
@@ -91,8 +90,7 @@ ActiveRecord::Schema.define(version: 20150310160641) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "provider",                            null: false
-    t.string   "uid",                    default: "", null: false
+    t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -102,19 +100,14 @@ ActiveRecord::Schema.define(version: 20150310160641) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.string   "email"
-    t.text     "tokens"
+    t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   create_table "warranties", force: :cascade do |t|
     t.string   "name"
