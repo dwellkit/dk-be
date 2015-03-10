@@ -2,5 +2,5 @@ class Warranty < ActiveRecord::Base
   belongs_to :item
   belongs_to :property
   has_many :reminders
-  has_many :contacts
+  has_many :contacts, as: :reachable
 end
