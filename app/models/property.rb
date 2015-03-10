@@ -4,5 +4,5 @@ class Property < ActiveRecord::Base
   has_many :users, through: :groundskeepers
   has_many :insurances
   has_many :warranties
-  belongs_to :address, as: :addressable
+  has_one :address
 end
