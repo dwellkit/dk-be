@@ -10,6 +10,13 @@ class PropertyController < ApplicationController
     if @property.add(property_params) == false
       render json: { :error => "unable to find property"}, status: :not_modified
     elsif @property.save
+      #this should go somewhere else but okay for now
+      1.upto(@property.bedrooms.to_i) do |x|
+        @property.rooms.create(:name => "Bedroom #{x}")
+      end
+      1.upto(@property.bedrooms.to_i) do |x|
+        @property.rooms.create(:name => "Bathroom #{x}")
+      end
       render json: { :property => @property}, status: :created
     else
       render json: { :error => "Unable to find property"}, status: :not_modified
@@ -31,6 +38,14 @@ class PropertyController < ApplicationController
     if @property.add(property_params) == false
       render json: { :error => "unable to find property"}, status: :not_modified
     elsif @property.save
+      #this needs to go somewhere else
+      #deletes rooms that haven't been edited by user
+      @property.rooms.each do |x|
+        if x.created_at == x.updated_at
+          x.destroy
+        end
+      end
+      #render
       render json: { :property => @property}, status: :created
     else
       render json: { :error => "Unable to find property"}, status: :not_modified

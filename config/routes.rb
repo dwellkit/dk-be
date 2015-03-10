@@ -3,9 +3,14 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
   # IF USERS WANT AUTH WITHOUT TOKEN DEVISE ROUTES MUST COME FIRST
 
+  # ROUTES FOR PROPERTIES
   post 'property/add', to: 'property#add'
   patch 'property/:id', to: 'property#edit'
   patch 'property/:id/reimport', to: 'property#reimport'
+
+  # ROUTES FOR ROOMS
+  post 'property/:id/room', to: 'room#add'
+  patch 'property/:id/room/:rid', to: 'room#edit'
 
   # later might want to namespace the api...
   # namespace :api do
