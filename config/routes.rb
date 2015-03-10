@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # IF USERS WANT AUTH WITHOUT TOKEN DEVISE ROUTES MUST COME FIRST
 
   post 'property/add', to: 'property#add'
+  patch 'property/:id', to: 'property#edit'
+  patch 'property/:id/reimport', to: 'property#reimport'
 
   # later might want to namespace the api...
   # namespace :api do

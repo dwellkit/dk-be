@@ -4,9 +4,9 @@ class Property < ActiveRecord::Base
   has_many :users, through: :groundskeepers
 
   def add( property_location )
-    self.street_address = property_location[:address]
+    self.street_address = property_location[:street_address]
     self.city = property_location[:city]
-    self.zipcode = property_location[:zip]
+    self.zipcode = property_location[:zipcode]
     self.state = property_location[:state]
     search_zillow(property_location)
   end
@@ -14,10 +14,10 @@ class Property < ActiveRecord::Base
   def search_zillow(prop)
     search_domain = 'http://www.zillow.com/webservice/GetSearchResults.htm'
     zwsid = 'X1-ZWz1ayawttov7v_6o78e'
-    address = prop[:address]
+    address = prop[:street_address]
     city = prop[:city]
     state = prop[:state]
-    zip = prop[:zip]
+    zip = prop[:zipcode]
     citystatezip = city + " " + state + " " + zip
     citystatezip = URI::encode(citystatezip)
     address.gsub!(' ','+')

@@ -74,9 +74,10 @@ data:
 ```
 {
     "property": {
-        "address": "2 Main Street",
+ >>>>   "street_address": "2 Main Street", <<<<< changed variable name
         "city": "Portland",
-        "state": "OR"
+        "state": "OR",
+        "zipcode": 23814
     }
 }
 ```
@@ -93,6 +94,99 @@ sample [BODY] response:
         "total_rooms": null,
         "bedrooms": 3,
         "bathrooms": 2,
+        "street_address": "2 Main Street",
+        "city": "Portland",
+        "state": "OR",
+        "zipcode": "23814",
+        "updated_at": "2015-03-10T21:12:47.395Z"
+    }
+}
+```
+
+EDIT/VERIFY PROPERTY
+--------------------
+`STATUS 200 OK`
+from
+`PATCH [domain]/property/[:id]`
+
+NOTE: If was unable to edit property will return
+`STATUS 304 NOT MODIFIED`
+
+data:
+```
+{
+    "property": {
+        "sqft": 100,
+        "lotsize": 1000,
+        "total_rooms": 9,
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "street_address": "2 Main Street",
+        "city": "Portland",
+        "state": "OR",
+        "zipcode": "23814",
+        "updated_at": "2015-03-10T21:12:47.395Z"
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "property": {
+        "id": 10,
+        "created_at": "2015-03-10T21:12:36.270Z",
+        "rooms": [],
+        "sqft": 100,
+        "lotsize": 1000,
+        "total_rooms": 9,
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "street_address": "2 Main Street",
+        "city": "Portland",
+        "state": "OR",
+        "zipcode": "23814",
+        "updated_at": "2015-03-10T21:12:47.395Z"
+    }
+}
+```
+
+REIMPORT PROPERTY
+--------------------
+Note: This overwrites users existing property information
+will do this better later so user can choose if he wants
+to import
+`STATUS 200 OK`
+from
+`PATCH [domain]/property/[:id]/reimport`
+
+NOTE: If was unable to edit property will return
+`STATUS 304 NOT MODIFIED`
+
+data:
+```
+{
+    "property": {
+        "street_address": "2 Main Street",
+        "city": "Portland",
+        "state": "OR",
+        "zipcode": 23814
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "property": {
+        "id": 10,
+        "created_at": "2015-03-10T21:12:36.270Z",
+        "rooms": [],
+        "sqft": 100,
+        "lotsize": 1000,
+        "total_rooms": 9,
+        "bedrooms": 4,
+        "bathrooms": 3,
         "street_address": "2 Main Street",
         "city": "Portland",
         "state": "OR",
