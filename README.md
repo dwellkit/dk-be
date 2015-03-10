@@ -12,7 +12,6 @@ from
 `POST [domain]/auth`
 
 required fields: `email`, `password`, `password_confirmation`
-optional fields: `address`, `city`, `zip`, `state`
 
 data:
 ```
@@ -30,16 +29,8 @@ sample [BODY] response:
         "email": "testuser@gmail.com",
         "provider": "email",
         "uid": "testuser@gmail.com",
-        "name": null,
-        "nickname": null,
-        "image": null,
         "created_at": "2015-03-06T18:33:27.654Z",
-        "updated_at": "2015-03-06T18:33:27.816Z",
-        "address": null,
-        "zip": null,
-        "city": null,
-        "state": null,
-        "zpid": null
+        "updated_at": "2015-03-06T18:33:27.816Z"
     }
 }
 ```
