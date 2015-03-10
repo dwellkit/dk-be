@@ -3,7 +3,6 @@ class RoomController < ApplicationController
 
   def add
     @room = @property.rooms.new
-    binding.pry
     if @room.update( room_params )
       render json: { :room => @room }, status: :created
     else
