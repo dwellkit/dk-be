@@ -15,7 +15,7 @@ class PropertyController < ApplicationController
       1.upto(@property.bedrooms.to_i) do |x|
         @property.rooms.create(:name => "Bedroom #{x}")
       end
-      1.upto(@property.bathrooms.to_float.ceil) do |x|
+      1.upto(@property.bathrooms.to_i) do |x|
         @property.rooms.create(:name => "Bathroom #{x}")
       end
 
