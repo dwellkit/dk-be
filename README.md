@@ -77,7 +77,7 @@ data:
  >>>>   "street_address": "2 Main Street", <<<<< changed variable name
         "city": "Portland",
         "state": "OR",
-        "zipcode": 23814
+        "zipcode": "23814"
     }
 }
 ```
@@ -170,7 +170,7 @@ data:
         "street_address": "2 Main Street",
         "city": "Portland",
         "state": "OR",
-        "zipcode": 23814
+        "zipcode": "23814"
     }
 }
 ```
@@ -195,3 +195,187 @@ sample [BODY] response:
     }
 }
 ```
+
+
+ADD ROOM
+---------
+`STATUS 201 CREATED`
+from
+`POST [domain]/property/[:id]/room`
+
+data:
+```
+{
+    "room": {
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "room": {
+        "id": 34,
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null,
+        "created_at": "2015-03-11T01:57:51.793Z",
+        "updated_at": "2015-03-11T01:57:51.793Z",
+        "property_id": 15
+    }
+}
+```
+
+EDIT ROOM
+----------
+`STATUS 200 OK`
+from
+`PATCH [domain]/property/[:id]/room/[:rid]`
+
+data:
+```
+{
+    "room": {
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "room": {
+        "id": 34,
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null,
+        "created_at": "2015-03-11T01:57:51.793Z",
+        "updated_at": "2015-03-11T01:57:51.793Z",
+        "property_id": 15
+    }
+}
+```
+
+DELETE ROOM
+----------
+`STATUS 200 OK`
+from
+`DELETE [domain]/property/[:id]/room/[:rid]`
+
+sample [BODY] response:
+```
+{
+    "message": "35 - Guest Bedroom Removed"
+}
+```
+
+
+ADD ITEM TO ROOM
+----------------
+`STATUS 201 CREATED`
+from
+`POST [domain]/property/[:id]/room/[:rid]/item`
+
+data:
+```
+{
+    "item": {
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "item": {
+        "id": 3,
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+        "created_at": "2015-03-11T03:11:51.138Z",
+        "updated_at": "2015-03-11T03:11:51.138Z",
+        "room_id": 47,
+        "property_id": 15
+    }
+}
+```
+
+
+ADD ITEM TO PROPERTY
+--------------------
+`STATUS 201 CREATED`
+from
+`POST [domain]/property/[:id]/item`
+
+data:
+```
+{
+    "item": {
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "item": {
+        "id": 3,
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+        "created_at": "2015-03-11T03:11:51.138Z",
+        "updated_at": "2015-03-11T03:11:51.138Z",
+        "room_id": null,
+        "property_id": 15
+    }
+}
+```
+
+DELETE ITEM
+-----------
+`STATUS 200 WHAT OKKKKAYYYYYY`
+from
+`DELETE [domain]/item/[:iid]`
+
+sample [BODY] response:
+```
+{
+    "message": "Item 3 LG Refridgerator deleted" 
+}
+```
+

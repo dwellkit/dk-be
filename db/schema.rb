@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310230850) do
+ActiveRecord::Schema.define(version: 20150311155637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.string  "zpid"
     t.integer "addressable_id"
     t.integer "addressable_type"
+    t.integer "property_id"
+    t.integer "contact_id"
   end
 
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
@@ -66,6 +68,8 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.string   "condition"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "room_id"
+    t.integer  "property_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -75,9 +79,9 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.integer  "bedrooms"
     t.integer  "bathrooms"
     t.string   "zpid"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "actual_rooms_count"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "actual_rooms_count", default: 0
   end
 
   create_table "reminders", force: :cascade do |t|

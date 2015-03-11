@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
-  # IF USERS WANT AUTH WITHOUT TOKEN DEVISE ROUTES MUST COME FIRST
 
   # ROUTES FOR PROPERTIES
   post 'property/add', to: 'property#add'
@@ -11,6 +10,15 @@ Rails.application.routes.draw do
   # ROUTES FOR ROOMS
   post 'property/:id/room', to: 'room#add'
   patch 'property/:id/room/:rid', to: 'room#edit'
+  delete 'property/:id/room/:rid', to: 'room#destroy'
+
+  # ROUTES FOR ITEMS
+  post 'property/:id/room/:rid/item', to: 'item#add_room_item'
+  post 'property/:id/item', to: 'item#add_property_item'
+  patch 'property/:id/room/:rid/item/:iid', to: 'item#edit'
+  delete 'item/:iid', to: 'item#destroy'
+  get 'property/:id/room/:rid/items', to: 'item#room_items'
+  get 'property/:id/items', to: 'item#property_items'
 
   # ROUTES FOR CONTACTS
   post '/contacts', to: 'contacts#create'

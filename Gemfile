@@ -40,7 +40,7 @@ gem 'httparty'
 gem 'devise'
 
 #devise token auth for json api
-gem 'devise_token_auth'
+# gem 'devise_token_auth'
 
 #omni auth required for devise token auth
 gem 'omniauth'
