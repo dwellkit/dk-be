@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   get 'property/:id/items', to: 'item#property_items'
 
   # ROUTES FOR CONTACTS
-  post '/contacts', to: 'contacts#create'
+  # post '/contacts', to: 'contacts#create'
+  resources :contacts
 
   #ROUTES FOR WARRANTIES
   post '/warranties', to: 'warranties#create'
