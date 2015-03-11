@@ -2,12 +2,10 @@ class Property < ActiveRecord::Base
   has_many :rooms
   has_many :groundskeepers
   has_many :users, through: :groundskeepers
-
-  # MERGE CONFLIC WITH IAN (3 LINES BELOW)
   has_many :insurances
   has_many :warranties
   has_one :address
-  ########################################
+
 
   def add( property_location )
     self.street_address = property_location[:street_address]
@@ -29,7 +27,7 @@ class Property < ActiveRecord::Base
     address.gsub!(' ','+')
 
     response = HTTParty.get("#{search_domain}?zws-id=#{zwsid}&address=#{address}&citystatezip=#{citystatezip}")
-  
+
     if response["searchresults"]["message"]["text"].include?("Error")
       return false
     end
@@ -41,7 +39,7 @@ class Property < ActiveRecord::Base
 
 
     if !propinfo["updatedPropertyDetails"]["message"]["text"].include?("Error")
-    
+
 
       #pull data => propinfo["updatedPropertyDetails"]["response"]["editedFacts"]
       self.sqft = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["finishedSqFt"].to_i
@@ -87,7 +85,7 @@ class Property < ActiveRecord::Base
       else
         return false
       end
-      
+
 
     end
   self.save
