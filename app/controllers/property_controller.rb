@@ -15,9 +15,14 @@ class PropertyController < ApplicationController
       1.upto(@property.bedrooms.to_i) do |x|
         @property.rooms.create(:name => "Bedroom #{x}")
       end
-      1.upto(@property.bedrooms.to_i) do |x|
+      1.upto(@property.bathrooms.to_float.ceil) do |x|
         @property.rooms.create(:name => "Bathroom #{x}")
       end
+
+      @address = Address.new(:property_id => @property.id)
+      @address.update( property_params )
+      @address.save
+
       @rooms = @property.rooms.all
       # render json: { :property => @property, :rooms => @rooms }, status: :created
       render "property/index.json.jbuilder", status: :ok
@@ -71,4 +76,5 @@ class PropertyController < ApplicationController
   def property_params
     params.require(:property).permit(:street_address, :city, :zipcode, :state)
   end
+
 end
