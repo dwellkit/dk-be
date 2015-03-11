@@ -1,5 +1,6 @@
 class PropertyController < ApplicationController
   before_action :authenticate_user_from_token!
+  before_action :set_property, only: [:edit, :reimport, :destroy]
 
   def index
   end
@@ -18,7 +19,8 @@ class PropertyController < ApplicationController
         @property.rooms.create(:name => "Bathroom #{x}")
       end
       @rooms = @property.rooms.all
-      render json: { :property => @property, :rooms => @rooms }, status: :created
+      # render json: { :property => @property, :rooms => @rooms }, status: :created
+      render "property/index.json.jbuilder", status: :ok
     else
       render json: { :error => "Unable to find property"}, status: :not_modified
     end
@@ -50,6 +52,9 @@ class PropertyController < ApplicationController
     else
       render json: { :error => "Unable to find property"}, status: :not_modified
     end
+  end
+
+  def destroy
   end
 
   private
