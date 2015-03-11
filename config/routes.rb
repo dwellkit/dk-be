@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # ROUTES FOR ROOMS
   post 'property/:id/room', to: 'room#add'
   patch 'property/:id/room/:rid', to: 'room#edit'
+  delete 'property/:id/room/:rid', to: 'room#destroy'
 
   # later might want to namespace the api...
   # namespace :api do

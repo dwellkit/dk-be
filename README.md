@@ -195,3 +195,93 @@ sample [BODY] response:
     }
 }
 ```
+
+
+ADD ROOM
+---------
+`STATUS 201 CREATED`
+from
+`POST [domain]/property/[:id]/room`
+
+data:
+```
+{
+    "room": {
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "room": {
+        "id": 34,
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null,
+        "created_at": "2015-03-11T01:57:51.793Z",
+        "updated_at": "2015-03-11T01:57:51.793Z",
+        "property_id": 15
+    }
+}
+```
+
+EDIT ROOM
+----------
+`STATUS 200 OK`
+from
+`PATCH [domain]/property/[:id]/room/[:rid]`
+
+data:
+```
+{
+    "room": {
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "room": {
+        "id": 34,
+        "name": "test room",
+        "sqft": null,
+        "dimensions": null,
+        "flooring_type": null,
+        "wall_type": null,
+        "paint_color": null,
+        "created_at": "2015-03-11T01:57:51.793Z",
+        "updated_at": "2015-03-11T01:57:51.793Z",
+        "property_id": 15
+    }
+}
+```
+
+DELETE ROOM
+----------
+`STATUS 200 OK`
+from
+`DELETE [domain]/property/[:id]/room/[:rid]`
+
+sample [BODY] response:
+```
+{
+    "message": "35 - Guest Bedroom Removed"
+}
+```
