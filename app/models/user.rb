@@ -8,11 +8,10 @@ class User < ActiveRecord::Base
   has_many :groundskeepers
   has_many :properties, through: :groundskeepers
 
-  #MERGE CONFLICT WITH IAN (3 LINES BELOW)
   has_many :items
   has_many :contacts, as: :reachable
   has_many :reminders
-  #########################
+
 
   before_save :ensure_authentication_token
 

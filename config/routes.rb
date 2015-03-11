@@ -12,6 +12,13 @@ Rails.application.routes.draw do
   post 'property/:id/room', to: 'room#add'
   patch 'property/:id/room/:rid', to: 'room#edit'
 
+  # ROUTES FOR CONTACTS
+  post '/contacts', to: 'contacts#create'
+
+  #ROUTES FOR WARRANTIES
+  post '/warranties', to: 'warranties#create'
+  post '/warranties/contact', to: 'warranties#contact'
+
   # later might want to namespace the api...
   # namespace :api do
   #   mount_devise_token_auth_for 'User', at: 'auth'
