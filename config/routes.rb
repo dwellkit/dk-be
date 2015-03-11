@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   #ROUTES FOR WARRANTIES
   post '/warranties', to: 'warranties#create'
-  post '/warranties/contact', to: 'warranties#contact'
+  # post '/warranties/contact', to: 'warranties#contact'
 
   # later might want to namespace the api...
   # namespace :api do

@@ -6,7 +6,7 @@ class WarrantiesController < ApplicationController
       if contact_params
         new_contact = @warranty.contacts.new(contact_params)
         add_contact = new_contact.update_attribute(:reachable, @warranty)
-        render json: { :warranty => @warranty }, status: :created
+        render json: { :warranty => @warranty, :contact => @contact }, status: :created
       elsif
         render json: {:error => "Unable to add contact" }, status: :not_modified
     else
