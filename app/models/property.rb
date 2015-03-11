@@ -9,16 +9,6 @@ class Property < ActiveRecord::Base
 
 
   def add( property_location )
-    # binding.pry
-    #self.street_address = property_location[:street_address]
-    #self.city = property_location[:city]
-    #self.zipcode = property_location[:zipcode]
-    #self.state = property_location[:state]
-    address = property_location[:street_address]
-    city = property_location[:city]
-    state = property_location[:state]
-    zip = property_location[:zipcode]
-
     search_zillow(property_location)
   end
 
@@ -46,14 +36,14 @@ class Property < ActiveRecord::Base
 
 
     if !propinfo["updatedPropertyDetails"]["message"]["text"].include?("Error")
-
+      binding.pry
 
       #pull data => propinfo["updatedPropertyDetails"]["response"]["editedFacts"]
       self.sqft = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["finishedSqFt"].to_i
       self.lotsize = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["lotSizeSqFt"].to_i
       self.bedrooms = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["bedrooms"].to_i
       self.bathrooms = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["bathrooms"].to_f
-      #self.yearbuilt = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["yearBuilt"].to_i
+      self.yearbuilt = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["yearBuilt"].to_i
       #self.latitude = propinfo["updatedPropertyDetails"]["response"]["address"]["latitude"].to_f
       #self.longitude = propinfo["updatedPropertyDetails"]["response"]["address"]["longitude"].to_f
       #self.view = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["view"]
@@ -71,24 +61,27 @@ class Property < ActiveRecord::Base
       #self.appliances = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["appliances"]
       #self.floor_covering = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["floor_covering"]
       #self.rooms = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["rooms"]
+      
+      # ADD COOLING SYSTEM AS ITEM IF EXISTS
+      if propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["coolingSystem"]
+        item = self.items.new
+        item.category = "Feature"
+        item.name = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["coolingSystem"]
+      end
 
       self.zpid = zpid
       self.save
     else
       comp_domain = "http://www.zillow.com/webservice/GetDeepComps.htm?"
       propinfo = HTTParty.get("#{comp_domain}zws-id=#{zwsid}&zpid=#{zpid}&count=1")
-      # propinfo["comps"]["response"]["properties"]["principal"]
 
       if !propinfo["comps"]["message"]["text"].include?("Error")
-        self.sqft = propinfo["comps"]["response"]["properties"]["principal"]["lotSizeSqFt"].to_i
+        binding.pry
+        self.sqft = propinfo["comps"]["response"]["properties"]["principal"]["finishedSqFt"].to_i
         self.bedrooms = propinfo["comps"]["response"]["properties"]["principal"]["bedrooms"].to_i
         self.bathrooms = propinfo["comps"]["response"]["properties"]["principal"]["bathrooms"].to_f
-        #self.totalrooms = propinfo["comps"]["response"]["properties"]["principal"]["totalRooms"].to_i
-        #self.latitude = propinfo["comps"]["response"]["properties"]["principal"]["address"]["latitude"].to_f
-        #self.longitude = propinfo["comps"]["response"]["properties"]["principal"]["address"]["longitude"].to_f
-        #self.yearbuilt = propinfo["comps"]["response"]["properties"]["principal"]["yearBuilt"].to_i
+        self.yearbuilt = propinfo["comps"]["response"]["properties"]["principal"]["yearBuilt"].to_i
         self.lotsize = propinfo["comps"]["response"]["properties"]["principal"]["lotSizeSqFt"].to_i
-
       else
         return false
       end
