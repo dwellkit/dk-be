@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   post '/warranties', to: 'warranties#create'
   # post '/warranties/contact', to: 'warranties#contact'
 
+  #ROUTES FOR INSURANCES
+  post '/insurances', to: 'insurances#create'
+
   # later might want to namespace the api...
   # namespace :api do
   #   mount_devise_token_auth_for 'User', at: 'auth'
