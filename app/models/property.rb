@@ -10,10 +10,11 @@ class Property < ActiveRecord::Base
   ########################################
 
   def add( property_location )
-    self.street_address = property_location[:street_address]
-    self.city = property_location[:city]
-    self.zipcode = property_location[:zipcode]
-    self.state = property_location[:state]
+    # binding.pry
+    #self.street_address = property_location[:street_address]
+    #self.city = property_location[:city]
+    #self.zipcode = property_location[:zipcode]
+    #self.state = property_location[:state]
     search_zillow(property_location)
   end
 

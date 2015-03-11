@@ -17,7 +17,8 @@ class PropertyController < ApplicationController
       1.upto(@property.bedrooms.to_i) do |x|
         @property.rooms.create(:name => "Bathroom #{x}")
       end
-      render json: { :property => @property}, status: :created
+      @rooms = @property.rooms.all
+      render json: { :property => @property, :rooms => @rooms }, status: :created
     else
       render json: { :error => "Unable to find property"}, status: :not_modified
     end
