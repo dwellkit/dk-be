@@ -77,7 +77,7 @@ data:
  >>>>   "street_address": "2 Main Street", <<<<< changed variable name
         "city": "Portland",
         "state": "OR",
-        "zipcode": 23814
+        "zipcode": "23814"
     }
 }
 ```
@@ -170,7 +170,7 @@ data:
         "street_address": "2 Main Street",
         "city": "Portland",
         "state": "OR",
-        "zipcode": 23814
+        "zipcode": "23814"
     }
 }
 ```
