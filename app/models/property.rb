@@ -42,7 +42,7 @@ class Property < ActiveRecord::Base
       self.lotsize = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["lotSizeSqFt"].to_i
       self.bedrooms = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["bedrooms"].to_i
       self.bathrooms = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["bathrooms"].to_f
-      self.yearbuilt = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["yearBuilt"].to_i
+      # self.yearbuilt = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["yearBuilt"].to_i
       #self.latitude = propinfo["updatedPropertyDetails"]["response"]["address"]["latitude"].to_f
       #self.longitude = propinfo["updatedPropertyDetails"]["response"]["address"]["longitude"].to_f
       #self.view = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["view"]
