@@ -14,6 +14,18 @@ class Property < ActiveRecord::Base
     #self.city = property_location[:city]
     #self.zipcode = property_location[:zipcode]
     #self.state = property_location[:state]
+    address = property_location[:street_address]
+    city = property_location[:city]
+    state = property_location[:state]
+    zip = property_location[:zipcode]
+
+    @address = Address.new
+    @address.property_id = self.id
+    @address.street_address = address
+    @address.city = city
+    @address.state = state
+    @address.zipcode = zip
+    @address.save
     search_zillow(property_location)
   end
 
