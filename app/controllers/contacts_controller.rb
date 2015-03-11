@@ -3,7 +3,6 @@ class ContactsController < ApplicationController
 
   def create
     @contact = Contact.new(contact_params)
-    @contact.save!
     if @contact.save
       render json: { :contact => @contact }, status: :created
     else
