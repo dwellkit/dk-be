@@ -18,9 +18,9 @@ class WarrantiesController < ApplicationController
 
   def add_contact
     @warranty = Warranty.find(params[:id])
-    existing_contact = set_contact
+    @contact = set_contact
     if existing_contact
-      add_contact = existing_contact.update_attribute(:reachable, @warranty)
+      add_contact = @contact.update_attribute(:reachable, @warranty)
       render json: {:warranty => @warranty, :cotact => @contact}
     else
       render json: {:error => "Unable to add contact" }, status: :not_modified
