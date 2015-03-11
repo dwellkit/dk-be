@@ -36,7 +36,6 @@ class Property < ActiveRecord::Base
 
 
     if !propinfo["updatedPropertyDetails"]["message"]["text"].include?("Error")
-      binding.pry
 
       #pull data => propinfo["updatedPropertyDetails"]["response"]["editedFacts"]
       self.sqft = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["finishedSqFt"].to_i
@@ -61,12 +60,27 @@ class Property < ActiveRecord::Base
       #self.appliances = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["appliances"]
       #self.floor_covering = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["floor_covering"]
       #self.rooms = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["rooms"]
-      
       # ADD COOLING SYSTEM AS ITEM IF EXISTS
       if propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["coolingSystem"]
         item = self.items.new
-        item.category = "Feature"
-        item.name = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["coolingSystem"]
+        item.category = "Heating/Cooling Systems"
+        item.name = "Cooling - " + propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["coolingSystem"]
+        item.save
+      end
+      if propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["heatingSystem"]
+        item = self.items.new
+        item.category = "Heating/Cooling Systems"
+        item.name = "Heating - " + propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["heatingSystem"]
+        item.save
+      end
+      if propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["appliances"]
+        appliances = propinfo["updatedPropertyDetails"]["response"]["editedFacts"]["appliances"].split(', ')
+        appliances.each do |appliance|
+          item = self.items.new
+          item.category = "Appliances"
+          item.name = appliance
+          item.save
+        end
       end
 
       self.zpid = zpid
@@ -76,7 +90,6 @@ class Property < ActiveRecord::Base
       propinfo = HTTParty.get("#{comp_domain}zws-id=#{zwsid}&zpid=#{zpid}&count=1")
 
       if !propinfo["comps"]["message"]["text"].include?("Error")
-        binding.pry
         self.sqft = propinfo["comps"]["response"]["properties"]["principal"]["finishedSqFt"].to_i
         self.bedrooms = propinfo["comps"]["response"]["properties"]["principal"]["bedrooms"].to_i
         self.bathrooms = propinfo["comps"]["response"]["properties"]["principal"]["bathrooms"].to_f
