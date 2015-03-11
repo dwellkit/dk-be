@@ -6,9 +6,15 @@ json.property do
   json.bedrooms @property.bedrooms
   json.bathrooms @property.bathrooms
   json.actual_rooms @property.actual_rooms_count
-end
 
-json.rooms @property.rooms do |room|
+  json.address do
+    json.street_address @property.address.street_address
+    json.city @property.address.city
+    json.state @property.address.state
+    json.zipcode @property.address.zipcode
+  end
+
+  json.rooms @property.rooms do |room|
   json.id room.id
   json.name room.name
   json.sqft room.sqft
@@ -19,4 +25,5 @@ json.rooms @property.rooms do |room|
   json.items room.items do |item|
     json.name item.name
   end
+end
 end
