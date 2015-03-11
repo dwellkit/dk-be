@@ -19,8 +19,18 @@ class PropertyController < ApplicationController
         @property.rooms.create(:name => "Bathroom #{x}")
       end
 
+      # Make location things look nice
+
+      street = property_params[:street_address].gsub('+', ' ')
+      street = street.split.map(&:capitalize).join(' ')
+      city = property_params[:city].split.map(&:capitalize).join(' ')
+      state = property_params[:state].upcase
+
       @address = Address.new(:property_id => @property.id)
-      @address.update( property_params )
+      @address.street_address = street
+      @address.city = city
+      @address.state = state
+      @address.zipcode = property_params[:zipcode]
       @address.save
 
       @rooms = @property.rooms.all
