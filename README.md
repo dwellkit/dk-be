@@ -285,3 +285,95 @@ sample [BODY] response:
     "message": "35 - Guest Bedroom Removed"
 }
 ```
+
+ADD ITEM TO ROOM
+----------------
+`STATUS 201 CREATED`
+from
+`POST [domain]/property/[:id]/room/[:rid]/item`
+
+data:
+```
+{
+    "item": {
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "item": {
+        "id": 3,
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+        "created_at": "2015-03-11T03:11:51.138Z",
+        "updated_at": "2015-03-11T03:11:51.138Z",
+        "room_id": 47,
+        "property_id": 15
+    }
+}
+```
+
+
+ADD ITEM TO PROPERTY
+--------------------
+`STATUS 201 CREATED`
+from
+`POST [domain]/property/[:id]/item`
+
+data:
+```
+{
+    "item": {
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+    }
+}
+```
+
+sample [BODY] response:
+```
+{
+    "item": {
+        "id": 3,
+        "category": "Appliances",
+        "name": "LG Refridgerator",
+        "purchase_date": "03/27/2015,
+        "serial_number": "SK89E-X1-094729,
+        "price": "1300",
+        "condition": "New"
+        "created_at": "2015-03-11T03:11:51.138Z",
+        "updated_at": "2015-03-11T03:11:51.138Z",
+        "room_id": null,
+        "property_id": 15
+    }
+}
+```
+
+DELETE ITEM
+-----------
+`STATUS 200 WHAT OKKKKAYYYYYY`
+from
+`DELETE [domain]/item/[:iid]`
+
+sample [BODY] response:
+```
+{
+    "message": "Item 3 LG Refridgerator deleted" 
+}
+```

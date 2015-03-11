@@ -5,6 +5,7 @@ class Property < ActiveRecord::Base
   has_many :insurances
   has_many :warranties
   has_one :address
+  has_many :items
 
 
   def add( property_location )
