@@ -25,7 +25,6 @@ class PropertyController < ApplicationController
   end
 
   def edit
-    binding.pry
     @property = set_property
     if @property.update( property_params )
       render json: { :property => @property}, status: :created
