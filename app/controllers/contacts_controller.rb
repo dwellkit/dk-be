@@ -31,6 +31,7 @@ class ContactsController < ApplicationController
       render json: { :contact => @contact }, status: :ok
     else
       render json: { :error => "Unable to update the contact" }, status: :unprocessable_entity
+    end
   end
 
   def destroy
