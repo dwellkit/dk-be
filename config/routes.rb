@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   get 'property/:id/room/:rid/items', to: 'item#room_items'
   get 'property/:id/items', to: 'item#property_items'
 
+
+  # ROUTES FOR USER
+  get 'user/info', to: 'user#show'
+
   # ROUTES FOR CONTACTS
   # post '/contacts', to: 'contacts#create'
   resources :contacts
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
 
   #ROUTES FOR INSURANCES
   post '/insurances', to: 'insurances#create'
+
 
   # later might want to namespace the api...
   # namespace :api do
