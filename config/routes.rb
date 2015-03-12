@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get 'property/:id/room/:rid/items', to: 'item#room_items'
   get 'property/:id/items', to: 'item#property_items'
 
+  # ROUTES FOR USER
+  get 'user/info', to: 'user#show'
+
   # later might want to namespace the api...
   # namespace :api do
   #   mount_devise_token_auth_for 'User', at: 'auth'

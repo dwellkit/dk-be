@@ -1,6 +1,7 @@
 json.(@property, :created_at, :updated_at)
 
 json.property do
+  json.id @property.id
   json.lotsize @property.lotsize
   json.sqft @property.sqft
   json.yearbuilt @property.yearbuilt
