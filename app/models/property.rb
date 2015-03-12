@@ -27,12 +27,18 @@ class Property < ActiveRecord::Base
   end
 
   def create_address(location)
+    #clean up user input
+    street = location[:street_address].gsub('+', ' ')
+    street = street.split.map(&:capitalize).join(' ')
+    city = location[:city].split.map(&:capitalize).join(' ')
+    state = location[:state].upcase
+
     self.save
     a = Address.new
-    a.street_address = location[:street_name]
+    a.street_address = street
     a.zipcode = location[:zipcode]
-    a.city = location[:city]
-    a.state = location[:state]
+    a.city = city
+    a.state = state
     a.property_id = self.id
     a.save
   end
