@@ -3,11 +3,11 @@ class InsurancesController < ApplicationController
   def create
     @insurance = Insurance.new(insurance_params)
       if @insurance.save!
-        if insurance_params
+        if contact_params
           @contact = @insurance.contacts.new(contact_params)
           add_contact = @contact.update_attribute(:reachable, @insurance)
 
-          render json: { :insurance => @insurace, :contact => @contact }, status: :created
+          render "insurance/index.json.jbuilder", status: :created
         elsif
           render json: {:error => "Unable to add contact" }, status: :not_modified
       else
@@ -31,6 +31,7 @@ class InsurancesController < ApplicationController
 
   def insurance_params
     params.require(:insurance).permit(:company, :description, :policy_number, :expiration_date, :url, :notes)
+  end
 
   def contact_params
     params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
