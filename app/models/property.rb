@@ -23,7 +23,6 @@ class Property < ActiveRecord::Base
     else
       return false
     end
-    binding.pry
   end
 
   def create_address(location)
