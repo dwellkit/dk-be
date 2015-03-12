@@ -8,16 +8,11 @@ class PropertyController < ApplicationController
   def add
     @property = Property.create
     @property.users = [current_user]
-    if @property.add(property_params) == false
-      render json: { :error => "unable to find property"}, status: :not_modified
+
+    if @property.create_from_zillow!( property_params ) == false
+      render json: { :error => "unable to find property" }, status: :not_modified
     elsif @property.save
-      #this should go somewhere else but okay for now
-      1.upto(@property.bedrooms.to_i) do |x|
-        @property.rooms.create(:name => "Bedroom #{x}")
-      end
-      1.upto(@property.bathrooms.to_i) do |x|
-        @property.rooms.create(:name => "Bathroom #{x}")
-      end
+
 
       # Make location things look nice
 
@@ -73,6 +68,9 @@ class PropertyController < ApplicationController
   end
 
   private
+  def new_property?
+    addr = current_user.addresses.find_by(address_params)
+  end
 
   def set_property
     @property = Property.find(params[:id])
@@ -81,6 +79,10 @@ class PropertyController < ApplicationController
   def edit_property_params
     params.require(:property).permit(:sqft, :lotsize, :totalrooms, :bedrooms,
                                      :bathrooms, :street_address, :zipcode, :city, :state)
+  end
+
+  def address_params
+    params.require(:property).permit(:street_address, :zipcode)
   end
 
   def property_params

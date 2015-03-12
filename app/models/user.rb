@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :groundskeepers
   has_many :properties, through: :groundskeepers
 
+  has_many :addresses, through: :properties
   has_many :items
   has_many :contacts, as: :reachable
   has_many :reminders
