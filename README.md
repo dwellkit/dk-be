@@ -386,6 +386,49 @@ sample [BODY] response:
 }
 ```
 
+CREATE CONTACT
+--------------
+* creating a contact individually, not assigned to anything
+
+`STATUS 201 CREATED`
+from `POST [domain]/contacts`
+
+data for contact:
+```
+{
+    "contacts": {
+        "name": "Brett Smith",
+        "company": "GE",
+        "telephone_number": 4075678970,
+        "email": "brett@gmail.com",
+        "url": "ge.com",
+        "notes": "good person",
+        "fax_number": 6754443456,
+    }
+}
+```
+
+sample [BODY} response:
+```
+{
+    "contact": {
+        "id": 24,
+        "name": "Brett Smith",
+        "company": "GE",
+        "telephone_number": 4075678970,
+        "email": "brett@gmail.com",
+        "url": "ge.com",
+        "notes": "good person",
+        "fax_number": 6754443456,
+        "created_at": "2015-03-12T01:30:22.127Z",
+        "updated_at": "2015-03-12T01:30:22.127Z",
+        "reachable_id": null,
+        "reachable_type": null
+    }
+}
+```
+* reachable_id and reachable_type will return null because they have not been "assigned" yet.  See the warranty create method below that both creates a warranty and a contact for that warrant at the same time.
+
 CREATE WARRANTY
 ---------------
 * will also prompt the user to enter contact information if choose to
@@ -450,3 +493,4 @@ sample [BODY] response:
         ]
     }
 }
+```
