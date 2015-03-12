@@ -1,6 +1,7 @@
 json.(@warranty, :created_at, :updated_at)
 
 json.warranty do
+  json.name @warranty.name
   json.description @warranty.description
   json.warranty_number @warranty.warranty_number
   json.expiration_date @warranty.expiration_date
