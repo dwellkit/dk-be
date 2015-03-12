@@ -1,7 +1,8 @@
 class WarrantiesController < ApplicationController
 
   def create
-    @warranty = Warranty.new(warranty_params)
+    @item = set_item
+    @warranty = @item.warranties.new(warranty_params)
     if @warranty.save!
       if contact_params
         @contact = @warranty.contacts.new(contact_params)
@@ -17,9 +18,10 @@ class WarrantiesController < ApplicationController
   end
 
   def add_contact
-    @warranty = Warranty.find(params[:id])
+    @item = set_item
+    @warranty = @item.warranties.find(params[:wid])
     @contact = set_contact
-    if existing_contact
+    if @contact
       add_contact = @contact.update_attribute(:reachable, @warranty)
       render json: {:warranty => @warranty, :cotact => @contact}
     else
@@ -39,7 +41,11 @@ class WarrantiesController < ApplicationController
   end
 
   def set_contact
-    @contact = Contact.find(params[:id])
+    @contact = Contact.find(params[:cid])
+  end
+
+  def set_item
+    @item = Item.find(params[:iid])
   end
 
 end
