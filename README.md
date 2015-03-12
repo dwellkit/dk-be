@@ -11,8 +11,6 @@ CREATE USER
 from
 `POST [domain]/users`
 
-
-
 data:
 ```
 {
@@ -60,6 +58,15 @@ sample [BODY] response:
     }
 }
 ```
+
+GET USER PROPERTIES
+-------------------
+`STATUS 200 OK`
+from
+`GET [domain]/user/info`
+
+returns user email and all properties associated with account
+
 
 ADD PROPERTY
 ------------
