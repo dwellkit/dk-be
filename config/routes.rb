@@ -29,11 +29,13 @@ Rails.application.routes.draw do
   resources :contacts
 
   #ROUTES FOR WARRANTIES
-  post '/warranties', to: 'warranties#create'
+  post 'items/:iid/warranties', to: 'warranties#create'
+  patch 'items/:iid/warranties/:wid/contacts/:cid', to: 'warranties#add_contact'
   # post '/warranties/contact', to: 'warranties#contact'
 
   #ROUTES FOR INSURANCES
-  post '/insurances', to: 'insurances#create'
+  post 'items/:iid/insurances', to: 'insurances#create'
+  patch 'items/:iid/insurances/:pid/contacts/:cid', to: 'insurances#add_contact'
 
 
   # later might want to namespace the api...

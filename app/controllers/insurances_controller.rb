@@ -1,13 +1,13 @@
 class InsurancesController < ApplicationController
 
   def create
-    @insurance = Insurance.new(insurance_params)
+    @item = set_item
+    @insurance = @item.insurances.new(insurance_params)
       if @insurance.save!
-        if insurance_params
+        if contact_params
           @contact = @insurance.contacts.new(contact_params)
           add_contact = @contact.update_attribute(:reachable, @insurance)
-
-          render json: { :insurance => @insurace, :contact => @contact }, status: :created
+          render "insurance/index.json.jbuilder", status: :created
         elsif
           render json: {:error => "Unable to add contact" }, status: :not_modified
       else
@@ -17,10 +17,11 @@ class InsurancesController < ApplicationController
   end
 
   def add_contact
-    @insurance = Insurance.find(params[:id])
+    @item = set_item
+    @insurance = @item.insurances.find(params[:pid])
     @contact = set_contact
     if @contact
-      add_contact = @contact.update_attribute(:reachable, @insurace)
+      add_contact = @contact.update_attribute(:reachable, @insurance)
       render json: { :insurace => @insurace, :contact => @contact }, status: :ok
     else
       render json: { :error => "Unable to add contact" }, status: :not_modified
@@ -31,15 +32,19 @@ class InsurancesController < ApplicationController
 
   def insurance_params
     params.require(:insurance).permit(:company, :description, :policy_number, :expiration_date, :url, :notes)
+  end
 
   def contact_params
     params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
   end
 
   def set_contact
-    @contact = Contact.find(params[:id])
+    @contact = Contact.find(params[:cid])
   end
 
+  def set_item
+    @item = Item.find(params[:iid])
+  end
 end
 
 

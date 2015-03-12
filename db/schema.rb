@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312210753) do
+
+ActiveRecord::Schema.define(version: 20150312150416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150312210753) do
     t.datetime "expiration_date"
     t.string   "url"
     t.text     "notes"
+    t.integer  "item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -76,6 +78,8 @@ ActiveRecord::Schema.define(version: 20150312210753) do
     t.datetime "updated_at",    null: false
     t.integer  "room_id"
     t.integer  "property_id"
+    t.integer  "warranty_id"
+    t.integer  "insurance_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -83,7 +87,7 @@ ActiveRecord::Schema.define(version: 20150312210753) do
     t.integer  "lotsize"
     t.integer  "total_rooms"
     t.integer  "bedrooms"
-    t.integer  "bathrooms"
+    t.float    "bathrooms"
     t.string   "zpid"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
@@ -108,9 +112,10 @@ ActiveRecord::Schema.define(version: 20150312210753) do
     t.string   "flooring_type"
     t.string   "wall_type"
     t.string   "paint_color"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "property_id"
+    t.boolean  "user_entered",  default: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -142,6 +147,7 @@ ActiveRecord::Schema.define(version: 20150312210753) do
     t.text     "notes"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "item_id"
   end
 
 end

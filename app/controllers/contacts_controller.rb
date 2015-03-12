@@ -31,12 +31,13 @@ class ContactsController < ApplicationController
       render json: { :contact => @contact }, status: :ok
     else
       render json: { :error => "Unable to update the contact" }, status: :unprocessable_entity
+    end
   end
 
-  def destroy
+  def delete
     @contact = set_contact
     if @contact.destroy
-      render json: { :contact => @contact }. status: :ok
+      render json: { :contact => @contact }, status: :ok
     else
       render json: { :error => "Unable to delete the contact" }, status: :unprocessable_entity
     end
