@@ -74,6 +74,14 @@ class PropertyController < ApplicationController
 
   private
 
+  def address_exists?
+    address = current_user.addresses.find_by(address_params)
+  end
+
+  def address_params
+    params.require(:property).permit(:street_address, :zipcode)
+  end
+
   def set_property
     @property = Property.find(params[:id])
   end
