@@ -7,6 +7,7 @@ json.warranty do
   json.expiration_date @warranty.expiration_date
   json.url @warranty.url
   json.notes @warranty.notes
+  json.item_id @warranty.item_id
 
   json.contacts @warranty.contacts do |contact|
   json.name contact.name
