@@ -379,3 +379,67 @@ sample [BODY] response:
 }
 ```
 
+CREATE WARRANTY
+---------------
+* will also prompt the user to enter contact information if choose to
+
+`STATUS 201 CREATED`
+from `POST [domain]/warrenties`
+
+data for warranty:
+```
+{
+    "warranty": {
+        "name": "Fridge Warranty"
+        "description": "GE Fridge Model GX100"
+        "warranty_number": "1098891235",
+        "expiration_date": 
+        "url": "www.ge.com"
+        "notes": "Great coverage",
+    }
+}
+```
+
+data for contact:
+```
+{
+    "contacts": {
+        "name": "Brett Smith",
+        "company": "GE",
+        "telephone_number": 4075678970,
+        "email": "brett@gmail.com",
+        "url": "ge.com",
+        "notes": "good person",
+        "fax_number": 6754443456,
+    }
+}
+```
+* Contacts will be created at the same time as creating a warranty. Contact will become assigned to that warranty upon creation. 
+
+sample [BODY] response:
+```
+{
+    "created_at": "2015-03-12T01:11:53.468Z",
+    "updated_at": "2015-03-12T01:11:53.468Z",
+    "warranty": {
+        "name": "Fridge Warranty",
+        "description": "GE Fridge Model GX100",
+        "warranty_number": "1098891235",
+        "expiration_date": ,
+        "url": "www.ge.com",
+        "notes": "Great coverage",
+        "contacts": [
+            {
+                "name": "Brett Smith",
+                "company": "GE",
+                "telephone_number": 4075678970,
+                "email": "brett@gmail.com",
+                "url": "ge.com",
+                "notes": "good person",
+                "fax_number": null,
+                "reachable_id": 24,
+                "reachable_type": "Warranty"
+            }
+        ]
+    }
+}
