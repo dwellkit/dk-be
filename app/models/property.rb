@@ -23,10 +23,18 @@ class Property < ActiveRecord::Base
     else
       return false
     end
+    binding.pry
   end
 
   def create_address(location)
-    binding.pry
+    self.save
+    a = Address.new
+    a.street_address = location[:street_name]
+    a.zipcode = location[:zipcode]
+    a.city = location[:city]
+    a.state = location[:state]
+    a.property_id = self.id
+    a.save
   end
 
   def create_rooms
@@ -36,7 +44,6 @@ class Property < ActiveRecord::Base
     self.bathrooms.ceil.times do |x|
       self.rooms.create(:name => "Bathroom #{x+1}")
     end
-    binding.pry
   end
 
   def create_items
