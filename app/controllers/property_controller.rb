@@ -15,9 +15,24 @@ class PropertyController < ApplicationController
       1.upto(@property.bedrooms.to_i) do |x|
         @property.rooms.create(:name => "Bedroom #{x}")
       end
-      1.upto(@property.bedrooms.to_i) do |x|
+      1.upto(@property.bathrooms.to_i) do |x|
         @property.rooms.create(:name => "Bathroom #{x}")
       end
+
+      # Make location things look nice
+
+      street = property_params[:street_address].gsub('+', ' ')
+      street = street.split.map(&:capitalize).join(' ')
+      city = property_params[:city].split.map(&:capitalize).join(' ')
+      state = property_params[:state].upcase
+
+      @address = Address.new(:property_id => @property.id)
+      @address.street_address = street
+      @address.city = city
+      @address.state = state
+      @address.zipcode = property_params[:zipcode]
+      @address.save
+
       @rooms = @property.rooms.all
       # render json: { :property => @property, :rooms => @rooms }, status: :created
       render "property/index.json.jbuilder", status: :ok
@@ -71,4 +86,5 @@ class PropertyController < ApplicationController
   def property_params
     params.require(:property).permit(:street_address, :city, :zipcode, :state)
   end
+
 end
