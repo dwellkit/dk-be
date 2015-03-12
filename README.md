@@ -72,7 +72,7 @@ ADD PROPERTY
 ------------
 `STATUS 200 OK`
 from
-`POST [domain]/property/add`
+`POST [domain]/properties/add`
 
 NOTE: If was unable to locate property will return
 `STATUS 304 NOT MODIFIED`
@@ -114,7 +114,7 @@ EDIT/VERIFY PROPERTY
 --------------------
 `STATUS 200 OK`
 from
-`PATCH [domain]/property/[:id]`
+`PATCH [domain]/properties/[:id]`
 
 NOTE: If was unable to edit property will return
 `STATUS 304 NOT MODIFIED`
@@ -165,7 +165,7 @@ will do this better later so user can choose if he wants
 to import
 `STATUS 200 OK`
 from
-`PATCH [domain]/property/[:id]/reimport`
+`PATCH [domain]/properties/[:id]/reimport`
 
 NOTE: If was unable to edit property will return
 `STATUS 304 NOT MODIFIED`
@@ -208,7 +208,7 @@ ADD ROOM
 ---------
 `STATUS 201 CREATED`
 from
-`POST [domain]/property/[:id]/room`
+`POST [domain]/properties/[:id]/rooms`
 
 data:
 ```
@@ -246,7 +246,7 @@ EDIT ROOM
 ----------
 `STATUS 200 OK`
 from
-`PATCH [domain]/property/[:id]/room/[:rid]`
+`PATCH [domain]/properties/[:id]/rooms/[:rid]`
 
 data:
 ```
@@ -284,7 +284,7 @@ DELETE ROOM
 ----------
 `STATUS 200 OK`
 from
-`DELETE [domain]/property/[:id]/room/[:rid]`
+`DELETE [domain]/properties/[:id]/rooms/[:rid]`
 
 sample [BODY] response:
 ```
@@ -298,7 +298,7 @@ ADD ITEM TO ROOM
 ----------------
 `STATUS 201 CREATED`
 from
-`POST [domain]/property/[:id]/room/[:rid]/item`
+`POST [domain]/properties/[:id]/rooms/[:rid]/items`
 
 data:
 ```
@@ -338,7 +338,7 @@ ADD ITEM TO PROPERTY
 --------------------
 `STATUS 201 CREATED`
 from
-`POST [domain]/property/[:id]/item`
+`POST [domain]/properties/[:id]/items`
 
 data:
 ```
@@ -377,7 +377,7 @@ DELETE ITEM
 -----------
 `STATUS 200 WHAT OKKKKAYYYYYY`
 from
-`DELETE [domain]/item/[:iid]`
+`DELETE [domain]/items/[:iid]`
 
 sample [BODY] response:
 ```
