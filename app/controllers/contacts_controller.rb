@@ -1,18 +1,48 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user_from_token!
 
-  def create
-    @contact = Contact.new(contact_params)
-    @contact.save!
-    if @contact.save
+  def index
+    @contacts = Contact.all
+    render json: { :contact => @contacts}
+  end
+
+  def show
+    @contact = set_contact
+    if @contact
       render json: { :contact => @contact }
     else
-      render json: { :messages => @user.errors.full_messages }, status: :unprocessable_entity
+      render json: { :error => "Unable to find contact" }, status: :unprocessable_entity
     end
   end
 
+  def create
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      render json: { :contact => @contact }, status: :created
+    else
+      render json: { :error => "Unable to create contact"}, status: :not_modified
+    end
+  end
 
+  def update
+    @contact = set_contact
+    @contact.update(contact_params)
+    if @contact.save!
+      render json: { :contact => @contact }, status: :ok
+    else
+      render json: { :error => "Unable to update the contact" }, status: :unprocessable_entity
+    end
+  end
 
+  def delete
+    @contact = set_contact
+    if @contact.destroy
+      render json: { :contact => @contact }, status: :ok
+    else
+      render json: { :error => "Unable to delete the contact" }, status: :unprocessable_entity
+    end
+  end
+>>>>>>> 893983a6ca0e85510e3d03d0947d896e6dde965b
 
 
   private
@@ -21,6 +51,13 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
   end
 
+<<<<<<< HEAD
+=======
+  def set_contact
+    @contact = Contact.find(params[:id])
+  end
+
+>>>>>>> 893983a6ca0e85510e3d03d0947d896e6dde965b
 end
 
 

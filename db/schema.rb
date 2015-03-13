@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310230850) do
+ActiveRecord::Schema.define(version: 20150312211208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.string  "zpid"
     t.integer "addressable_id"
     t.integer "addressable_type"
+    t.integer "property_id"
+    t.integer "contact_id"
+    t.integer "user_id"
   end
 
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
@@ -53,8 +56,15 @@ ActiveRecord::Schema.define(version: 20150310230850) do
   add_index "groundskeepers", ["user_id"], name: "index_groundskeepers_on_user_id", using: :btree
 
   create_table "insurances", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "company"
+    t.text     "description"
+    t.integer  "policy_number"
+    t.datetime "expiration_date"
+    t.string   "url"
+    t.text     "notes"
+    t.integer  "item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -66,6 +76,10 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.string   "condition"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "room_id"
+    t.integer  "property_id"
+    t.integer  "warranty_id"
+    t.integer  "insurance_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -73,11 +87,13 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.integer  "lotsize"
     t.integer  "total_rooms"
     t.integer  "bedrooms"
-    t.integer  "bathrooms"
+    t.float    "bathrooms"
     t.string   "zpid"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "actual_rooms_count"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "actual_rooms_count", default: 0
+    t.integer  "yearbuilt"
+    t.integer  "address_id"
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -96,9 +112,10 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.string   "flooring_type"
     t.string   "wall_type"
     t.string   "paint_color"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "property_id"
+    t.boolean  "user_entered",  default: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -115,6 +132,7 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "address_id"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
@@ -130,6 +148,7 @@ ActiveRecord::Schema.define(version: 20150310230850) do
     t.text     "notes"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "item_id"
   end
 
 end

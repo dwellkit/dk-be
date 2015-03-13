@@ -1,4 +1,4 @@
 class Room < ActiveRecord::Base
-  belongs_to :property, counter_cach: :count_of_actual_rooms
+  belongs_to :property, counter_cache: :actual_rooms_count
   has_many :items
 end

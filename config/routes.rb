@@ -1,16 +1,42 @@
 Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
-  # IF USERS WANT AUTH WITHOUT TOKEN DEVISE ROUTES MUST COME FIRST
 
   # ROUTES FOR PROPERTIES
-  post 'property/add', to: 'property#add'
-  patch 'property/:id', to: 'property#edit'
-  patch 'property/:id/reimport', to: 'property#reimport'
+  post 'properties/add', to: 'properties#add'
+  patch 'properties/:id', to: 'properties#edit'
+  patch 'properties/:id/reimport', to: 'properties#reimport'
 
   # ROUTES FOR ROOMS
-  post 'property/:id/room', to: 'room#add'
-  patch 'property/:id/room/:rid', to: 'room#edit'
+  post 'properties/:id/rooms', to: 'rooms#add'
+  patch 'properties/:id/rooms/:rid', to: 'rooms#edit'
+  delete 'properties/:id/rooms/:rid', to: 'rooms#destroy'
+
+  # ROUTES FOR ITEMS
+  post 'properties/:id/rooms/:rid/items', to: 'items#add_room_item'
+  post 'properties/:id/items', to: 'items#add_property_item'
+  patch 'properties/:id/rooms/:rid/items/:iid', to: 'items#edit'
+  delete 'items/:iid', to: 'items#destroy'
+  get 'properties/:id/rooms/:rid/items', to: 'items#room_items'
+  get 'properties/:id/items', to: 'items#property_items'
+
+
+  # ROUTES FOR USER
+  get 'users/info', to: 'user#show'
+
+  # ROUTES FOR CONTACTS
+  # post '/contacts', to: 'contacts#create'
+  resources :contacts
+
+  #ROUTES FOR WARRANTIES
+  post 'items/:iid/warranties', to: 'warranties#create'
+  patch 'items/:iid/warranties/:wid/contacts/:cid', to: 'warranties#add_contact'
+  # post '/warranties/contact', to: 'warranties#contact'
+
+  #ROUTES FOR INSURANCES
+  post 'items/:iid/insurances', to: 'insurances#create'
+  patch 'items/:iid/insurances/:pid/contacts/:cid', to: 'insurances#add_contact'
+
 
   # later might want to namespace the api...
   # namespace :api do
