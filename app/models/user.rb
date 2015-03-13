@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :items
   has_many :contacts, as: :reachable
   has_many :reminders
+  has_many :addresses
 
 
   before_save :ensure_authentication_token

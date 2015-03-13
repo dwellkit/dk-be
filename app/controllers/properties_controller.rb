@@ -1,4 +1,4 @@
-class PropertyController < ApplicationController
+class PropertiesController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_property, only: [:edit, :reimport, :destroy]
 
@@ -53,6 +53,14 @@ class PropertyController < ApplicationController
   private
   def new_property?
     addr = current_user.addresses.find_by(address_params)
+  end
+
+  def address_exists?
+    address = current_user.addresses.find_by(address_params)
+  end
+
+  def address_params
+    params.require(:property).permit(:street_address, :zipcode)
   end
 
   def set_property

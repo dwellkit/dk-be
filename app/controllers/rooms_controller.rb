@@ -1,4 +1,4 @@
-class RoomController < ApplicationController
+class RoomsController < ApplicationController
   before_action :authenticate_user_from_token!
 
 

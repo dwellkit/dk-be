@@ -23,7 +23,7 @@ class WarrantiesController < ApplicationController
     @contact = set_contact
     if @contact
       add_contact = @contact.update_attribute(:reachable, @warranty)
-      render json: {:warranty => @warranty, :cotact => @contact}
+      render json: "warranty/index.json.jbuilder", status: :accepted
     else
       render json: {:error => "Unable to add contact" }, status: :not_modified
     end

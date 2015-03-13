@@ -3,26 +3,26 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
 
   # ROUTES FOR PROPERTIES
-  post 'property/add', to: 'property#add'
-  patch 'property/:id', to: 'property#edit'
-  patch 'property/:id/reimport', to: 'property#reimport'
+  post 'properties/add', to: 'properties#add'
+  patch 'properties/:id', to: 'properties#edit'
+  patch 'properties/:id/reimport', to: 'properties#reimport'
 
   # ROUTES FOR ROOMS
-  post 'property/:id/room', to: 'room#add'
-  patch 'property/:id/room/:rid', to: 'room#edit'
-  delete 'property/:id/room/:rid', to: 'room#destroy'
+  post 'properties/:id/rooms', to: 'rooms#add'
+  patch 'properties/:id/rooms/:rid', to: 'rooms#edit'
+  delete 'properties/:id/rooms/:rid', to: 'rooms#destroy'
 
   # ROUTES FOR ITEMS
-  post 'property/:id/room/:rid/item', to: 'item#add_room_item'
-  post 'property/:id/item', to: 'item#add_property_item'
-  patch 'property/:id/room/:rid/item/:iid', to: 'item#edit'
-  delete 'item/:iid', to: 'item#destroy'
-  get 'property/:id/room/:rid/items', to: 'item#room_items'
-  get 'property/:id/items', to: 'item#property_items'
+  post 'properties/:id/rooms/:rid/items', to: 'items#add_room_item'
+  post 'properties/:id/items', to: 'items#add_property_item'
+  patch 'properties/:id/rooms/:rid/items/:iid', to: 'items#edit'
+  delete 'items/:iid', to: 'items#destroy'
+  get 'properties/:id/rooms/:rid/items', to: 'items#room_items'
+  get 'properties/:id/items', to: 'items#property_items'
 
 
   # ROUTES FOR USER
-  get 'user/info', to: 'user#show'
+  get 'users/info', to: 'user#show'
 
   # ROUTES FOR CONTACTS
   # post '/contacts', to: 'contacts#create'
