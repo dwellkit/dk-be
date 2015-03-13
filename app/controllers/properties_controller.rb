@@ -5,9 +5,13 @@ class PropertiesController < ApplicationController
   def index
   end
 
+  # user has many properties through groundskeepers
+  # properties has one address
+  # user has many addresses through properties
+
   def add
-    # @property = Property.create
-    # @property.users = [current_user]
+    @property = Property.create
+    @property.users = [current_user]
     if !address_exists?
       if @property.create_from_zillow!( property_params ) == false
         render json: { :error => "unable to find property" }, status: :not_modified
@@ -18,7 +22,7 @@ class PropertiesController < ApplicationController
         render json: { :error => "Unable to find property"}, status: :not_modified
       end
     else
-      render json: { :error => "Property already in account."}, status: :not_modified
+      render json: { :error => "Property already in account."}, status: :not_acceptable
     end
   end
 
@@ -55,12 +59,12 @@ class PropertiesController < ApplicationController
 
   private
   def new_property?
-    addr = current_user.addresses.find_by(address_params)
+    # addr = current_user.addresses.find_by(address_params)
+    addr = current_user.addresses.where(address_params)
   end
 
   def address_exists?
     address = current_user.addresses.find_by(address_params)
-    binding.pry
   end
 
   def address_params
@@ -77,6 +81,7 @@ class PropertiesController < ApplicationController
   end
 
   def address_params
+    params[:property][:street_address].downcase!
     params.require(:property).permit(:street_address, :zipcode)
   end
 

@@ -21,6 +21,10 @@ class Zillow
     end
   end
 
+  ##################
+  # ROBUST RESULTS #
+  ##################
+
   def self.get_robust_property_info(zpid)
     zwsid = 'X1-ZWz1ayawttov7v_6o78e'
     prop_domain = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?"
@@ -38,6 +42,22 @@ class Zillow
     Zillow.build_robust_property(zpid, data)
   end
 
+  def self.build_robust_property(zpid, data)
+    if data
+      result = {zpid: zpid, sqft: data["updatedPropertyDetails"]["response"]["editedFacts"]["finishedSqFt"].to_i || 0,
+                lotsize: data["updatedPropertyDetails"]["response"]["editedFacts"]["lotSizeSqFt"].to_i || 0,
+                bedrooms: data["updatedPropertyDetails"]["response"]["editedFacts"]["bedrooms"].to_i || 0,
+                bathrooms: data["updatedPropertyDetails"]["response"]["editedFacts"]["bathrooms"].to_f || 0,
+                yearbuilt: data["updatedPropertyDetails"]["response"]["editedFacts"]["yearBuilt"].to_i || 0}
+    else
+      return zpid
+    end
+  end
+
+  ###################
+  # NORMAL RESULTS #
+  ###################
+
   def self.fetch_normal(zpid)
     data = Zillow.get_normal_property_info(zpid)
     Zillow.build_normal_property(zpid, data)
@@ -45,10 +65,11 @@ class Zillow
 
   def self.build_normal_property(zpid, data)
     if data
-      result = {zpid: zpid, sqft: data["comps"]["response"]["properties"]["principal"]["finishedSqFt"].to_i,
-                lotsize: data["comps"]["response"]["properties"]["principal"]["lotSizeSqFt"].to_i,
-                bedrooms: data["comps"]["response"]["properties"]["principal"]["bedrooms"].to_i,
-                bathrooms: data["comps"]["response"]["properties"]["principal"]["bathrooms"].to_f}
+      result = {zpid: zpid, sqft: data["comps"]["response"]["properties"]["principal"]["finishedSqFt"].to_i || 0,
+                lotsize: data["comps"]["response"]["properties"]["principal"]["lotSizeSqFt"].to_i || 0,
+                bedrooms: data["comps"]["response"]["properties"]["principal"]["bedrooms"].to_i || 0,
+                bathrooms: data["comps"]["response"]["properties"]["principal"]["bathrooms"].to_f || 0,
+                yearbuilt: data["comps"]["response"]["properties"]["principal"]["yearBuilt"].to_i || 0}
     else
       return false
     end
@@ -60,18 +81,6 @@ class Zillow
     response = HTTParty.get("#{comp_domain}zws-id=#{zwsid}&zpid=#{zpid}&count=1")
     if !response["comps"]["message"]["text"].include?("Error")
       return response
-    end
-  end
-
-  def self.build_robust_property(zpid, data)
-    if data
-      result = {zpid: zpid, sqft: data["updatedPropertyDetails"]["response"]["editedFacts"]["finishedSqFt"].to_i,
-                lotsize: data["updatedPropertyDetails"]["response"]["editedFacts"]["lotSizeSqFt"].to_i,
-                bedrooms: data["updatedPropertyDetails"]["response"]["editedFacts"]["bedrooms"].to_i,
-                bathrooms: data["updatedPropertyDetails"]["response"]["editedFacts"]["bathrooms"].to_f,
-                yearbuilt: data["updatedPropertyDetails"]["response"]["editedFacts"]["yearBuilt"].to_i}
-    else
-      return zpid
     end
   end
 end

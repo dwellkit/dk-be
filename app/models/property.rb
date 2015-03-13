@@ -12,9 +12,9 @@ class Property < ActiveRecord::Base
     create_address(location)
     data = Zillow.fetch_robust(location)
     if data
-      if data.is_a?(Hash)
+      if data.is_a?(Hash) # THEN ROBUST RESULT
         self.update(data)
-      else
+      else                # NORMAL RESULTS
         data = Zillow.fetch_normal(data)
         self.update(data)
       end
@@ -34,10 +34,10 @@ class Property < ActiveRecord::Base
 
     self.save
     a = Address.new
-    a.street_address = street
+    a.street_address = street.downcase
     a.zipcode = location[:zipcode]
-    a.city = city
-    a.state = state
+    a.city = city.downcase
+    a.state = state.downcase
     a.property_id = self.id
     a.save
   end
