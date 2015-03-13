@@ -21,9 +21,6 @@ Rails.application.routes.draw do
   get 'properties/:id/items', to: 'items#property_items'
 
 
-  # ROUTES FOR USER
-  get 'users/info', to: 'user#show'
-
   # ROUTES FOR CONTACTS
   # post '/contacts', to: 'contacts#create'
   resources :contacts
@@ -38,6 +35,8 @@ Rails.application.routes.draw do
   patch 'items/:iid/insurances/:pid/contacts/:cid', to: 'insurances#add_contact'
 
 
+  # ROUTES FOR USER
+  get 'users/info', to: 'users#show'
   # later might want to namespace the api...
   # namespace :api do
   #   mount_devise_token_auth_for 'User', at: 'auth'
