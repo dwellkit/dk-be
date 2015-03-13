@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150312150416) do
 
   # These are extensions that must be enabled in order to support this database
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150312150416) do
     t.datetime "updated_at",                     null: false
     t.integer  "actual_rooms_count", default: 0
     t.integer  "yearbuilt"
+    t.integer  "address_id"
   end
 
   create_table "reminders", force: :cascade do |t|
