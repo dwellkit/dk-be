@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312211208) do
+ActiveRecord::Schema.define(version: 20150313181123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,11 +89,15 @@ ActiveRecord::Schema.define(version: 20150312211208) do
     t.integer  "bedrooms"
     t.float    "bathrooms"
     t.string   "zpid"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "actual_rooms_count", default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "actual_rooms_count",   default: 0
     t.integer  "yearbuilt"
     t.integer  "address_id"
+    t.string   "profile_file_name"
+    t.string   "profile_content_type"
+    t.integer  "profile_file_size"
+    t.datetime "profile_updated_at"
   end
 
   create_table "reminders", force: :cascade do |t|

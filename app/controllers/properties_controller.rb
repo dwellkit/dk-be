@@ -57,10 +57,19 @@ class PropertiesController < ApplicationController
   def destroy
   end
 
+  def pic
+    @property = set_property
+    @property.update( pic_params )
+    render json: { :pic => @property.profile.url(:medium)}
+  end
+
   private
   def new_property?
-    # addr = current_user.addresses.find_by(address_params)
     addr = current_user.addresses.where(address_params)
+  end
+
+  def pic_params
+    params.require(:property).permit(:profile)
   end
 
   def address_exists?

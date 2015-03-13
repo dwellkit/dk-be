@@ -45,6 +45,9 @@ gem 'devise'
 #omni auth required for devise token auth
 gem 'omniauth'
 
+#paperclip for attachments
+gem 'paperclip'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -66,6 +69,9 @@ group :development, :test do
 
   #better errors for better errors
   gem 'better_errors'
+
+  # visualize associations
+  gem 'rails-erd'
 end
 
 group :production do

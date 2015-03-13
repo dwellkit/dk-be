@@ -7,6 +7,12 @@ class Property < ActiveRecord::Base
   has_one :address
   has_many :items
 
+  # IMAGE ATTACHMENT VALIDATIONS
+  has_attached_file :profile, :styles => { :large => "800x800", :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment :profile, :content_type => { :content_type => ["image/jpeg", "image/gif", "image/png"] }
+  validates_with AttachmentSizeValidator, :attributes => :profile, :less_than => 2.megabytes
+  validates_attachment_file_name :profile, :matches => [/png\Z/, /jpe?g\Z/]
+
 
   def create_from_zillow!(location)
     create_address(location)
