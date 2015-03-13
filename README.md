@@ -431,10 +431,10 @@ sample [BODY} response:
 
 CREATE WARRANTY
 ---------------
-* will also prompt the user to enter contact information if choose to
+* will also prompt the user to enter contact information if they choose to
 
 `STATUS 201 CREATED`
-from `POST [domain]/warrenties`
+from `POST [domain]/items/[:iid]/warrenties`
 
 data for warranty:
 ```
@@ -472,12 +472,14 @@ sample [BODY] response:
     "created_at": "2015-03-12T01:11:53.468Z",
     "updated_at": "2015-03-12T01:11:53.468Z",
     "warranty": {
+        "item_name": "Fridge"
         "name": "Fridge Warranty",
         "description": "GE Fridge Model GX100",
         "warranty_number": "1098891235",
         "expiration_date": ,
         "url": "www.ge.com",
         "notes": "Great coverage",
+        "item_id": 25
         "contacts": [
             {
                 "name": "Brett Smith",
@@ -489,6 +491,73 @@ sample [BODY] response:
                 "fax_number": null,
                 "reachable_id": 24,
                 "reachable_type": "Warranty"
+            }
+        ]
+    }
+}
+```
+
+CREATE INSURANCE
+------------------
+* will also prompt the user to enter contact information if they choose to
+
+`STATUS 201 CREATED`
+from `POST [domain]/items/[:iid]/insurances`
+
+data for insurance:
+```
+{
+    "insurance": {
+        "company": "Allstate",
+        "description": "Top tier for coverage",
+        "policy_number": 709231759780912,
+        "expiration_date":  ,
+        "url": "allstate.com",
+        "notes": "Cool stuff",
+        "item_name": "Roof"
+    }
+}
+```
+data for contact:
+```
+{
+    "contacts": {
+        "name": "Brett Smith",
+        "company": "GE",
+        "telephone_number": 4075678970,
+        "email": "brett@gmail.com",
+        "url": "ge.com",
+        "notes": "good person",
+        "fax_number": 6754443456,
+    }
+}
+```
+* Contacts will be created at the same time as creating an insurance policy. Contact will become assigned to that insurance policy upon creation.
+
+sample [BODY] response:
+```
+{
+    "created_at": "2015-03-13T15:44:22.919Z",
+    "updated_at": "2015-03-13T15:44:22.919Z",
+    "insurance": {
+        "company": null,
+        "description": null,
+        "policy_number": null,
+        "expiration_date": null,
+        "url": null,
+        "notes": "Cool stuff",
+        "item_name": "pool",
+        "contacts": [
+            {
+                "name": "Salty Braj",
+                "company": null,
+                "telephone_number": "07398572109",
+                "email": null,
+                "url": null,
+                "notes": null,
+                "fax_number": null,
+                "reachable_id": 10,
+                "reachable_type": "Insurance"
             }
         ]
     }
