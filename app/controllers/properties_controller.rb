@@ -6,16 +6,19 @@ class PropertiesController < ApplicationController
   end
 
   def add
-    @property = Property.create
-    @property.users = [current_user]
-
-    if @property.create_from_zillow!( property_params ) == false
-      render json: { :error => "unable to find property" }, status: :not_modified
-    elsif @property.save
-      @rooms = @property.rooms.all
-      render "property/index.json.jbuilder", status: :ok
+    # @property = Property.create
+    # @property.users = [current_user]
+    if !address_exists?
+      if @property.create_from_zillow!( property_params ) == false
+        render json: { :error => "unable to find property" }, status: :not_modified
+      elsif @property.save
+        @rooms = @property.rooms.all
+        render "property/index.json.jbuilder", status: :ok
+      else
+        render json: { :error => "Unable to find property"}, status: :not_modified
+      end
     else
-      render json: { :error => "Unable to find property"}, status: :not_modified
+      render json: { :error => "Property already in account."}, status: :not_modified
     end
   end
 
@@ -57,6 +60,7 @@ class PropertiesController < ApplicationController
 
   def address_exists?
     address = current_user.addresses.find_by(address_params)
+    binding.pry
   end
 
   def address_params
