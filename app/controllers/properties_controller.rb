@@ -5,24 +5,30 @@ class PropertiesController < ApplicationController
   def index
   end
 
-  # user has many properties through groundskeepers
-  # properties has one address
-  # user has many addresses through properties
+  def show
+    @property = set_property
+    if @property
+      render "property/index.json.jbuilder", status: :ok
+    end
+  end
 
   def add
-    @property = Property.create
-    @property.users = [current_user]
-    if !address_exists?
+    @address = Address.new
+    @address.add_location(property_params)
+    if @address.save
+      @property = Property.new
+      @address.property = @property
+      @property.users = [current_user]
       if @property.create_from_zillow!( property_params ) == false
         render json: { :error => "unable to find property" }, status: :not_modified
-      elsif @property.save
+      elsif @property.save && @address.save
         @rooms = @property.rooms.all
         render "property/index.json.jbuilder", status: :ok
       else
-        render json: { :error => "Unable to find property"}, status: :not_modified
+        render json: { :error => @property.errors.full_messages}, status: :not_acceptable
       end
     else
-      render json: { :error => "Property already in account."}, status: :not_acceptable
+      render json: { :error => @address.errors.full_messages}, status: :not_acceptable
     end
   end
 
