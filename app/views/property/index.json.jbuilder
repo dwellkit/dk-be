@@ -1,6 +1,11 @@
 json.(@property, :created_at, :updated_at)
 
 json.property do
+  json.image do
+    json.thumb @property.profile.url(:thumb)
+    json.medium @property.profile.url(:medium)
+    json.large @property.profile.url(:large)
+  end
   json.id @property.id
   json.lotsize @property.lotsize
   json.sqft @property.sqft
