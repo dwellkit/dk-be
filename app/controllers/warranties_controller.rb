@@ -1,5 +1,23 @@
 class WarrantiesController < ApplicationController
 
+  def index
+    @warranties = Warranty.all
+      if @warranties
+        render "warranty/index.json.jbuilder", status: :ok
+      else
+        render json: { :error => "Unable to find warranties" }, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @item = set_item
+    @warranty = Warranty.find(params[:wid])
+      if @warranty
+        render "warranty/index.json.jbuilder", status: :ok
+      else
+        render json: { :error => "Unable to find warranties" }, status: :unprocessable_entity
+    end
+  end
 
   def create
     @item = set_item
@@ -24,9 +42,27 @@ class WarrantiesController < ApplicationController
     @contact = set_contact
     if @contact
       add_contact = @contact.update_attribute(:reachable, @warranty)
-      render json: "warranty/index.json.jbuilder", status: :accepted
+      render "warranty/index.json.jbuilder", status: :accepted
     else
       render json: {:error => "Unable to add contact" }, status: :not_modified
+    end
+  end
+
+  def update
+    @warranty = Warranty.find(params[:wid])
+      if @warranty.update(warranty_params)
+        render "warranty/index.json.jbuilder", status: :accepted
+      else
+        render json: {:error => "Unable to edit the warranty"}, status: :not_modified
+      end
+  end
+
+  def destroy
+    @warranty = Warranty.find(params[:wid])
+      if @warranty.destroy!
+        render json: { :message => "#{@warranty.id} - #{@warranty.name} Removed"}, status: :ok
+      else
+        render json: {:error => "Unable to delete the warranty"}, status: :not_modified
     end
   end
 
@@ -50,5 +86,3 @@ class WarrantiesController < ApplicationController
   end
 
 end
-
->>>>>>> 893983a6ca0e85510e3d03d0947d896e6dde965b

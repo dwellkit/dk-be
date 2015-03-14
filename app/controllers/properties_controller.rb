@@ -64,10 +64,6 @@ class PropertiesController < ApplicationController
   end
 
   private
-  def new_property?
-    # addr = current_user.addresses.find_by(address_params)
-    addr = current_user.addresses.where(address_params)
-  end
 
   def address_exists?
     address = current_user.addresses.find_by(address_params)
