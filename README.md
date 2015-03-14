@@ -209,6 +209,24 @@ sample [BODY] response:
 }
 ```
 
+ADD PICTURE TO PROPERTY
+-----------------------
+`STATUS 201 CREATED`
+from
+`POST [domain]/properties/[:id]/pic`
+
+Just need to send an image file under 2mb.
+Server will reformat the picture in these sizes
+```
+:large => "800x800",
+:medium => "300x300>",
+:thumb => "100x100>" 
+```
+
+if you ever want to get a picture and get this:
+`/images/:size/missing.png`
+picture was never added or an internal error occured
+
 
 ADD ROOM
 ---------

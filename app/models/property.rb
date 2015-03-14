@@ -6,6 +6,8 @@ class Property < ActiveRecord::Base
   has_many :warranties
   has_one :address
   has_many :items
+  #GENERATE MODEL DIAGRAM:
+  # `bundle exec erd`
 
   # IMAGE ATTACHMENT VALIDATIONS
   has_attached_file :profile, :styles => { :large => "800x800", :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
