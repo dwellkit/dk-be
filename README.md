@@ -67,6 +67,12 @@ from
 
 returns user email and all properties associated with account
 
+GET SPECIFIC PROPERTY
+---------------------
+`STATUS 200 OK`
+from
+`GET [domain]/properties/[:id]`
+
 
 ADD PROPERTY
 ------------
