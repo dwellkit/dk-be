@@ -55,7 +55,7 @@ class InsurancesController < ApplicationController
       end
   end
 
-  def destroy
+  def delete
     @insurance = Insurance.find(params[:pid])
       if @insurance.destroy!
         render json: { :message => "#{@insurance.id} - #{@insurance.name} Removed"}, status: :ok

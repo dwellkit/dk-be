@@ -57,7 +57,7 @@ class WarrantiesController < ApplicationController
       end
   end
 
-  def destroy
+  def delete
     @warranty = Warranty.find(params[:wid])
       if @warranty.destroy!
         render json: { :message => "#{@warranty.id} - #{@warranty.name} Removed"}, status: :ok

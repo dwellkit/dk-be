@@ -42,7 +42,6 @@ class ContactsController < ApplicationController
       render json: { :error => "Unable to delete the contact" }, status: :unprocessable_entity
     end
   end
->>>>>>> 893983a6ca0e85510e3d03d0947d896e6dde965b
 
 
   private
@@ -51,13 +50,9 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
   end
 
-<<<<<<< HEAD
-=======
   def set_contact
     @contact = Contact.find(params[:id])
   end
-
->>>>>>> 893983a6ca0e85510e3d03d0947d896e6dde965b
 end
 
 
