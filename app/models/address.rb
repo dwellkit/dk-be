@@ -2,6 +2,7 @@ class Address < ActiveRecord::Base
   belongs_to :property
   belongs_to :contact
   has_many :users, through: :properties
+  validates :postal_code, :presence => true
   # validates_uniqueness_of :street_address, :scope => [:user_id, :zipcode], :case_sensitive => false
 
   def add_location(location)

@@ -13,7 +13,6 @@ class Zillow
     address.gsub!(' ','+')
 
     response = HTTParty.get("#{search_domain}?zws-id=#{zwsid}&address=#{address}&citystatezip=#{citystatezip}")
-    binding.pry
 
     if response["searchresults"]["message"]["text"].include?("Error")
       return false

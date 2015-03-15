@@ -16,7 +16,6 @@ class PropertiesController < ApplicationController
     parsed_location = StreetAddress::US.parse(address_params[:address])
     @address = Address.new
     @address.add_location( address_params )
-    binding.pry
     if @address.save
       @property = Property.new
       @address.property = @property
