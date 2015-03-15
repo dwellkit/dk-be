@@ -39,8 +39,8 @@ gem 'httparty'
 #devise for users
 gem 'devise'
 
-#devise token auth for json api
-# gem 'devise_token_auth'
+#parse them street addresses
+gem 'StreetAddress', :require => "street_address"
 
 #omni auth required for devise token auth
 gem 'omniauth'

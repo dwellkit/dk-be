@@ -11,10 +11,7 @@ json.property do
   json.actual_rooms @property.actual_rooms_count
 
   json.address do
-    json.street_address @property.address.street_address
-    json.city @property.address.city
-    json.state @property.address.state
-    json.zipcode @property.address.zipcode
+    json.street_address @property.address.full_address
   end
 
   json.rooms @property.rooms do |room|

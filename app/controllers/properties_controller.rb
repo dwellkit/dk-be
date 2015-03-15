@@ -13,13 +13,15 @@ class PropertiesController < ApplicationController
   end
 
   def add
+    parsed_location = StreetAddress::US.parse(address_params[:address])
     @address = Address.new
-    @address.add_location(property_params)
+    @address.add_location( address_params )
+    binding.pry
     if @address.save
       @property = Property.new
       @address.property = @property
       @property.users = [current_user]
-      if @property.create_from_zillow!( property_params ) == false
+      if @property.create_from_zillow!( parsed_location ) == false
         render json: { :error => "unable to find property" }, status: :not_modified
       elsif @property.save && @address.save
         @rooms = @property.rooms.all
@@ -70,38 +72,26 @@ class PropertiesController < ApplicationController
   end
 
   private
-  def new_property?
-    addr = current_user.addresses.where(address_params)
-  end
 
-  def pic_params
-    params.require(:property).permit(:profile)
-  end
+    def pic_params
+      params.require(:property).permit(:profile)
+    end
 
-  def address_exists?
-    address = current_user.addresses.find_by(address_params)
-  end
+    def address_params
+      params.require(:property).permit(:address)
+    end
 
-  def address_params
-    params.require(:property).permit(:street_address, :zipcode)
-  end
+    def set_property
+      @property = Property.find(params[:id])
+    end
 
-  def set_property
-    @property = Property.find(params[:id])
-  end
+    def edit_property_params
+      params.require(:property).permit(:sqft, :lotsize, :totalrooms, :bedrooms,
+                                       :bathrooms, :street_address, :zipcode, :city, :state)
+    end
 
-  def edit_property_params
-    params.require(:property).permit(:sqft, :lotsize, :totalrooms, :bedrooms,
-                                     :bathrooms, :street_address, :zipcode, :city, :state)
-  end
-
-  def address_params
-    params[:property][:street_address].downcase!
-    params.require(:property).permit(:street_address, :zipcode)
-  end
-
-  def property_params
-    params.require(:property).permit(:street_address, :city, :zipcode, :state)
-  end
+    def property_params
+      params.require(:property).permit(:street_address, :city, :zipcode, :state)
+    end
 
 end
