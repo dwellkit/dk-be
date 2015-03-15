@@ -1,6 +1,11 @@
 json.(@property, :created_at, :updated_at)
 
 json.property do
+  json.image do
+    json.thumb @property.profile.url(:thumb)
+    json.medium @property.profile.url(:medium)
+    json.large @property.profile.url(:large)
+  end
   json.id @property.id
   json.lotsize @property.lotsize
   json.sqft @property.sqft
@@ -11,10 +16,7 @@ json.property do
   json.actual_rooms @property.actual_rooms_count
 
   json.address do
-    json.street_address @property.address.street_address
-    json.city @property.address.city
-    json.state @property.address.state
-    json.zipcode @property.address.zipcode
+    json.street_address @property.address.full_address
   end
 
   json.rooms @property.rooms do |room|

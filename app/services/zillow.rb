@@ -4,11 +4,11 @@ class Zillow
   def self.find_by_location(prop)
     search_domain = 'http://www.zillow.com/webservice/GetSearchResults.htm'
     zwsid = 'X1-ZWz1ayawttov7v_6o78e'
-    address = prop[:street_address]
-    city = prop[:city]
-    state = prop[:state]
-    zip = prop[:zipcode]
-    citystatezip = city + " " + state + " " + zip
+    address = prop.number + ' ' + prop.street + ' ' + prop.street_type
+    city = prop.city
+    state = prop.state
+    zip = prop.postal_code
+    citystatezip = prop.city + " " + prop.state + " " + prop.postal_code
     citystatezip = URI::encode(citystatezip)
     address.gsub!(' ','+')
 

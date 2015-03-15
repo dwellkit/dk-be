@@ -2,6 +2,9 @@ json.(@user, :created_at, :updated_at)
 
   json.user @user.email
   json.property @properties do |property|
+  json.image do
+    json.thumb property.profile.url(:thumb)
+  end
     json.id property.id
     json.sqft property.sqft
     json.lotsize property.lotsize

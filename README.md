@@ -87,10 +87,7 @@ data:
 ```
 {
     "property": {
- >>>>   "street_address": "2 Main Street", <<<<< changed variable name
-        "city": "Portland",
-        "state": "OR",
-        "zipcode": "23814"
+        "address": "2210 12th street nw washington dc 20009"
     }
 }
 ```
@@ -98,20 +95,82 @@ data:
 sample [BODY] response:
 ```
 {
+    "created_at": "2015-03-15T21:30:58.087Z",
+    "updated_at": "2015-03-15T21:30:58.087Z",
     "property": {
-        "id": 10,
-        "created_at": "2015-03-10T21:12:36.270Z",
-        "rooms": [],
-        "sqft": 4299,
-        "lotsize": 68389,
+        "image": {
+            "thumb": "/images/thumb/missing.png",
+            "medium": "/images/medium/missing.png",
+            "large": "/images/large/missing.png"
+        },
+        "id": 2,
+        "lotsize": 1124,
+        "sqft": 0,
+        "yearbuilt": 1890,
         "total_rooms": null,
         "bedrooms": 3,
-        "bathrooms": 2,
-        "street_address": "2 Main Street",
-        "city": "Portland",
-        "state": "OR",
-        "zipcode": "23814",
-        "updated_at": "2015-03-10T21:12:47.395Z"
+        "bathrooms": 2.5,
+        "actual_rooms": 0,
+        "address": {
+            "street_address": "2210 12th St, Washington, DC 20009"
+        },
+        "rooms": [
+            {
+                "id": 7,
+                "name": "Bedroom 1",
+                "sqft": null,
+                "dimensions": null,
+                "flooring_type": null,
+                "paint_color": null,
+                "items": []
+            },
+            {
+                "id": 8,
+                "name": "Bedroom 2",
+                "sqft": null,
+                "dimensions": null,
+                "flooring_type": null,
+                "paint_color": null,
+                "items": []
+            },
+            {
+                "id": 9,
+                "name": "Bedroom 3",
+                "sqft": null,
+                "dimensions": null,
+                "flooring_type": null,
+                "paint_color": null,
+                "items": []
+            },
+            {
+                "id": 10,
+                "name": "Bathroom 1",
+                "sqft": null,
+                "dimensions": null,
+                "flooring_type": null,
+                "paint_color": null,
+                "items": []
+            },
+            {
+                "id": 11,
+                "name": "Bathroom 2",
+                "sqft": null,
+                "dimensions": null,
+                "flooring_type": null,
+                "paint_color": null,
+                "items": []
+            },
+            {
+                "id": 12,
+                "name": "Bathroom 3",
+                "sqft": null,
+                "dimensions": null,
+                "flooring_type": null,
+                "paint_color": null,
+                "items": []
+            }
+        ],
+        "items": []
     }
 }
 ```
@@ -208,6 +267,24 @@ sample [BODY] response:
     }
 }
 ```
+
+ADD PICTURE TO PROPERTY
+-----------------------
+`STATUS 201 CREATED`
+from
+`POST [domain]/properties/[:id]/pic`
+
+Just need to send an image file under 2mb.
+Server will reformat the picture in these sizes
+```
+:large => "800x800",
+:medium => "300x300>",
+:thumb => "100x100>" 
+```
+
+if you ever want to get a picture and get this:
+`/images/:size/missing.png`
+picture was never added or an internal error occured
 
 
 ADD ROOM

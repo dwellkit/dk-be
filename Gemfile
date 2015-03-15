@@ -39,11 +39,20 @@ gem 'httparty'
 #devise for users
 gem 'devise'
 
-#devise token auth for json api
-# gem 'devise_token_auth'
+#parse them street addresses
+gem 'StreetAddress', :require => "street_address"
 
 #omni auth required for devise token auth
 gem 'omniauth'
+
+#paperclip for attachments
+gem 'paperclip'
+
+#aws for paperclip
+gem 'aws-sdk', '< 2.0'
+
+#figaro for env vars
+gem 'figaro'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -66,6 +75,9 @@ group :development, :test do
 
   #better errors for better errors
   gem 'better_errors'
+
+  # visualize associations
+  gem 'rails-erd'
 end
 
 group :production do
