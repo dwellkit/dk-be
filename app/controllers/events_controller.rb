@@ -11,7 +11,8 @@ class EventsController < ApplicationController
     @user = current_user
     binding.pry
     EventMailer.event_email(current_user).deliver_now
-    binding.pry
+
+    render json: { :message => "Email has been sent" }, status: :ok
   end
 
   private
