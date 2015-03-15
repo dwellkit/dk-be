@@ -7,8 +7,11 @@ class EventsController < ApplicationController
   end
 
   def email
-    @event = Event.find(params[:id])
+    # @event = Event.find(params[:eid])
+    @user = current_user
+    binding.pry
     EventMailer.event_email(current_user).deliver_now
+    binding.pry
   end
 
   private
