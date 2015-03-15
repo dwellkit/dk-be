@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150313184034) do
-=======
-ActiveRecord::Schema.define(version: 20150315211718) do
->>>>>>> 5a561a50a219c85e02a8eec825335aee758b2244
+ActiveRecord::Schema.define(version: 20150315220257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +154,9 @@ ActiveRecord::Schema.define(version: 20150315211718) do
     t.datetime "updated_at"
     t.integer  "address_id"
     t.integer  "event_id"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
