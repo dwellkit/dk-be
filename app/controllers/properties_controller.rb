@@ -66,11 +66,18 @@ class PropertiesController < ApplicationController
 
   def pic
     #binding.pry
-    @property.update( :profile => params[:profile] )
-    render json: { :pic => @property.profile.url(:medium)}
+    if @property.update( pic_params )
+      render json: { :pic => @property.profile.url(:medium)}
+    else
+      render json: { :error => "terrible terrible terrible try the dater"}, status: :not_modified
+    end
   end
 
   private
+
+    def pic_params
+      params.require(:property).permit(:profile)
+    end
 
     def address_params
       params.require(:property).permit(:address)
