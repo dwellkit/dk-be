@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315220257) do
+ActiveRecord::Schema.define(version: 20150316150058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,12 +55,15 @@ ActiveRecord::Schema.define(version: 20150315220257) do
   add_index "contacts", ["reachable_id"], name: "index_contacts_on_reachable_id", using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "warranty_id"
-    t.integer "insurance_id"
-    t.string  "name"
-    t.text    "notes"
-    t.integer "user_id"
+    t.integer  "item_id"
+    t.integer  "warranty_id"
+    t.integer  "insurance_id"
+    t.string   "name"
+    t.text     "notes"
+    t.integer  "user_id"
+    t.datetime "event_date"
+    t.string   "event_frequency"
+    t.integer  "priority"
   end
 
   create_table "groundskeepers", id: false, force: :cascade do |t|
