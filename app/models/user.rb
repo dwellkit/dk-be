@@ -32,8 +32,12 @@ class User < ActiveRecord::Base
   private
   def generate_authentication_token
     loop do
-      token = Devise.friendly_token
-      break token unless User.where(authentication_token: token).first
+      if self.confirmed_at?
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).first
+      else
+        return Devise.friendly_token
+      end
     end
   end
 end
