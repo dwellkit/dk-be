@@ -2,9 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.5'
 
-gem 'clockwork'
 
-gem 'delayed_job_active_record'
 
 gem 'whenever', :require => false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
