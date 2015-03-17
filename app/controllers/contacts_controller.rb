@@ -44,16 +44,17 @@ class ContactsController < ApplicationController
   end
 
 
+
   private
 
   def contact_params
     params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
   end
 
+
   def set_contact
     @contact = Contact.find(params[:id])
   end
-
 end
 
 

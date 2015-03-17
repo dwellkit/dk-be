@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+
   before_action :authenticate_user_from_token!
 
   # THIS CONTROLLER IS SUPER MESSY AND TERRIBLE, KILL IT BY REFACTOR

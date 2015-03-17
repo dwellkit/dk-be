@@ -1,5 +1,6 @@
 class WarrantiesController < ApplicationController
 
+
   def create
     @item = set_item
     @warranty = @item.warranties.new(warranty_params)
@@ -47,6 +48,5 @@ class WarrantiesController < ApplicationController
   def set_item
     @item = Item.find(params[:iid])
   end
-
 end
 
