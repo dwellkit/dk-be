@@ -48,7 +48,5 @@ class WarrantiesController < ApplicationController
   def set_item
     @item = Item.find(params[:iid])
   end
-
 end
 
->>>>>>> 893983a6ca0e85510e3d03d0947d896e6dde965b
