@@ -6,4 +6,16 @@ class EventMailer < ActionMailer::Base
     mail(to: @user.email)
   end
 
+  def reminder_soon_email(event)
+    mail(to: event.user.email)
+  end
+
+  def reminder_imminent_email(event)
+    mail(to: event.user.email)
+  end
+
+  def reminder_day_of_email(event)
+    mail(to: event.user.email)
+  end
+
 end

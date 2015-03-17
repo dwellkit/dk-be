@@ -8,7 +8,7 @@ every(1.day, 'Queueing scheduled job', :at => '14:17') { Delayed::Job.enqueue Sc
 
 
 every(2.minutes, 'reminder.deliver') {
-  reminders = Reminder.find(:all, :conditions => ["reminder_at <= ? and reminder_at > ?", Time.now.advance(:minutes => 2), Time.now])
+  # reminders = Reminder.find(:all, :conditions => ["reminder_at <= ? and reminder_at > ?", Time.now.advance(:minutes => 2), Time.now])
   events = Event.all
   events.each do |event|
       time_range = (event.event_date - 5.day)..Time.now.midnight
