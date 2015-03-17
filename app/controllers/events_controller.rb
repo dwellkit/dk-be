@@ -4,9 +4,9 @@ class EventsController < ApplicationController
   def create
     # via: https://github.com/mperham/sidekiq/wiki/Scheduled-Jobs
     @event = current_user.events.create(event_params)
-    EventNotifyJob.perform_at(@event.event_date - 5.days, @event, :soon)
-    EventNotifyJob.perform_at(@event.event_date - 1.day, @event, :imminent)
-    EventNotifyJob.perform_at(@event.event_date, @event, :day_of)
+    EventNotifyJob.perform_at((@event.event_date - 5.days), @event, :soon)
+    EventNotifyJob.perform_at((@event.event_date - 1.day), @event,:imminent)
+    EventNotifyJob.perform_at((@event.event_date), @event, :day_of)
     render json: { :event => @event }
   end
 

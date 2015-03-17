@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   #ROUTES FOR EMAILS
   get 'events/email', to: 'events#email'
+  post 'events', to: 'events#create'
 
   # later might want to namespace the api...
   # namespace :api do
