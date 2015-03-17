@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.1.5'
 
+
+gem 'whenever', :require => false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgres for heroku

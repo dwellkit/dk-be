@@ -39,6 +39,10 @@ Rails.application.routes.draw do
 
   # ROUTES FOR USER
   get 'users/info', to: 'users#show'
+
+  #ROUTES FOR EMAILS
+  get 'events/email', to: 'events#email'
+
   # later might want to namespace the api...
   # namespace :api do
   #   mount_devise_token_auth_for 'User', at: 'auth'

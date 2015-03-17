@@ -64,6 +64,7 @@ class PropertiesController < ApplicationController
   def destroy
   end
 
+
   def pic
     #binding.pry
     if @property.update( pic_params )
@@ -73,7 +74,14 @@ class PropertiesController < ApplicationController
     end
   end
 
+
   private
+
+    def pic
+      @property = set_property
+      @property.update( pic_params )
+      render json: { :pic => @property.profile.url(:medium)}
+    end
 
     def pic_params
       params.require(:property).permit(:profile)

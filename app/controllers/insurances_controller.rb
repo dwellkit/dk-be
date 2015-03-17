@@ -1,5 +1,23 @@
 class InsurancesController < ApplicationController
 
+  def index
+    @insurances = Insurance.all
+      if @insurances
+        render "insurance/index.json.jbuilder", status: :ok
+      else
+        render json: { :error => "Unable to find policies" }, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @insurance = Insurance.find(params[:pid])
+      if @insurance
+        render "insurance/index.json.jbuilder", status: :ok
+      else
+        render json: { :error => "Unable to find policies" }, status: :unprocessable_entity
+    end
+  end
+
   def create
     @item = set_item
     @insurance = @item.insurances.new(insurance_params)
@@ -25,6 +43,24 @@ class InsurancesController < ApplicationController
       render json: { :insurace => @insurace, :contact => @contact }, status: :ok
     else
       render json: { :error => "Unable to add contact" }, status: :not_modified
+    end
+  end
+
+  def update
+    @insurance = Insurance.find(params[:pid])
+      if @insurace.update(insurance_params)
+        render "insurance/index.json.jbuilder", status: :accepted
+      else
+        render json: {:error => "Unable to edit the policy"}, status: :not_modified
+      end
+  end
+
+  def delete
+    @insurance = Insurance.find(params[:pid])
+      if @insurance.destroy!
+        render json: { :message => "#{@insurance.id} - #{@insurance.name} Removed"}, status: :ok
+      else
+        render json: {:error => "Unable to delete the policy"}, status: :not_modified
     end
   end
 

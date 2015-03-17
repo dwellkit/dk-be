@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  def create 
+  def create
     if params[:user][:password] != params[:user][:password_confirmation]
       render json: { :error => "Passwords do not match" }, status: :bad_request
       return false
@@ -12,7 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  private 
+  private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
