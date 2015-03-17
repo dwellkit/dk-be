@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316151041) do
+ActiveRecord::Schema.define(version: 20150317004533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150316151041) do
     t.string  "city"
     t.string  "state"
     t.integer "addressable_id"
-    t.integer "addressable_type"
+    t.string  "addressable_type"
     t.integer "property_id"
     t.integer "contact_id"
     t.integer "user_id"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 20150316151041) do
   end
 
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
+
+  create_table "bills", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "property_id"
+    t.string   "name"
+    t.string   "company"
+    t.text     "description"
+    t.datetime "due_date"
+    t.integer  "amount_due"
+  end
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -100,6 +110,17 @@ ActiveRecord::Schema.define(version: 20150316151041) do
     t.integer  "warranty_id"
     t.integer  "insurance_id"
     t.integer  "user_id"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "is_primary",         default: false
+    t.integer  "picturable_id"
+    t.string   "picturable_type"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "properties", force: :cascade do |t|
