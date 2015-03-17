@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150317004533) do
     t.string  "city"
     t.string  "state"
     t.integer "addressable_id"
-    t.string  "addressable_type"
+    t.integer "addressable_type"
     t.integer "property_id"
     t.integer "contact_id"
     t.integer "user_id"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20150317004533) do
 
   create_table "pictures", force: :cascade do |t|
     t.string   "name"
+    t.integer  "user_id"
     t.boolean  "is_primary",         default: false
     t.integer  "picturable_id"
     t.string   "picturable_type"
