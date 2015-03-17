@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315211718) do
+ActiveRecord::Schema.define(version: 20150317002346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150315211718) do
     t.string  "city"
     t.string  "state"
     t.integer "addressable_id"
-    t.integer "addressable_type"
+    t.string  "addressable_type"
     t.integer "property_id"
     t.integer "contact_id"
     t.integer "user_id"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20150315211718) do
 
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
 
+  create_table "bills", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "property_id"
+    t.string   "name"
+    t.string   "company"
+    t.text     "description"
+    t.datetime "due_date"
+    t.integer  "amount_due"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
     t.string   "company"
@@ -53,6 +63,18 @@ ActiveRecord::Schema.define(version: 20150315211718) do
   end
 
   add_index "contacts", ["reachable_id"], name: "index_contacts_on_reachable_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "warranty_id"
+    t.integer  "insurance_id"
+    t.string   "name"
+    t.text     "notes"
+    t.integer  "user_id"
+    t.datetime "event_date"
+    t.string   "event_frequency"
+    t.integer  "priority"
+  end
 
   create_table "groundskeepers", id: false, force: :cascade do |t|
     t.integer "user_id"
@@ -87,6 +109,14 @@ ActiveRecord::Schema.define(version: 20150315211718) do
     t.integer  "property_id"
     t.integer  "warranty_id"
     t.integer  "insurance_id"
+    t.integer  "user_id"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string  "name"
+    t.boolean "is_primary",      default: false
+    t.integer "picturable_id"
+    t.string  "picturable_type"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -144,6 +174,10 @@ ActiveRecord::Schema.define(version: 20150315211718) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "address_id"
+    t.integer  "event_id"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
