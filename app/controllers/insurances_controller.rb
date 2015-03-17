@@ -47,4 +47,3 @@ class InsurancesController < ApplicationController
   end
 end
 
-

@@ -6,6 +6,7 @@ class Property < ActiveRecord::Base
   has_many :warranties
   has_one :address
   has_many :items
+  has_many :pictures, as: :picturable
   #GENERATE MODEL DIAGRAM:
   # `bundle exec erd`
 
