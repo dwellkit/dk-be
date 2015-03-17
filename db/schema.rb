@@ -11,22 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312211208) do
+ActiveRecord::Schema.define(version: 20150315211718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.string  "street_address"
     t.string  "city"
     t.string  "state"
-    t.string  "zipcode"
-    t.string  "zpid"
     t.integer "addressable_id"
     t.integer "addressable_type"
     t.integer "property_id"
     t.integer "contact_id"
     t.integer "user_id"
+    t.string  "number"
+    t.string  "postal_code"
+    t.string  "prefix"
+    t.string  "street"
+    t.string  "street_type"
+    t.string  "suffix"
+    t.string  "unit"
+    t.string  "unit_prefix"
+    t.string  "full_address"
+    t.string  "postal_code_ext"
   end
 
   add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
@@ -89,11 +96,15 @@ ActiveRecord::Schema.define(version: 20150312211208) do
     t.integer  "bedrooms"
     t.float    "bathrooms"
     t.string   "zpid"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "actual_rooms_count", default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "actual_rooms_count",   default: 0
     t.integer  "yearbuilt"
     t.integer  "address_id"
+    t.string   "profile_file_name"
+    t.string   "profile_content_type"
+    t.integer  "profile_file_size"
+    t.datetime "profile_updated_at"
   end
 
   create_table "reminders", force: :cascade do |t|

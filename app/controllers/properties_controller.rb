@@ -1,28 +1,35 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_property, only: [:edit, :reimport, :destroy]
+  before_action :set_property, only: [:edit, :reimport, :destroy, :pic]
 
   def index
   end
 
-  # user has many properties through groundskeepers
-  # properties has one address
-  # user has many addresses through properties
+  def show
+    @property = set_property
+    if @property
+      render "property/index.json.jbuilder", status: :ok
+    end
+  end
 
   def add
-    @property = Property.create
-    @property.users = [current_user]
-    if !address_exists?
-      if @property.create_from_zillow!( property_params ) == false
+    parsed_location = StreetAddress::US.parse(address_params[:address])
+    @address = Address.new
+    @address.add_location( address_params )
+    if @address.save
+      @property = Property.new
+      @address.property = @property
+      @property.users = [current_user]
+      if @property.create_from_zillow!( parsed_location ) == false
         render json: { :error => "unable to find property" }, status: :not_modified
-      elsif @property.save
+      elsif @property.save && @address.save
         @rooms = @property.rooms.all
         render "property/index.json.jbuilder", status: :ok
       else
-        render json: { :error => "Unable to find property"}, status: :not_modified
+        render json: { :error => @property.errors.full_messages}, status: :not_acceptable
       end
     else
-      render json: { :error => "Property already in account."}, status: :not_acceptable
+      render json: { :error => @address.errors.full_messages}, status: :not_acceptable
     end
   end
 
@@ -57,36 +64,36 @@ class PropertiesController < ApplicationController
   def destroy
   end
 
+  def pic
+    #binding.pry
+    if @property.update( pic_params )
+      render json: { :pic => @property.profile.url(:medium)}
+    else
+      render json: { :error => "terrible terrible terrible try the dater"}, status: :not_modified
+    end
+  end
+
   private
-  def new_property?
-    # addr = current_user.addresses.find_by(address_params)
-    addr = current_user.addresses.where(address_params)
-  end
 
-  def address_exists?
-    address = current_user.addresses.find_by(address_params)
-  end
+    def pic_params
+      params.require(:property).permit(:profile)
+    end
 
-  def address_params
-    params.require(:property).permit(:street_address, :zipcode)
-  end
+    def address_params
+      params.require(:property).permit(:address)
+    end
 
-  def set_property
-    @property = Property.find(params[:id])
-  end
+    def set_property
+      @property = Property.find(params[:id])
+    end
 
-  def edit_property_params
-    params.require(:property).permit(:sqft, :lotsize, :totalrooms, :bedrooms,
-                                     :bathrooms, :street_address, :zipcode, :city, :state)
-  end
+    def edit_property_params
+      params.require(:property).permit(:sqft, :lotsize, :totalrooms, :bedrooms,
+                                       :bathrooms, :street_address, :zipcode, :city, :state)
+    end
 
-  def address_params
-    params[:property][:street_address].downcase!
-    params.require(:property).permit(:street_address, :zipcode)
-  end
-
-  def property_params
-    params.require(:property).permit(:street_address, :city, :zipcode, :state)
-  end
+    def property_params
+      params.require(:property).permit(:street_address, :city, :zipcode, :state)
+    end
 
 end
