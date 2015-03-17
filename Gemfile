@@ -70,8 +70,7 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  #sqlite for dev, should prob migrate to postgres in dev too
-  gem 'pg'
+  
 
   #pry for prying
   gem 'pry'

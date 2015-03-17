@@ -1,20 +1,18 @@
 class EventNotifyJob
   include Sidekiq::Worker
 
-  case (urgency)
-      when :day_of
-        new_event = event.event_date + event.event_frequency.seconds
-        EventNotifyJob.new(event, :soon).set(wait_until: new_event - 5.days).perform_later
-        EventNotifyJob.new(event, :imminent).set(wait_until: new_event - 1.day).perform_later
-        EventNotifyJob.new(event, :day_of).set(wait_until: new_event).perform_later
-        event.update(event_date: new_event)
-      when :soon
-
-
-      when :imminent
-
-
-
+  def perform(event, urgency)
+    case (urgency)
+    when :day_of
+      new_event = event.event_date + event.event_frequency.seconds
+      EventNotifyJob.perform_at(@event.event_date - 5.days, @event, :soon)
+      EventNotifyJob.perform_at(@event.event_date - 1.day, @event, :imminent)
+      EventNotifyJob.perform_at(@event.event_date, @event, :day_of)
+      event.update(event_date: new_event)
+    when :soon
+      binding.pry
+    when :imminent
+      binding.pry
+    end
   end
-
 end
