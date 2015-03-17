@@ -8,7 +8,6 @@ class EventsController < ApplicationController
     EventNotifyJob.perform_at(@event.event_date - 1.day, @event, :imminent)
     EventNotifyJob.perform_at(@event.event_date, @event, :day_of)
     render json: { :event => @event }
-
   end
 
   def email
@@ -16,15 +15,13 @@ class EventsController < ApplicationController
     @user = current_user
     binding.pry
     EventMailer.event_email(current_user).deliver_now
-
     render json: { :message => "Email has been sent" }, status: :ok
   end
 
   private
 
-  def event_params
-    params.require(:event).permit(:name, :notes, :event_date, :event_frequency)
-  end
-
+    def event_params
+      params.require(:event).permit(:name, :notes, :event_date, :event_frequency)
+    end
 
 end
