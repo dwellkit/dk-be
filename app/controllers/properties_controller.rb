@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_property, only: [:edit, :reimport, :destroy]
+  before_action :set_property, only: [:edit, :reimport, :destroy, :pic]
 
   def index
   end
@@ -62,6 +62,16 @@ class PropertiesController < ApplicationController
   end
 
   def destroy
+  end
+
+
+  def pic
+    #binding.pry
+    if @property.update( pic_params )
+      render json: { :pic => @property.profile.url(:medium)}
+    else
+      render json: { :error => "terrible terrible terrible try the dater"}, status: :not_modified
+    end
   end
 
 
