@@ -17,8 +17,8 @@ class ContactsController < ApplicationController
 
   def create
     @property = set_property
-    @contact = @property.contacts.new(contact_params)
-    if @contact.save
+    @contact = @property.contacts.new
+    if @contact.update(:property_id => @property.id)
       render "contact/index.json.jbuilder", status: :created
     else
       render json: { :error => "Unable to create contact"}, status: :not_modified
