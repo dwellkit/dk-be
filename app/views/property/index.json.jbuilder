@@ -28,6 +28,7 @@ json.property do
     json.paint_color room.paint_color
 
     json.items room.items do |item|
+      json.id item.id
       json.name item.name
     end
   end

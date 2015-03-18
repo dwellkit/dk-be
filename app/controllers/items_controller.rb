@@ -7,10 +7,12 @@ class ItemsController < ApplicationController
 
   def property_items
     @items = set_property_items
+    render json: { :items => @items}, status: :ok
   end
 
   def room_items
     @items = set_room_items
+    render json: { :items => @items }, status: :ok
   end
 
   def add_room_item
