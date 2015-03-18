@@ -30,6 +30,8 @@ json.property do
   json.items @property.items do |item|
     json.name item.name
     json.category item.category
-    item.serial_number
+    json.serial_number item.serial_number
+    json.id item.id
+
   end
 end

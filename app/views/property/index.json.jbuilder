@@ -36,5 +36,6 @@ json.property do
     json.name item.name
     json.category item.category
     item.serial_number
+    item.id item.id
   end
 end
