@@ -33,7 +33,7 @@ class RoomsController < ApplicationController
   private
 
   def room_params
-    params.require(:room).permit(:name, :sqft, :dimesions, :flooring_type, :wall_type,
+    params.require(:room).permit(:name, :sqft, :dimensions, :flooring_type, :wall_type,
                                  :paint_color)
   end
 
