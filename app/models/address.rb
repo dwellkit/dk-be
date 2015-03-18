@@ -7,7 +7,6 @@ class Address < ActiveRecord::Base
 
   def add_location(location)
     parsed = StreetAddress::US.parse(location[:address])
-    
     self.full_address = parsed.to_s
     self.state = parsed.state
     self.city = parsed.city

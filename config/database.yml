@@ -4,3 +4,9 @@ development:
   encoding: unicode
   database: dev-dk
   pool: 5
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: dev-dk
+  pool: 5

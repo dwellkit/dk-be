@@ -22,9 +22,6 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -60,6 +57,9 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
+  # ENV["REDISTOGO_URL"] = 'redis://username:password@my.host:6389'
+  # ENV["REDISTOGO_URL"] = redis://fbabc14c6f7d472ee6255764ebc1f8ac@cobia.redistogo.com:9221
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:fbabc14c6f7d472ee6255764ebc1f8ac@cobia.redistogo.com:9221/'
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
