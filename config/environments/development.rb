@@ -59,7 +59,7 @@ Rails.application.configure do
 
   # ENV["REDISTOGO_URL"] = 'redis://username:password@my.host:6389'
   # ENV["REDISTOGO_URL"] = redis://fbabc14c6f7d472ee6255764ebc1f8ac@cobia.redistogo.com:9221
-  # ENV["REDISTOGO_URL"] = 'redis://redistogo:fbabc14c6f7d472ee6255764ebc1f8ac@cobia.redistogo.com:9221/'
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:fbabc14c6f7d472ee6255764ebc1f8ac@cobia.redistogo.com:9221/'
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
