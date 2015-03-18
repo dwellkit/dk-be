@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.1.5'
 
-
-
-gem 'whenever', :require => false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgres for heroku
@@ -70,8 +67,11 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  
+<<<<<<< HEAD
 
+
+=======
+>>>>>>> 1d86a0256410412776ae9822136f686e97081f6f
   #pry for prying
   gem 'pry'
 

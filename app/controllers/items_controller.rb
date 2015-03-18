@@ -7,10 +7,12 @@ class ItemsController < ApplicationController
 
   def property_items
     @items = set_property_items
+    render json: { :items => @items}, status: :ok
   end
 
   def room_items
     @items = set_room_items
+    render json: { :items => @items }, status: :ok
   end
 
   def add_room_item
@@ -47,11 +49,13 @@ class ItemsController < ApplicationController
   private
 
     def set_property_items
-      @items = Property.find(params[:id]).rooms.items.all
+      @property = Property.find(params[:id])
+      @items = @property.items.all
     end
 
     def set_room_items
-      @items = Room.find(params[:rid]).items.all
+      @room = set_room
+      @items = @room.items.all
     end
 
     def set_room

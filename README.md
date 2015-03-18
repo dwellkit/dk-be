@@ -376,6 +376,17 @@ sample [BODY] response:
 }
 ```
 
+GET PROPERTY ITEMS
+-------------------
+`STATUS 200 OK`
+from
+`GET [domain]/properties/[:id]/items`
+
+GET ROOM ITEMS
+--------------
+`STATUS 200 OK`
+from
+`GET [domain]/properties/[:id]/rooms/[:rid]/items`
 
 ADD ITEM TO ROOM
 ----------------
