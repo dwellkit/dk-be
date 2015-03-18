@@ -25,8 +25,11 @@ Rails.application.routes.draw do
 
   # ROUTES FOR CONTACTS
   # post '/contacts', to: 'contacts#create'
-  resources :contacts
-  get 'properties/:id/contacts', to: 'conatacts#show'
+  post 'properties/:id/contacts', to: 'contacts#create'
+  get 'properties/:id/contacts/:cid', to: 'contacts#show'
+  patch 'properties/:id/contacts/:cid', to: 'contacts#update'
+  delete 'properties/:id/contacts/:cid', to: 'contacts#destroy'
+  get 'properties/:id/contacts', to: 'contacts#property_contacts'
 
   #ROUTES FOR WARRANTIES
   post 'items/:iid/warranties', to: 'warranties#create'

@@ -1,13 +1,18 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user_from_token!
 
-  def index
-    @contacts = Contact.all
-    render json: { :contact => @contacts}
+  def property_contacts
+    @contacts = set_property_contacts
+    if @contacts
+      render json: { :contact => @contacts}
+    else
+      render json: {:error => "Unable to find contact" }, status: :unprocessable_entity
+    end
   end
 
   def show
-    @contact = set_contact
+    @property = set_property
+    @contact = Contact.find(params[:cid])
     if @contact
       render json: { :contact => @contact }
     else
@@ -16,9 +21,10 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(contact_params)
-    if @contact.save
-      render json: { :contact => @contact }, status: :created
+    @property = set_property
+    @contact = @property.contacts.new
+    if @contact.update(:property_id => @property.id)
+      render "contact/index.json.jbuilder", status: :created
     else
       render json: { :error => "Unable to create contact"}, status: :not_modified
     end
@@ -34,7 +40,7 @@ class ContactsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @contact = set_contact
     if @contact.destroy
       render json: { :contact => @contact }, status: :ok
@@ -45,10 +51,18 @@ class ContactsController < ApplicationController
 
   private
 
+  def set_property_contacts
+      @property = Property.find(params[:id])
+      @contacts = @property.contacts.all
+  end
+
+  def set_property
+    @property = Property.find(params[:id])
+  end
+
   def contact_params
     params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
   end
-
 
   def set_contact
     @contact = Contact.find(params[:id])
