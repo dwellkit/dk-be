@@ -8,7 +8,7 @@ class EventNotifyJob < ActiveJob::Base
       new_event = event.event_date + event.event_frequency.seconds
       EventNotifyJob.set(wait_until: event.event_date - 5.days).perform_later(event, :soon)
       EventNotifyJob.set(wait_until: event.event_date - 1.day).perform_later(event, :imminent)
-      EventNotifyJob.set(wait_until: event.event_date_.perform_later(event, :day_of)
+      EventNotifyJob.set(wait_until: event.event_date_).perform_later(event, :day_of)
       event.update(event_date: new_event)
     when 'soon'
       EventMailer.reminder_soon_email(event).deliver_now
