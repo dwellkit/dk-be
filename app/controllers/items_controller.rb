@@ -49,11 +49,13 @@ class ItemsController < ApplicationController
   private
 
     def set_property_items
-      @items = Property.find(params[:id]).rooms.items.all
+      @property = Property.find(params[:id])
+      @items = @property.items.all
     end
 
     def set_room_items
-      @items = Room.find(params[:rid]).items.all
+      @room = set_room
+      @items = @room.items.all
     end
 
     def set_room
