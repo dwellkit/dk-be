@@ -16,12 +16,10 @@ class ContactsController < ApplicationController
   end
 
   def create
-    binding.pry
     @property = set_property
-    binding.pry
     @contact = @property.contacts.new(contact_params)
     if @contact.save
-      render json: { :property => @property, :contact => @contact }, status: :created
+      render "contact/index.json.jbuilder", status: :created
     else
       render json: { :error => "Unable to create contact"}, status: :not_modified
     end
