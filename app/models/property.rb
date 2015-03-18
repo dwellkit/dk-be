@@ -7,6 +7,7 @@ class Property < ActiveRecord::Base
   has_one :address
   has_many :items
   has_many :pictures, as: :picturable
+  has_many :contacts, as: :reachable
   #GENERATE MODEL DIAGRAM:
   # `bundle exec erd`
 

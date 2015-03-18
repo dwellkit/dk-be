@@ -16,9 +16,12 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(contact_params)
+    binding.pry
+    @property = set_property
+    binding.pry
+    @contact = @property.contacts.new(contact_params)
     if @contact.save
-      render json: { :contact => @contact }, status: :created
+      render json: { :property => @property, :contact => @contact }, status: :created
     else
       render json: { :error => "Unable to create contact"}, status: :not_modified
     end
@@ -45,10 +48,13 @@ class ContactsController < ApplicationController
 
   private
 
+  def set_property
+    @property = Property.find(params[:id])
+  end
+
   def contact_params
     params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
   end
-
 
   def set_contact
     @contact = Contact.find(params[:id])
