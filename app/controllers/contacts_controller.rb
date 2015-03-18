@@ -1,13 +1,18 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user_from_token!
 
-  def index
-    @contacts = Contact.all
-    render json: { :contact => @contacts}
+  def property_contacts
+    @contacts = set_property_contacts
+    if @contacts
+      render json: { :contact => @contacts}
+    else
+      render json: {:error => "Unable to find contact" }, status: :unprocessable_entity
+    end
   end
 
   def show
-    @contact = set_contact
+    @property = set_property
+    @contact = Contact.find(params[:cid])
     if @contact
       render json: { :contact => @contact }
     else
@@ -35,7 +40,7 @@ class ContactsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @contact = set_contact
     if @contact.destroy
       render json: { :contact => @contact }, status: :ok
@@ -45,6 +50,11 @@ class ContactsController < ApplicationController
   end
 
   private
+
+  def set_property_contacts
+      @property = Property.find(params[:id])
+      @contacts = @property.contacts.all
+  end
 
   def set_property
     @property = Property.find(params[:id])
