@@ -66,7 +66,6 @@ class PropertiesController < ApplicationController
 
 
   def pic
-    #binding.pry
     if @property.update( pic_params )
       render json: { :pic => @property.profile.url(:medium)}
     else
@@ -77,11 +76,11 @@ class PropertiesController < ApplicationController
 
   private
 
-    def pic
-      @property = set_property
-      @property.update( pic_params )
-      render json: { :pic => @property.profile.url(:medium)}
-    end
+    # def pic
+    #   @property = set_property
+    #   @property.update( pic_params )
+    #   render json: { :pic => @property.profile.url(:medium)}
+    # end
 
     def pic_params
       params.require(:property).permit(:profile)
