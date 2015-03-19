@@ -22,6 +22,7 @@ class ContactsController < ApplicationController
 
   def create
     @contact = @property.contacts.new
+    @contact.update (contact_params )
     if @contact.update(:property_id => @property.id)
       render "contact/index.json.jbuilder", status: :created
     else
@@ -65,6 +66,19 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:cid])
   end
 end
+
+# t.string   "name"
+# t.string   "company"
+# t.string   "telephone_number"
+# t.string   "email"
+# t.string   "url"
+# t.text     "notes"
+# t.string   "fax_number"
+# t.datetime "created_at",       null: false
+# t.datetime "updated_at",       null: false
+# t.integer  "reachable_id"
+# t.string   "reachable_type"
+# t.integer  "property_id"
 
 
 
