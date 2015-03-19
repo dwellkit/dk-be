@@ -32,8 +32,8 @@ Rails.application.routes.draw do
   post 'properties/:id/contacts', to: 'contacts#create'
 
   #ROUTES FOR WARRANTIES
-  post 'items/:iid/warranties', to: 'warranties#create'
-  patch 'items/:iid/warranties/:wid/contacts/:cid', to: 'warranties#add_contact'
+  post 'properties/:id/items/:iid/warranties', to: 'warranties#create'
+  patch 'properties/:id/items/:iid/warranties/:wid/contacts/:cid', to: 'warranties#add_contact'
   get 'properties/:id/warranties', to: 'warranties#index'
   delete 'warranties/:wid', to: 'warranties#delete'
   # post '/warranties/contact', to: 'warranties#contact'
