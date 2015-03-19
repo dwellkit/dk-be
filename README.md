@@ -5,8 +5,10 @@ This is where the API docs will lie from here on out unless we decide to change
 to somewhere else, but here goes:
 our url for now is here: `https://dwellingkit-api.herokuapp.com`
 
-CREATE USER
------------
+USERS
+-----
+
+####Create a User
 `STATUS 201 CREATED`
 from
 `POST [domain]/users`
@@ -33,8 +35,7 @@ sample [BODY] response:
 ```
 
 
-USER SIGN-IN
------------
+####User Sign-In
 `STATUS 200 OK`
 from
 `POST [domain]/users/sign_in`
@@ -59,23 +60,22 @@ sample [BODY] response:
 }
 ```
 
-GET USER PROPERTIES
--------------------
+PROPERTIES
+----------
+###Get users properties
 `STATUS 200 OK`
 from
 `GET [domain]/user/info`
 
 returns user email and all properties associated with account
 
-GET SPECIFIC PROPERTY
----------------------
+####Get a specific property
 `STATUS 200 OK`
 from
 `GET [domain]/properties/[:id]`
 
 
-ADD PROPERTY
-------------
+####Add a Property
 `STATUS 200 OK`
 from
 `POST [domain]/properties/add`
@@ -175,8 +175,7 @@ sample [BODY] response:
 }
 ```
 
-EDIT/VERIFY PROPERTY
---------------------
+####Edit or Verify a Property
 `STATUS 200 OK`
 from
 `PATCH [domain]/properties/[:id]`
@@ -223,8 +222,7 @@ sample [BODY] response:
 }
 ```
 
-REIMPORT PROPERTY
---------------------
+####Reimport a property
 Note: This overwrites users existing property information
 will do this better later so user can choose if he wants
 to import
@@ -268,8 +266,7 @@ sample [BODY] response:
 }
 ```
 
-ADD PICTURE TO PROPERTY
------------------------
+####Add a profile pic to property
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/pic`
@@ -286,9 +283,11 @@ if you ever want to get a picture and get this:
 `/images/:size/missing.png`
 picture was never added or an internal error occured
 
+ROOMS
+-----
+NOTE: requires a property id
 
-ADD ROOM
----------
+####Add a Room
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/rooms`
@@ -325,8 +324,7 @@ sample [BODY] response:
 }
 ```
 
-EDIT ROOM
-----------
+####Edit a room
 `STATUS 200 OK`
 from
 `PATCH [domain]/properties/[:id]/rooms/[:rid]`
@@ -363,8 +361,7 @@ sample [BODY] response:
 }
 ```
 
-DELETE ROOM
-----------
+####Delete a room
 `STATUS 200 OK`
 from
 `DELETE [domain]/properties/[:id]/rooms/[:rid]`
@@ -376,20 +373,20 @@ sample [BODY] response:
 }
 ```
 
-GET PROPERTY ITEMS
--------------------
+ITEMS
+-----
+
+####Get property items
 `STATUS 200 OK`
 from
 `GET [domain]/properties/[:id]/items`
 
-GET ROOM ITEMS
---------------
+####Get room items
 `STATUS 200 OK`
 from
 `GET [domain]/properties/[:id]/rooms/[:rid]/items`
 
-ADD ITEM TO ROOM
-----------------
+####Add item to room
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/rooms/[:rid]/items`
@@ -428,8 +425,7 @@ sample [BODY] response:
 ```
 
 
-ADD ITEM TO PROPERTY
---------------------
+####Add item to property
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/items`
@@ -467,8 +463,7 @@ sample [BODY] response:
 }
 ```
 
-DELETE ITEM
------------
+#### Delete Item
 `STATUS 200 WHAT OKKKKAYYYYYY`
 from
 `DELETE [domain]/items/[:iid]`
@@ -480,9 +475,11 @@ sample [BODY] response:
 }
 ```
 
-CREATE CONTACT
---------------
-* creating a contact individually, not assigned to anything
+CONTACTS
+--------
+
+####Create Contact
+* creating a contact individually, not assigned to anything other than property
 
 `STATUS 201 CREATED`
 from `POST [domain]/contacts`
@@ -490,7 +487,7 @@ from `POST [domain]/contacts`
 data for contact:
 ```
 {
-    "contacts": {
+    "contact": {
         "name": "Brett Smith",
         "company": "GE",
         "telephone_number": 4075678970,
@@ -523,8 +520,46 @@ sample [BODY} response:
 ```
 * reachable_id and reachable_type will return null because they have not been "assigned" yet.  See the warranty create method below that both creates a warranty and a contact for that warrant at the same time.
 
-CREATE WARRANTY
----------------
+####Delete Contact
+`STATUS 200 OK`
+from `DELETE [domain]/contacts/[:cid]`
+
+####Update Contact
+`STATUS 200 OK`
+from `PATCH [domain]/contacts/[:cid]`
+
+sample data
+```
+{
+    "contacts": {
+        "name": "Brett Smith",
+        "company": "GE",
+        "telephone_number": 4075678970,
+        "email": "brett@gmail.com",
+        "url": "ge.com",
+        "notes": "good person",
+        "fax_number": 6754443456,
+    }
+}
+```
+
+####Show single contact
+`STATUS 200 OK`
+from `GET [domain]/contacts/[:cid]`
+
+####Get contacts for a property
+`STATUS 200 OK`
+from `GET [domain]/properties/[:id]/contacts`
+
+
+WARRANTIES
+----------
+####Get all warranties
+`STATUS 200 OK`
+from `GET [domain]/properties/[:id]/warranties`
+
+####Create Warranty
+
 * will also prompt the user to enter contact information if they choose to
 
 `STATUS 201 CREATED`
@@ -591,8 +626,10 @@ sample [BODY] response:
 }
 ```
 
-CREATE INSURANCE
-------------------
+INSURANCE
+---------
+
+####Create Insurance
 * will also prompt the user to enter contact information if they choose to
 
 `STATUS 201 CREATED`
@@ -657,3 +694,34 @@ sample [BODY] response:
     }
 }
 ```
+
+EVENTS
+------
+
+####Get Users Events
+`STATUS 201 CREATED`
+from `GET [domain]/events`
+
+####Create New Event
+`STATUS 201 CREATED`
+from `POST [domain]/events`
+
+NOTE: event_frequency is in number of seconds
+`( 604,800 seconds = 1 week )`
+`( 2,628,000 seconds = 1 month)`
+
+data for event:
+```
+{
+    "event": {
+        "name": "Clean the Gutters"
+        "notes": "The poplar tree dumps this time of year"
+        "event_date": "2015-03-19 13:08:55 -0400",
+        "event_frequency": 604800
+    }
+}
+```
+
+####Delete Event
+`STATUS 200 OK`
+from `DELETE [domain]/events/[:eid]`

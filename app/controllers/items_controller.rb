@@ -1,23 +1,23 @@
 class ItemsController < ApplicationController
 
   before_action :authenticate_user_from_token!
+  before_action :set_property_items, only: [:property_items]
+  before_action :set_room_items, only: [:room_items]
+  before_action :set_room, only: [:add_room_item, :add_image, :all_images]
+  before_action :set_property, only: [:add_room_item, :add_property_item, :add_image, :all_images]
+  before_action :set_item, only: [:destroy, :edit, :add_image, :all_images]
 
-  # THIS CONTROLLER IS SUPER MESSY AND TERRIBLE, KILL IT BY REFACTOR
-  #                                                           - dylan
+
 
   def property_items
-    @items = set_property_items
     render json: { :items => @items}, status: :ok
   end
 
   def room_items
-    @items = set_room_items
     render json: { :items => @items }, status: :ok
   end
 
   def add_room_item
-    @room = set_room
-    @property = set_property
     @item = @room.items.new
     @item.update(:property_id => @property.id)
     @item.update( item_params ) #if then render
@@ -25,24 +25,45 @@ class ItemsController < ApplicationController
   end
 
   def add_property_item
-    @property = set_property
     @item = @property.items.create( item_params )
     render json: { :item => @item}, status: :created
   end
 
   def destroy
-    @item = set_item
     if @item.destroy
       render json: { :message => "Item #{@item.id} #{@item.name} was deleted."}, status: :ok
     else
       render json: { :error => "There was an error deleting the item"}, status: :not_modified
     end
-
   end
 
   def edit
-    @item = set_item
     @item.update( item params ) #if then render
+  end
+
+   def add_image
+    @picture = Picture.create( image_params )
+    if @picture.update_attribute(:picturable, @item)
+      render json: { :image => @item.picture.url(:thumb) }
+    else
+      render json: { :error => "Couldn't add image" }, status: :not_modified
+  end
+
+  def all_images
+    if @pictures = @image.pictures.all
+      render json: { :images => @pictures }
+    else
+      render json: { :error => "Couldn't find the Room's pictures"}
+    end
+  end
+
+  def show_image
+    @picture = Picture.find(params[:xid])
+    if @picture
+      render json: { :image => @picture }, status: :ok
+    else
+      render json: { :error => "Couldn't find the picture"}
+    end
   end
 
 

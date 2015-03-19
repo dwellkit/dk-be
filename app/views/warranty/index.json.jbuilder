@@ -1,4 +1,4 @@
-json.(@warranty, :created_at, :updated_at)
+json.(@warranty)
 
 json.warranty do
   json.item_id @warranty.item_id
@@ -11,17 +11,16 @@ json.warranty do
 
 
   json.contacts @warranty.contacts do |contact|
-  json.name contact.name
-  json.company contact.company
-  json.telephone_number contact.telephone_number
-  json.email contact.email
-  json.url contact.url
-  json.notes contact.notes
-  json.fax_number contact.fax_number
-  json.reachable_id contact.reachable_id
-  json.reachable_type contact.reachable_type
-
-end
+    json.name contact.name
+    json.company contact.company
+    json.telephone_number contact.telephone_number
+    json.email contact.email
+    json.url contact.url
+    json.notes contact.notes
+    json.fax_number contact.fax_number
+    json.reachable_id contact.reachable_id
+    json.reachable_type contact.reachable_type
+  end
 end
 
 

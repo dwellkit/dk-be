@@ -29,15 +29,17 @@ Rails.application.routes.draw do
 
   # ROUTES FOR CONTACTS
   # post '/contacts', to: 'contacts#create'
-  post 'properties/:id/contacts', to: 'contacts#create'
-  get 'properties/:id/contacts/:cid', to: 'contacts#show'
-  patch 'properties/:id/contacts/:cid', to: 'contacts#update'
-  delete 'properties/:id/contacts/:cid', to: 'contacts#destroy'
+  get 'contacts/:cid', to: 'contacts#show'
+  patch 'contacts/:cid', to: 'contacts#update'
+  delete 'contacts/:cid', to: 'contacts#destroy'
   get 'properties/:id/contacts', to: 'contacts#property_contacts'
+  post 'properties/:id/contacts', to: 'contacts#create'
 
   #ROUTES FOR WARRANTIES
-  post 'items/:iid/warranties', to: 'warranties#create'
-  patch 'items/:iid/warranties/:wid/contacts/:cid', to: 'warranties#add_contact'
+  post 'properties/:id/items/:iid/warranties', to: 'warranties#create'
+  patch 'properties/:id/items/:iid/warranties/:wid/contacts/:cid', to: 'warranties#add_contact'
+  get 'properties/:id/warranties', to: 'warranties#index'
+  delete 'warranties/:wid', to: 'warranties#delete'
   # post '/warranties/contact', to: 'warranties#contact'
 
   #ROUTES FOR INSURANCES
@@ -51,6 +53,8 @@ Rails.application.routes.draw do
   #ROUTES FOR EMAILS
   get 'events/email', to: 'events#email'
   post 'events', to: 'events#create'
+  get 'events', to: 'events#show'
+  delete 'events/:eid', to: 'events#destroy'
 
   # later might want to namespace the api...
   # namespace :api do

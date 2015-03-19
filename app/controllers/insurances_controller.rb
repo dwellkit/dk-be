@@ -1,7 +1,12 @@
 class InsurancesController < ApplicationController
 
+  before_action :authenticate_user_from_token!
+  before_action :set_insurances, only: [:index]
+  before_action :set_insurance, only: [:show, :delete, :update]
+  before_action :set_item, only: [:create, :add_contact]
+  before_action :set_contact, only: [:add_contact]
+
   def index
-    @insurances = Insurance.all
       if @insurances
         render "insurance/index.json.jbuilder", status: :ok
       else
@@ -10,7 +15,6 @@ class InsurancesController < ApplicationController
   end
 
   def show
-    @insurance = Insurance.find(params[:pid])
       if @insurance
         render "insurance/index.json.jbuilder", status: :ok
       else
@@ -19,7 +23,6 @@ class InsurancesController < ApplicationController
   end
 
   def create
-    @item = set_item
     @insurance = @item.insurances.new(insurance_params)
       if @insurance.save!
         if contact_params
@@ -35,9 +38,7 @@ class InsurancesController < ApplicationController
   end
 
   def add_contact
-    @item = set_item
     @insurance = @item.insurances.find(params[:pid])
-    @contact = set_contact
     if @contact
       add_contact = @contact.update_attribute(:reachable, @insurance)
       render json: { :insurace => @insurace, :contact => @contact }, status: :ok
@@ -47,7 +48,6 @@ class InsurancesController < ApplicationController
   end
 
   def update
-    @insurance = Insurance.find(params[:pid])
       if @insurace.update(insurance_params)
         render "insurance/index.json.jbuilder", status: :accepted
       else
@@ -56,7 +56,6 @@ class InsurancesController < ApplicationController
   end
 
   def delete
-    @insurance = Insurance.find(params[:pid])
       if @insurance.destroy!
         render json: { :message => "#{@insurance.id} - #{@insurance.name} Removed"}, status: :ok
       else
@@ -66,20 +65,28 @@ class InsurancesController < ApplicationController
 
   private
 
-  def insurance_params
-    params.require(:insurance).permit(:company, :description, :policy_number, :expiration_date, :url, :notes)
-  end
+    def insurance_params
+      params.require(:insurance).permit(:company, :description, :policy_number, :expiration_date, :url, :notes)
+    end
 
-  def contact_params
-    params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
-  end
+    def contact_params
+      params.require(:contact).permit(:name, :telephone_number, :email, :url, :notes, :fax_number)
+    end
 
-  def set_contact
-    @contact = Contact.find(params[:cid])
-  end
+    def set_contact
+      @contact = Contact.find(params[:cid])
+    end
 
-  def set_item
-    @item = Item.find(params[:iid])
-  end
+    def set_item
+      @item = Item.find(params[:iid])
+    end
+
+    def set_insurances
+      @insurances = Insurance.all
+    end
+
+    def set_insurance
+      @insurance = Insurance.find(params[:pid])
+    end
 end
 

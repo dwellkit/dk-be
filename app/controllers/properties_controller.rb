@@ -1,12 +1,12 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_property, only: [:edit, :reimport, :destroy, :pic, :add_image, :show_image]
+  before_action :set_property, only: [:edit, :reimport, :destroy, :pic, :show, :edit, :add_image, :show_image]
+
 
   def index
   end
 
   def show
-    @property = set_property
     if @property
       render "property/index.json.jbuilder", status: :ok
     end
@@ -34,7 +34,6 @@ class PropertiesController < ApplicationController
   end
 
   def edit
-    @property = set_property
     if @property.update( property_params )
       render json: { :property => @property}, status: :created
     else
@@ -43,7 +42,6 @@ class PropertiesController < ApplicationController
   end
 
   def reimport
-    @property = set_property
     if @property.add(property_params) == false
       render json: { :error => "unable to find property"}, status: :not_modified
     elsif @property.save
