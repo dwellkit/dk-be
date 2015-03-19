@@ -8,7 +8,7 @@ our url for now is here: `https://dwellingkit-api.herokuapp.com`
 USERS
 -----
 
-###Create a User
+####Create a User
 `STATUS 201 CREATED`
 from
 `POST [domain]/users`
@@ -69,13 +69,13 @@ from
 
 returns user email and all properties associated with account
 
-###Get a specific property
+####Get a specific property
 `STATUS 200 OK`
 from
 `GET [domain]/properties/[:id]`
 
 
-###Add a Property
+####Add a Property
 `STATUS 200 OK`
 from
 `POST [domain]/properties/add`
@@ -175,7 +175,7 @@ sample [BODY] response:
 }
 ```
 
-###Edit or Verify a Property
+####Edit or Verify a Property
 `STATUS 200 OK`
 from
 `PATCH [domain]/properties/[:id]`
@@ -222,7 +222,7 @@ sample [BODY] response:
 }
 ```
 
-###Reimport a property
+####Reimport a property
 Note: This overwrites users existing property information
 will do this better later so user can choose if he wants
 to import
@@ -266,7 +266,7 @@ sample [BODY] response:
 }
 ```
 
-###Add a profile pic to property
+####Add a profile pic to property
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/pic`
@@ -287,7 +287,7 @@ ROOMS
 -----
 NOTE: requires a property id
 
-###Add a Room
+####Add a Room
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/rooms`
@@ -324,7 +324,7 @@ sample [BODY] response:
 }
 ```
 
-###Edit a room
+####Edit a room
 `STATUS 200 OK`
 from
 `PATCH [domain]/properties/[:id]/rooms/[:rid]`
@@ -361,7 +361,7 @@ sample [BODY] response:
 }
 ```
 
-###Delete a room
+####Delete a room
 `STATUS 200 OK`
 from
 `DELETE [domain]/properties/[:id]/rooms/[:rid]`
@@ -376,17 +376,17 @@ sample [BODY] response:
 ITEMS
 -----
 
-###Get property items
+####Get property items
 `STATUS 200 OK`
 from
 `GET [domain]/properties/[:id]/items`
 
-###Get room items
+####Get room items
 `STATUS 200 OK`
 from
 `GET [domain]/properties/[:id]/rooms/[:rid]/items`
 
-###Add item to room
+####Add item to room
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/rooms/[:rid]/items`
@@ -425,7 +425,7 @@ sample [BODY] response:
 ```
 
 
-###Add item to property
+####Add item to property
 `STATUS 201 CREATED`
 from
 `POST [domain]/properties/[:id]/items`
@@ -463,7 +463,7 @@ sample [BODY] response:
 }
 ```
 
-### Delete Item
+#### Delete Item
 `STATUS 200 WHAT OKKKKAYYYYYY`
 from
 `DELETE [domain]/items/[:iid]`
@@ -478,7 +478,7 @@ sample [BODY] response:
 CONTACTS
 --------
 
-###Create Contact
+####Create Contact
 * creating a contact individually, not assigned to anything other than property
 
 `STATUS 201 CREATED`
@@ -597,7 +597,7 @@ sample [BODY] response:
 INSURANCE
 ---------
 
-###Create Insurance
+####Create Insurance
 * will also prompt the user to enter contact information if they choose to
 
 `STATUS 201 CREATED`
@@ -666,7 +666,7 @@ sample [BODY] response:
 EVENTS
 ------
 
-###Get Users Events
+####Get Users Events
 `STATUS 201 CREATED`
 from `GET [domain]/events`
 
