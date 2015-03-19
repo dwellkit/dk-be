@@ -666,7 +666,7 @@ EVENTS
 `STATUS 201 CREATED`
 from `GET [domain]/events`
 
-###Create New Event
+####Create New Event
 `STATUS 201 CREATED`
 from `POST [domain]/events`
 
