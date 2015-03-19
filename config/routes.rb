@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   post 'properties/:id/rooms', to: 'rooms#add'
   patch 'properties/:id/rooms/:rid', to: 'rooms#edit'
   delete 'properties/:id/rooms/:rid', to: 'rooms#destroy'
+  post 'properties/:id/rooms/:rid/images', to: 'rooms#add_image'
+  get 'properties/:id/rooms/:rid/images', to: 'rooms#all_images'
+  get 'properties/:id/rooms/:rid/images/:xid', to: 'rooms#show_image'
 
   # ROUTES FOR ITEMS
   post 'properties/:id/rooms/:rid/items', to: 'items#add_room_item'

@@ -30,7 +30,36 @@ class RoomsController < ApplicationController
     end
   end
 
+  def add_image
+    @picture = Picture.create( image_params )
+    if @picture.update_attribute(:picturable, @room)
+      render json: { :image => @room.picture.url(:thumb) }
+    else
+      render json: { :error => "Couldn't add image" }, status: :not_modified
+  end
+
+  def all_images
+    if @pictures = @room.pictures.all
+      render json: { :images => @pictures }
+    else
+      render json: { :error => "Couldn't find the Room's pictures"}
+    end
+  end
+
+  def show_image
+    @picture = Picture.find(params[:xid])
+    if @picture
+      render json: { :image => @picture }, status: :ok
+    else
+      render json: { :error => "Couldn't find the picture"}
+    end
+  end
+
   private
+
+  def image_params
+    params.require(:room).permit(:image)
+  end
 
   def room_params
     params.require(:room).permit(:name, :sqft, :dimensions, :flooring_type, :wall_type,
