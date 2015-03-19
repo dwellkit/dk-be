@@ -6,7 +6,7 @@ class ContactsController < ApplicationController
 
   def property_contacts
     if @contacts
-      render json: { :contact => @contacts}
+      render json: { :contacts => @contacts}
     else
       render json: {:error => "Unable to find contact" }, status: :unprocessable_entity
     end
