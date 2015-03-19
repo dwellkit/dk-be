@@ -73,6 +73,10 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def add_image
+
+  end
+
 
   private
 

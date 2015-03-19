@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318224831) do
+ActiveRecord::Schema.define(version: 20150319141933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20150318224831) do
     t.integer  "warranty_id"
     t.integer  "insurance_id"
     t.integer  "user_id"
+    t.integer  "picture_id"
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -141,6 +142,7 @@ ActiveRecord::Schema.define(version: 20150318224831) do
     t.string   "profile_content_type"
     t.integer  "profile_file_size"
     t.datetime "profile_updated_at"
+    t.integer  "picture_id"
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -163,6 +165,7 @@ ActiveRecord::Schema.define(version: 20150318224831) do
     t.datetime "updated_at",                   null: false
     t.integer  "property_id"
     t.boolean  "user_entered",  default: true
+    t.integer  "picture_id"
   end
 
   create_table "users", force: :cascade do |t|
