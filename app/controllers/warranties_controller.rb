@@ -80,7 +80,9 @@ class WarrantiesController < ApplicationController
     end
 
     def set_warranties
-      @warranties = Item.find(params[:iid]).warranties
+      @property = Property.find(params[:id])
+      @warranties = @property.warranties
+      # @warranties = Item.find(params[:iid]).warranties
     end
 
     def set_warranty

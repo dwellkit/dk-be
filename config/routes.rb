@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   #ROUTES FOR WARRANTIES
   post 'items/:iid/warranties', to: 'warranties#create'
   patch 'items/:iid/warranties/:wid/contacts/:cid', to: 'warranties#add_contact'
+  get 'properties/:id/warranties', to: 'warranties#index'
   # post '/warranties/contact', to: 'warranties#contact'
 
   #ROUTES FOR INSURANCES
