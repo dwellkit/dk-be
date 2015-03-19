@@ -522,7 +522,11 @@ sample [BODY} response:
 
 WARRANTIES
 ----------
-###Create Warranty
+####Get all warranties
+`STATUS 200 OK`
+from `GET [domain]/properties/[:id]/warranties`
+
+####Create Warranty
 
 * will also prompt the user to enter contact information if they choose to
 
