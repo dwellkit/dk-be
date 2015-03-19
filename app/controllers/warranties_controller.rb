@@ -7,7 +7,7 @@ class WarrantiesController < ApplicationController
 
   def index
     if @warranties
-      render "warranty/index.json.jbuilder", status: :ok
+      render json: { :warranties => @warranties }, status: :ok
     else
       render json: { :error => "Unable to find warranties" }, status: :unprocessable_entity
     end
