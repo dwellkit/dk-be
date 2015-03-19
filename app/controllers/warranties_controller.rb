@@ -24,6 +24,7 @@ class WarrantiesController < ApplicationController
 
   def create
     @warranty = @property.warranties.new
+    @warranty.update(waranty_params)
     @warranty.save
     # if @warranty.save!
     #   if contact_params
