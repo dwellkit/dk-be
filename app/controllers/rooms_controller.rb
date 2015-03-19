@@ -1,9 +1,10 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user_from_token!
+  before_action :set_room, only: [:edit, :destroy]
+  before_action :set_property, only: [:add]
 
 
   def add
-    @property = set_property
     @room = @property.rooms.new
     if @room.update( room_params )
       render json: { :room => @room }, status: :created
@@ -13,7 +14,6 @@ class RoomsController < ApplicationController
   end
 
   def edit
-    @room = set_room
     if @room.update( room_params )
       render json: { :room => @room }, status: :created
     else
@@ -22,7 +22,6 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room = set_room
     if @room.destroy
       render json: { :message => "#{@room.id} - #{@room.name} Removed" }, status: :ok
     else

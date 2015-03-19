@@ -1,23 +1,23 @@
 class ItemsController < ApplicationController
 
   before_action :authenticate_user_from_token!
+  before_action :set_property_items, only: [:property_items]
+  before_action :set_room_items, only: [:room_items]
+  before_action :set_room, only: [:add_room_item]
+  before_action :set_property, only: [:add_room_item, :add_property_item]
+  before_action :set_item, only: [:destroy, :edit]
 
-  # THIS CONTROLLER IS SUPER MESSY AND TERRIBLE, KILL IT BY REFACTOR
-  #                                                           - dylan
+
 
   def property_items
-    @items = set_property_items
     render json: { :items => @items}, status: :ok
   end
 
   def room_items
-    @items = set_room_items
     render json: { :items => @items }, status: :ok
   end
 
   def add_room_item
-    @room = set_room
-    @property = set_property
     @item = @room.items.new
     @item.update(:property_id => @property.id)
     @item.update( item_params ) #if then render
@@ -25,13 +25,11 @@ class ItemsController < ApplicationController
   end
 
   def add_property_item
-    @property = set_property
     @item = @property.items.create( item_params )
     render json: { :item => @item}, status: :created
   end
 
   def destroy
-    @item = set_item
     if @item.destroy
       render json: { :message => "Item #{@item.id} #{@item.name} was deleted."}, status: :ok
     else
@@ -41,7 +39,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = set_item
     @item.update( item params ) #if then render
   end
 

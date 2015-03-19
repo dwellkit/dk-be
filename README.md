@@ -657,3 +657,8 @@ sample [BODY] response:
     }
 }
 ```
+
+GET USERS EVENTS
+------------------
+`STATUS 201 CREATED`
+from `GET [domain]/events`

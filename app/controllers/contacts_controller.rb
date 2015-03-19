@@ -1,8 +1,10 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user_from_token!
+  before_action :set_contacts, only: [:property_contacts, :show]
+  before_action :set_contact, only: [:show, :update, :destroy]
+  before_action :set_property, only: [:create]
 
   def property_contacts
-    @contacts = set_property_contacts
     if @contacts
       render json: { :contact => @contacts}
     else
@@ -11,8 +13,6 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @property = set_property
-    @contact = Contact.find(params[:cid])
     if @contact
       render json: { :contact => @contact }
     else
@@ -21,7 +21,6 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @property = set_property
     @contact = @property.contacts.new
     if @contact.update(:property_id => @property.id)
       render "contact/index.json.jbuilder", status: :created
@@ -31,7 +30,6 @@ class ContactsController < ApplicationController
   end
 
   def update
-    @contact = set_contact
     @contact.update(contact_params)
     if @contact.save!
       render json: { :contact => @contact }, status: :ok
@@ -41,9 +39,8 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    @contact = set_contact
     if @contact.destroy
-      render json: { :contact => @contact }, status: :ok
+      render json: { :message => "contact #{@contact.name} successfully deleted" }, status: :ok
     else
       render json: { :error => "Unable to delete the contact" }, status: :unprocessable_entity
     end
@@ -65,7 +62,7 @@ class ContactsController < ApplicationController
   end
 
   def set_contact
-    @contact = Contact.find(params[:id])
+    @contact = Contact.find(params[:cid])
   end
 end
 
