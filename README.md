@@ -487,7 +487,7 @@ from `POST [domain]/contacts`
 data for contact:
 ```
 {
-    "contacts": {
+    "contact": {
         "name": "Brett Smith",
         "company": "GE",
         "telephone_number": 4075678970,
@@ -519,6 +519,34 @@ sample [BODY} response:
 }
 ```
 * reachable_id and reachable_type will return null because they have not been "assigned" yet.  See the warranty create method below that both creates a warranty and a contact for that warrant at the same time.
+
+####Delete Contact
+`STATUS 200 OK`
+from `DELETE [domain]/contacts/[:cid]`
+
+####Update Contact
+`STATUS 200 OK`
+from `PATCH [domain]/contacts/[:cid]`
+
+sample data
+```
+{
+    "contacts": {
+        "name": "Brett Smith",
+        "company": "GE",
+        "telephone_number": 4075678970,
+        "email": "brett@gmail.com",
+        "url": "ge.com",
+        "notes": "good person",
+        "fax_number": 6754443456,
+    }
+}
+```
+
+####Show single contact
+`STATUS 200 OK`
+from `GET [domain]/contacts/[:cid]`
+
 
 WARRANTIES
 ----------
@@ -675,8 +703,8 @@ from `GET [domain]/events`
 from `POST [domain]/events`
 
 NOTE: event_frequency is in number of seconds
-( 604,800 seconds = 1 week )
-( 2,628,000 seconds = 1 month)
+`( 604,800 seconds = 1 week )`
+`( 2,628,000 seconds = 1 month)`
 
 data for event:
 ```
@@ -689,3 +717,7 @@ data for event:
     }
 }
 ```
+
+####Delete Event
+`STATUS 200 OK`
+from `DELETE [domain]/events/[:eid]`

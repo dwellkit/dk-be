@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_events, only: [:show]
+  before_action :set_event, only: [:destroy]
 
   def create
     # via: https://github.com/mperham/sidekiq/wiki/Scheduled-Jobs
@@ -24,6 +25,14 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    if @event.destroy
+      render json: { :message => "Event #{@event.name} deleted" }, status: :ok
+    else
+      render json: { :error => "Could not find event"}, status: :not_found
+    end
+  end
+
   private
 
     def event_params
@@ -32,6 +41,10 @@ class EventsController < ApplicationController
 
     def set_events
       @events = current_user.events
+    end
+
+    def set_event
+      @event = Event.find(params[:eid])
     end
 
 end

@@ -25,9 +25,9 @@ Rails.application.routes.draw do
 
   # ROUTES FOR CONTACTS
   # post '/contacts', to: 'contacts#create'
-  get 'properties/:id/contacts/:cid', to: 'contacts#show'
-  patch 'properties/:id/contacts/:cid', to: 'contacts#update'
-  delete 'properties/:id/contacts/:cid', to: 'contacts#destroy'
+  get 'contacts/:cid', to: 'contacts#show'
+  patch 'contacts/:cid', to: 'contacts#update'
+  delete 'contacts/:cid', to: 'contacts#destroy'
   get 'properties/:id/contacts', to: 'contacts#property_contacts'
   post 'properties/:id/contacts', to: 'contacts#create'
 
@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'events/email', to: 'events#email'
   post 'events', to: 'events#create'
   get 'events', to: 'events#show'
+  delete 'events/:eid', to: 'events#destroy'
 
   # later might want to namespace the api...
   # namespace :api do
