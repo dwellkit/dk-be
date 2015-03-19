@@ -3,6 +3,7 @@ class ContactsController < ApplicationController
   before_action :set_contacts, only: [:property_contacts, :show]
   before_action :set_contact, only: [:show, :update, :destroy]
   before_action :set_property, only: [:create]
+  before_action :set_property_contacts, only: [:property_contacts]
 
   def property_contacts
     if @contacts
@@ -67,18 +68,6 @@ class ContactsController < ApplicationController
   end
 end
 
-# t.string   "name"
-# t.string   "company"
-# t.string   "telephone_number"
-# t.string   "email"
-# t.string   "url"
-# t.text     "notes"
-# t.string   "fax_number"
-# t.datetime "created_at",       null: false
-# t.datetime "updated_at",       null: false
-# t.integer  "reachable_id"
-# t.string   "reachable_type"
-# t.integer  "property_id"
 
 
 
