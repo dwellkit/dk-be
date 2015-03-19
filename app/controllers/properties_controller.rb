@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_property, only: [:edit, :reimport, :destroy, :pic]
+  before_action :set_property, only: [:edit, :reimport, :destroy, :pic, :add_image]
 
   def index
   end
@@ -74,11 +74,28 @@ class PropertiesController < ApplicationController
   end
 
   def add_image
+    @picture = Picture.create( image_params )
+    if @picture.update_attribute(:picturable, @property)
+      render json: { :image => @property.picture.url(:thumb) }
+    else
+      render json: { :error => "Couldn't add image" }, status: :not_modified
+    end
+  end
 
+  def show_image
+    if @pictures = @property.pictures.all
+      render json: { :images => @pictures }
+    else
+      render json: { :error => "Couldn't find the Property's pictures"}
+    end
   end
 
 
   private
+
+    def image_params
+      params.require(:property).permit(:image)
+    end
 
     def pic_params
       params.require(:property).permit(:profile)

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   patch 'properties/:id/reimport', to: 'properties#reimport'
   post 'properties/:id/pic', to: 'properties#pic'
   get 'properties/:id', to: 'properties#show'
+  post 'properties/:id/images', to: 'properties#add_image'
 
   # ROUTES FOR ROOMS
   post 'properties/:id/rooms', to: 'rooms#add'
