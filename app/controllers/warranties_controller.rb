@@ -23,7 +23,7 @@ class WarrantiesController < ApplicationController
   end
 
   def create
-    @warranty = @item.warranties.new
+    @warranty = @property.warranties.new
     # @warranty.update(:item_id => params[:iid])
     @warranty.update(warranty_params)
     @warranty.save
