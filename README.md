@@ -547,6 +547,10 @@ sample data
 `STATUS 200 OK`
 from `GET [domain]/contacts/[:cid]`
 
+####Get contacts for a property
+`STATUS 200 OK`
+from `GET [domain]/properties/[:id]/contacts`
+
 
 WARRANTIES
 ----------
