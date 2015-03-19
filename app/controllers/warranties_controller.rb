@@ -1,7 +1,7 @@
 class WarrantiesController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_warranties, only: [:index]
-  before_action :set_item, only: [:show, :add_contact]
+  before_action :set_item, only: [:show, :create, :add_contact]
   before_action :set_warranty, only: [:show, :update, :add_contact, :delete]
   before_action :set_contact, only: [:add_warranty]
   before_action :set_property, only: [:create]
@@ -23,7 +23,7 @@ class WarrantiesController < ApplicationController
   end
 
   def create
-    @warranty = @property.warranties.new
+    @warranty = @item.warranties.new
     # @warranty.update(:item_id => params[:iid])
     @warranty.update(warranty_params)
     @warranty.save
