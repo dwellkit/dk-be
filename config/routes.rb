@@ -19,9 +19,8 @@ Rails.application.routes.draw do
   get 'properties/:id/rooms/:rid/images', to: 'rooms#all_images'
 
   # ROUTES FOR ITEMS
-  post 'properties/:id/items/:iid/images', to: 'items#add_image'
+   post 'properties/:id/items/:iid/images', to: 'items#add_image'
   get 'properties/:id/items/images', to: 'items#all_images'
-
   post 'properties/:id/rooms/:rid/items', to: 'items#add_room_item'
   post 'properties/:id/items', to: 'items#add_property_item'
   patch 'properties/:id/rooms/:rid/items/:iid', to: 'items#edit'
@@ -29,8 +28,7 @@ Rails.application.routes.draw do
   get 'properties/:id/rooms/:rid/items', to: 'items#room_items'
   get 'properties/:id/items', to: 'items#property_items'
 
-  post 'properties/:id/items/:iid/images', to: 'items#image'
-  get 'properties/:id/items/images', to: 'items#all_images'
+
 
 
 

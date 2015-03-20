@@ -30,11 +30,10 @@ class RoomsController < ApplicationController
   end
 
   def add_image
-    @picture = Picture.new( image_params )
+    @picture = @room.pictures.new( image_params )
     @picture.update(:room_id => @room.id)
-    @picture.update_attribute(:picturable, @room)
-    if @picture.save
-      render json: { :image => @picture.image.url(:thumb) }
+    if @picture.update_attribute(:picturable, @room)
+      render json: { :image => @picture.image.url(:thumb) }, status: :created
     else
       render json: { :error => "Couldn't add image" }, status: :not_modified
     end

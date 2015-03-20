@@ -3,9 +3,9 @@ class ItemsController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_property_items, only: [:property_items]
   before_action :set_room_items, only: [:room_items]
-  before_action :set_room, only: [:add_room_item, :add_image, :all_images]
-  before_action :set_property, only: [:add_room_item, :add_property_item, :add_image, :all_images]
-  before_action :set_item, only: [:destroy, :edit, :add_image, :all_images]
+  before_action :set_room, only: [:add_room_item, :image, :all_images]
+  before_action :set_property, only: [:add_room_item, :add_property_item, :image, :all_images]
+  before_action :set_item, only: [:destroy, :edit, :image, :all_images]
 
 
 
@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
     @item.update( item params ) #if then render
   end
 
-   def image
+   def add_image
     binding.pry
     @picture = Picture.create( image_params )
     if @picture.update_attribute(:picturable, @item)
