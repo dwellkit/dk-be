@@ -33,7 +33,7 @@ class WarrantiesController < ApplicationController
         @contact.update_attribute(:reachable, @warranty)
         @contact.update(:warranty_id => @warranty.id)
       end
-      render "warranty/index.json.jbuilder", status: :created
+      render json: { warranty: @warranty }, status: :created
     else
       render json: { :error => "Unable to create Warranty" }, status: :not_modified
     end
