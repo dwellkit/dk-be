@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
     @item.update( item params ) #if then render
   end
 
-   def add_image
+   def image
     binding.pry
     @picture = Picture.create( image_params )
     if @picture.update_attribute(:picturable, @item)
