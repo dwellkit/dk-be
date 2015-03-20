@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   has_many :reminders
   has_many :warranties
   has_many :insurances
-  has_many :pictures, as: :picturbale
+  has_many :pictures, as: :picturable
   belongs_to :room
   belongs_to :property
 end
