@@ -30,16 +30,20 @@ class RoomsController < ApplicationController
   end
 
   def add_image
-    @picture = Picture.create( image_params )
-    if @picture.update_attribute(:picturable, @room)
-      render json: { :image => @room.picture.url(:thumb) }
+    @picture = Picture.new( image_params )
+    @picture.update(:room_id => @room.id)
+    @picture.update_attribute(:picturable, @room)
+    if @picture.save
+      render json: { :image => @picture.image.url(:thumb) }
     else
       render json: { :error => "Couldn't add image" }, status: :not_modified
+    end
   end
 
   def all_images
-    if @pictures = @room.pictures.all
-      render json: { :images => @pictures }
+    @pictures = Picture.where(:room_id => @room.id)
+    if @pictures
+      render "room/images.json.jbuilder", status: :ok
     else
       render json: { :error => "Couldn't find the Room's pictures"}
     end
