@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319222103) do
+ActiveRecord::Schema.define(version: 20150320170606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,11 +112,12 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.integer  "warranty_id"
     t.integer  "insurance_id"
     t.integer  "user_id"
+    t.integer  "picture_id"
   end
 
   create_table "pictures", force: :cascade do |t|
     t.string   "name"
-    t.integer  "user_id"
+    t.integer  "property_id"
     t.boolean  "is_primary",         default: false
     t.integer  "picturable_id"
     t.string   "picturable_type"
@@ -124,6 +125,8 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "item_id"
+    t.integer  "room_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -142,6 +145,7 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.string   "profile_content_type"
     t.integer  "profile_file_size"
     t.datetime "profile_updated_at"
+    t.integer  "picture_id"
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -164,6 +168,7 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.datetime "updated_at",                   null: false
     t.integer  "property_id"
     t.boolean  "user_entered",  default: true
+    t.integer  "picture_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -202,6 +207,7 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.datetime "updated_at",      null: false
     t.integer  "item_id"
     t.integer  "property_id"
+    t.integer  "warranty_id"
   end
 
 end
