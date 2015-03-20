@@ -1,4 +1,4 @@
-json.(@warranty)
+json.(@warranties)
 
 json.warranty do
   json.item_id @warranty.item_id

@@ -558,6 +558,10 @@ WARRANTIES
 `STATUS 200 OK`
 from `GET [domain]/properties/[:id]/warranties`
 
+####Delete Warranty
+`STATUS 200 OK`
+from `DELETE [domain]/warranties/[:wid]`
+
 ####Create Warranty
 
 * will also prompt the user to enter contact information if they choose to
