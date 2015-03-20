@@ -3,9 +3,9 @@ class ItemsController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_property_items, only: [:property_items]
   before_action :set_room_items, only: [:room_items]
-  before_action :set_room, only: [:add_room_item]
-  before_action :set_property, only: [:add_room_item, :add_property_item]
-  before_action :set_item, only: [:destroy, :edit]
+  before_action :set_room, only: [:add_room_item, :add_image, :all_images]
+  before_action :set_property, only: [:add_room_item, :add_property_item, :add_image, :all_images]
+  before_action :set_item, only: [:destroy, :edit, :add_image, :all_images]
 
 
 
@@ -35,11 +35,35 @@ class ItemsController < ApplicationController
     else
       render json: { :error => "There was an error deleting the item"}, status: :not_modified
     end
-
   end
 
   def edit
     @item.update( item params ) #if then render
+  end
+
+   def add_image
+    @picture = Picture.create( image_params )
+    if @picture.update_attribute(:picturable, @item)
+      render json: { :image => @item.picture.url(:thumb) }
+    else
+      render json: { :error => "Couldn't add image" }, status: :not_modified
+  end
+
+  def all_images
+    if @pictures = @image.pictures.all
+      render json: { :images => @pictures }
+    else
+      render json: { :error => "Couldn't find the Room's pictures"}
+    end
+  end
+
+  def show_image
+    @picture = Picture.find(params[:xid])
+    if @picture
+      render json: { :image => @picture }, status: :ok
+    else
+      render json: { :error => "Couldn't find the picture"}
+    end
   end
 
 

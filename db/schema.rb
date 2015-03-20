@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.integer  "warranty_id"
     t.integer  "insurance_id"
     t.integer  "user_id"
+    t.integer  "picture_id"
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -142,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.string   "profile_content_type"
     t.integer  "profile_file_size"
     t.datetime "profile_updated_at"
+    t.integer  "picture_id"
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -164,6 +166,7 @@ ActiveRecord::Schema.define(version: 20150319222103) do
     t.datetime "updated_at",                   null: false
     t.integer  "property_id"
     t.boolean  "user_entered",  default: true
+    t.integer  "picture_id"
   end
 
   create_table "users", force: :cascade do |t|

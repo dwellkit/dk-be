@@ -8,11 +8,15 @@ Rails.application.routes.draw do
   patch 'properties/:id/reimport', to: 'properties#reimport'
   post 'properties/:id/pic', to: 'properties#pic'
   get 'properties/:id', to: 'properties#show'
+  post 'properties/:id/images', to: 'properties#add_image'
 
   # ROUTES FOR ROOMS
   post 'properties/:id/rooms', to: 'rooms#add'
   patch 'properties/:id/rooms/:rid', to: 'rooms#edit'
   delete 'properties/:id/rooms/:rid', to: 'rooms#destroy'
+  post 'properties/:id/rooms/:rid/images', to: 'rooms#add_image'
+  get 'properties/:id/rooms/:rid/images', to: 'rooms#all_images'
+  get 'properties/:id/rooms/:rid/images/:xid', to: 'rooms#show_image'
 
   # ROUTES FOR ITEMS
   post 'properties/:id/rooms/:rid/items', to: 'items#add_room_item'
