@@ -47,6 +47,7 @@ class ItemsController < ApplicationController
       render json: { :image => @item.picture.url(:thumb) }
     else
       render json: { :error => "Couldn't add image" }, status: :not_modified
+    end
   end
 
   def all_images
