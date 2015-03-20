@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'properties/:id/pic', to: 'properties#pic'
   get 'properties/:id', to: 'properties#show'
   post 'properties/:id/images', to: 'properties#add_image'
+  get 'properties/:id/images', to: 'properties#show_image'
 
   # ROUTES FOR ROOMS
   post 'properties/:id/rooms', to: 'rooms#add'
@@ -16,7 +17,6 @@ Rails.application.routes.draw do
   delete 'properties/:id/rooms/:rid', to: 'rooms#destroy'
   post 'properties/:id/rooms/:rid/images', to: 'rooms#add_image'
   get 'properties/:id/rooms/:rid/images', to: 'rooms#all_images'
-  get 'properties/:id/rooms/:rid/images/:xid', to: 'rooms#show_image'
 
   # ROUTES FOR ITEMS
   post 'properties/:id/rooms/:rid/items', to: 'items#add_room_item'
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   delete 'items/:iid', to: 'items#destroy'
   get 'properties/:id/rooms/:rid/items', to: 'items#room_items'
   get 'properties/:id/items', to: 'items#property_items'
+  post 'properties/:id/items/:iid/images', to: 'items#add_image'
+  get 'properties/:id/items/images', to: 'items#all_images'
 
 
   # ROUTES FOR CONTACTS

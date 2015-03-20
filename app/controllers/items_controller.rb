@@ -42,11 +42,13 @@ class ItemsController < ApplicationController
   end
 
    def add_image
+    binding.pry
     @picture = Picture.create( image_params )
     if @picture.update_attribute(:picturable, @item)
-      render json: { :image => @item.picture.url(:thumb) }
+      render json: { :image => @item.picture.url(:thumb) }, status: :created
     else
       render json: { :error => "Couldn't add image" }, status: :not_modified
+    end
   end
 
   def all_images
@@ -68,6 +70,10 @@ class ItemsController < ApplicationController
 
 
   private
+
+    def image_params
+      params.require(:item).permit(:image)
+    end
 
     def set_property_items
       @property = Property.find(params[:id])
