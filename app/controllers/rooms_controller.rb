@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  def edit
+  def update
     if @room.update( room_params )
       render json: { :room => @room }, status: :created
     else

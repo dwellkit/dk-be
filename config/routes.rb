@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # ROUTES FOR ROOMS
   post 'properties/:id/rooms', to: 'rooms#add'
-  patch 'properties/:id/rooms/:rid', to: 'rooms#edit'
+  patch 'properties/:id/rooms/:rid', to: 'rooms#update'
   delete 'properties/:id/rooms/:rid', to: 'rooms#destroy'
 
   # ROUTES FOR ITEMS
