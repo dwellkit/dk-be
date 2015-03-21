@@ -22,7 +22,6 @@ class RoomsController < ApplicationController
   end
 
   def update
-    binding.pry
     if @room.update( room_params )
       render json: { :room => @room }, status: :created
     else
@@ -87,6 +86,5 @@ class RoomsController < ApplicationController
 
     def set_property
       @property = Property.find(params[:property_id])
-      binding.pry
     end
 end
