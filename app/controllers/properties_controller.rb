@@ -82,6 +82,7 @@ class PropertiesController < ApplicationController
 
   def add_image
     @picture = Picture.create( image_params )
+    @picture.update(:property_id => @property.id)
     if @picture.update_attribute(:picturable, @property)
       render json: { :image => @picture.image.url(:thumb) }
     else

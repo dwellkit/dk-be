@@ -507,3 +507,83 @@ data for event:
 ####Delete Event
 `STATUS 200 OK`
 from `DELETE [domain]/events/[:eid]`
+
+PICTURES
+---------
+####Add Pictues to Property
+`STATUS 201 CREATED`
+from `POST [domain]/properties/:id/images`
+
+data for add property pictures:
+```
+{
+    "image": house.jpg
+}
+```
+
+response
+```
+{
+    "image": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/017/thumb/home.jpg?1426947523"
+}
+```
+
+####Get all of a Property's picutres
+`STATUS 200 OK`
+from `GET [domain]/properties/:id/images`
+
+reponse
+```
+{
+"images": 
+    {
+        "picturable_id": 4,
+        "id": 16,
+        "property_id": 1,
+        "is_primary": false,
+        "picturable_type": "Property",
+        "image_file_name": "home.jpg",
+        "image_content_type": "image/jpeg",
+        "image_file_size": 39107,
+        "image_updated_at": "2015-03-21T14:17:52.641Z",
+        "item_id": null,
+        "room_id": null
+    }
+}
+```
+
+####Add picture to items
+
+`STATUS 201 CREATED`
+from `POST [domain]/properties/:id/rooms/:rid/images`
+
+data for posting picture to items:
+
+
+sample response:
+
+```
+{
+    "image": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/thumb/home.jpg?1426950036"
+}
+```
+
+####Get all pictures associated with a particular item:
+
+`STATUS 200 OK`
+from `GET [domain]/properties/:id/rooms/:rid/images`
+
+sample response:
+```
+{
+    "images"
+        {
+            "thumb": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/thumb/home.jpg?1426950036",
+            "medium": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/medium/home.jpg?1426950036",
+            "large": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/large/home.jpg?1426950036",
+            "id": 19
+        }
+}
+```
+
+####Add pictures to a particular room
