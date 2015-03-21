@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321135932) do
+ActiveRecord::Schema.define(version: 20150321175920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150321135932) do
     t.datetime "event_date"
     t.string   "event_frequency"
     t.integer  "priority"
+    t.integer  "property_id"
   end
 
   create_table "groundskeepers", id: false, force: :cascade do |t|
@@ -148,6 +149,7 @@ ActiveRecord::Schema.define(version: 20150321135932) do
     t.integer  "profile_file_size"
     t.datetime "profile_updated_at"
     t.integer  "picture_id"
+    t.integer  "event_id"
   end
 
   create_table "reminders", force: :cascade do |t|
