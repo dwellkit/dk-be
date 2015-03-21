@@ -76,7 +76,7 @@ PROPERTIES
 ####Edit a property
 `PATCH [domain]/properties/[:id]`
 + property
-    *sqft | integer
+    *sqft | integer*
 + property[sqft] | integer
 + property[lotsize] | integer
 + property[total_rooms] | integer
