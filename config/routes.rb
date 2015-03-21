@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       resources :items do
         post '/images', to: 'items#add_image'
         get '/images', to: 'items#show_images'
+        resources :warranties
 
       end
     end

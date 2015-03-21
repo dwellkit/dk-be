@@ -23,11 +23,11 @@ class WarrantiesController < ApplicationController
   end
 
   def create
-    @warranty = @property.warranties.new
-    @warranty.update(:item_id => params[:iid])
-    @warranty.update(warranty_params)
-    @warranty.save
-    if @warranty.save!
+    @warranty = @property.warranties.create
+    if params[:item_id]
+      @warranty.update(:item_id => params[:iid])
+    end
+    if @warranty.update(warranty_params)
       if contact_params
         @contact = @warranty.contacts.new(contact_params)
         @contact.update_attribute(:reachable, @warranty)
@@ -77,24 +77,24 @@ class WarrantiesController < ApplicationController
     end
 
     def set_contact
-      @contact = Contact.find(params[:cid])
+      @contact = Contact.find(params[:contact_id])
     end
 
     def set_item
-      @item = Item.find(params[:iid])
+      @item = Item.find(params[:item_id])
     end
 
     def set_warranties
-      @property = Property.find(params[:id])
+      @property = Property.find(params[:property_id])
       @warranties = @property.warranties
       # @warranties = Item.find(params[:iid]).warranties
     end
 
     def set_property
-      @property = Property.find(params[:id])
+      @property = Property.find(params[:property_id])
     end
 
     def set_warranty
-      @warranty = Warranty.find(params[:wid])
+      @warranty = Warranty.find(params[:id])
     end
 end

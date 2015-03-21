@@ -12,12 +12,14 @@ NEEDS
 USERS
 -----
 ####Create a User
+`POST [domain]/users`
 - user
     - email | string
     - password | string
     - password_confirmation | string
 
 ####User sign in
+`POST [domain]/users/sign_in`
 - user
     - email | string 
     - password | string
@@ -101,9 +103,13 @@ is insurance tied to items, or is it tied to properties?
 
 EVENTS
 ------
-
 ####Create an event
 `POST [domain]/properties/[:id]/events`
+- event
+    - name | string
+    - notes | string
+    - event_date | date
+    - event_frequency | integer (this is in seconds (604800 = one week))
 
 ####Delete an event
 `DELETE [domain]/properties/[:id]/events/[:eid]`
@@ -111,6 +117,28 @@ EVENTS
 ####Get all events
 `GET [domain]/properties/[:id]/events`
 
+WARRANTIES
+----------
+####Create a warranty
+`POST [domain]/properties/[:id]/rooms/[:rid]/items/[:iid]/warranties/`
+- warranty
+    - name | string
+    - warranty_number | string
+    - description | string
+    - expiration_date | date
+    - url | string
+    - notes | string
+####Update a warranty
+`PATCH [domain]/properties/[:id]/rooms/[:rid]/items[:iid]/warranties/[:wid]`
+- warranty
+    - name | string
+    - warranty_number | string
+    - description | string
+    - expiration_date | date
+    - url | string
+    - notes | string
+####Delete a warranty
+`DELETE [domain]/properties/[:id]/rooms/[:rid]/items/[:iid]/warranties/[:wid]`
 
 
 
