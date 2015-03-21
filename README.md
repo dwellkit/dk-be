@@ -141,6 +141,13 @@ WARRANTIES
 `DELETE [domain]/properties/[:id]/rooms/[:rid]/items/[:iid]/warranties/[:wid]`
 
 
+ITEMS
+-----
+
+####Get a properites item
+`GET [domain]/properties/items`
+
+
 
 OLD ROUTES BELOW
 ----------------

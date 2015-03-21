@@ -14,7 +14,10 @@ Rails.application.routes.draw do
 
   #REFACTOR
   resources :properties do
-    resources :items, :contacts, :insurances, :events
+    resources :items, :except => [:create, :new, :show]
+    resources :contacts, :insurances, :events
+
+    post 'items', to: 'items#create_property_item'
 
     #PROPERTY IMAGES
     post '/images', to: 'properties#add_image'
@@ -41,6 +44,7 @@ Rails.application.routes.draw do
       resources :items do
         post '/images', to: 'items#add_image'
         get '/images', to: 'items#show_images'
+
         resources :warranties
 
       end

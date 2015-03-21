@@ -23,7 +23,6 @@ class InsurancesController < ApplicationController
   end
 
   def create
-    binding.pry
     @insurance = Insurance.new(insurance_params)
       if @insurance.save!
         if contact_params

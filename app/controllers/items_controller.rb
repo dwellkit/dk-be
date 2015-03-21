@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
 
   before_action :authenticate_user_from_token!
-  before_action :set_property_items, only: [:property_items]
+  before_action :set_property_items, only: [:property_items, :index]
   before_action :set_room_items, only: [:room_items]
   before_action :set_room, only: [:add_room_item]
-  before_action :set_property, only: [:add_room_item, :add_property_item, :add_image]
+  before_action :set_property, only: [:add_room_item, :create_property_item, :add_image]
   before_action :set_item, only: [:destroy, :edit, :add_image, :all_images]
 
 
@@ -17,14 +17,19 @@ class ItemsController < ApplicationController
     render json: { :items => @items }, status: :ok
   end
 
-  def add_room_item
+  def index
+    render json: { :items => @items }, status: :ok
+  end
+
+  def create
     @item = @room.items.new
     @item.update(:property_id => @property.id)
     @item.update( item_params ) #if then render
     render json: { :item => @item }, status: :created
   end
 
-  def add_property_item
+  def create_property_item
+    binding.pry
     @item = @property.items.create( item_params )
     render json: { :item => @item}, status: :created
   end
@@ -95,7 +100,7 @@ class ItemsController < ApplicationController
     end
 
     def set_property
-      @property = Property.find(params[:id])
+      @property = Property.find(params[:property_id])
     end
 
     def item_params
