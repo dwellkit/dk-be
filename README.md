@@ -776,3 +776,36 @@ reponse
 
 ####Add picture to items
 
+`STATUS 201 CREATED`
+from `POST [domain]/properties/:id/rooms/:rid/images`
+
+data for posting picture to items:
+
+
+sample response:
+
+```
+{
+    "image": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/thumb/home.jpg?1426950036"
+}
+```
+
+####Get all pictures associated with a particular item:
+
+`STATUS 200 OK`
+from `GET [domain]/properties/:id/rooms/:rid/images`
+
+sample response:
+```
+{
+    "images"
+        {
+            "thumb": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/thumb/home.jpg?1426950036",
+            "medium": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/medium/home.jpg?1426950036",
+            "large": "http://dwellingkit.s3.amazonaws.com/pictures/images/000/000/019/large/home.jpg?1426950036",
+            "id": 19
+        }
+}
+```
+
+####Add pictures to a particular room
