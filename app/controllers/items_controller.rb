@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_action :set_property_items, only: [:property_items, :index]
   before_action :set_room_items, only: [:room_items]
   before_action :set_room, only: [:add_room_item, :create]
-  before_action :set_property, only: [:add_room_item, :create_property_item, :add_image, :create]
+  before_action :set_property, only: [:add_room_item, :create_property_item, :add_image, :create, :index]
   before_action :set_item, only: [:destroy, :add_image, :all_images, :update]
 
 
@@ -84,7 +84,7 @@ class ItemsController < ApplicationController
     end
 
     def set_property_items
-      @property = Property.find(params[:id])
+      @property = Property.find(params[:property_id])
       @items = @property.items.all
     end
 

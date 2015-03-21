@@ -114,7 +114,7 @@ class PropertiesController < ApplicationController
     end
 
     def set_property
-      @property = Property.find(params[:property_id])
+      @property = Property.find(params[:id])
     end
 
     def edit_property_params

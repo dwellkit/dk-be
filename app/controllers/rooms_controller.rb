@@ -15,7 +15,6 @@ class RoomsController < ApplicationController
   end
 
   def index
-    binding.pry
     if @rooms
       render json: { :rooms => @rooms }, status: :ok
     else
@@ -79,7 +78,7 @@ class RoomsController < ApplicationController
     end
 
     def set_room
-      @room = Room.find(params[:room_id])
+      @room = Room.find(params[:id])
     end
 
     def set_rooms
