@@ -2,9 +2,9 @@ class ContactsController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_contact, only: [:show, :update, :destroy]
   before_action :set_property, only: [:create]
-  before_action :set_property_contacts, only: [:property_contacts]
+  before_action :set_property_contacts, only: [:index]
 
-  def property_contacts
+  def index
     if @contacts
       render json: { :contacts => @contacts}
     else
