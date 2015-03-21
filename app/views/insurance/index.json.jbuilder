@@ -1,6 +1,7 @@
 json.(@insurance, :created_at, :updated_at)
 
 json.insurance do
+  json.id @insurance.id
   json.company @insurance.company
   json.description @insurance.description
   json.policy_number @insurance.policy_number
