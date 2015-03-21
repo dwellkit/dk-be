@@ -5,70 +5,29 @@ This is where the API docs will lie from here on out unless we decide to change
 to somewhere else, but here goes:
 our url for now is here: `https://dwellingkit-api.herokuapp.com`
 
-USERS
------
-
-####Create a User
-`STATUS 201 CREATED`
-from
-`POST [domain]/users`
-
-data:
-```
-{
-    "user": {
-        "email": "test@test.com",
-        "password": "atleast8chars",
-        "password_confirmation": "atleast8chars"
-    }
-}
-```
-
-sample [BODY] response:
-```
-{
-    "user": {
-        "email": "test@test.com",
-        "authentication_token": "gaCEXmumUaZXif9GkQg6"
-    }
-}
-```
-
-
-####User Sign-In
-`STATUS 200 OK`
-from
-`POST [domain]/users/sign_in`
-
-data:
-```
-{
-    "user": {
-        "email": "test@test.com",
-        "password": "atleast8chars"
-    }
-}
-```
-
-sample [BODY] response:
-```
-{
-    "user": {
-        "email": "test@test.com",
-        "authentication_token": "gaCEXmumUaZXif9GkQg6"
-    }
-}
-```
 
 NEEDS
     delete property image @ `properties#delete_image`
 
+USERS
+-----
+####Create a User
+- user
+    - email | string
+    - password | string
+    - password_confirmation | string
+
+####User sign in
+- user
+    - email | string 
+    - password | string
 
 PROPERTIES
 ----------
 ####Create a property
 `POST [domain]/properties`
-+ property[address] | string
+- property
+    - address | string
 
 #####Get a property
 `GET [domain]/properties/[:id]`
@@ -77,15 +36,15 @@ PROPERTIES
 `PATCH [domain]/properties/[:id]`
 - property
     - sqft | integer
-+ property[sqft] | integer
-+ property[lotsize] | integer
-+ property[total_rooms] | integer
-+ property[bedrooms] | integer
-+ property[bathrooms] | float
+    - lotsize | integer
+    - total_rooms | integer
+    - bedrooms | integer
+    - bathrooms | float
 
 ####Reimport a property
 `PATCH [domain]/properties/[:id]`
-+ property[address] | string
+- property
+    - address | string
 
 ####Add image to property
 `POST [domain]/properties/[:id]/images`
@@ -96,15 +55,30 @@ PROPERTIES
 
 ####Add profile pic to property
 `POST [domain]/properties[:id]/profile`
-+ property[profile] | file
+- property
+    - profile | file
 
 ROOMS
 -----
 ####Add a room
 `POST [domain]/properties/[:id]/rooms`
+- room
+    - name | string
+    - sqft | integer
+    - dimensions | string
+    - flooring_type | string
+    - wall_type | string
+    - paint_color | string
 
 ####Edit a room
 `PATCH [domain]/properties/[:id]/rooms/[:rid]`
+- room
+    - name | string
+    - sqft | integer
+    - dimensions | string
+    - flooring_type | string
+    - wall_type | string
+    - paint_color | string
 
 ####Delete a room
 `DELETE [domain]/properties/[:id]/rooms/[:rid]`
@@ -142,319 +116,6 @@ EVENTS
 
 OLD ROUTES BELOW
 ----------------
-
-
-###Get users properties
-`STATUS 200 OK`
-from
-`GET [domain]/user/info`
-
-returns user email and all properties associated with account
-
-####Get a specific property
-`STATUS 200 OK`
-from
-`GET [domain]/properties/[:id]`
-
-
-####Add a Property
-`STATUS 200 OK`
-from
-`POST [domain]/properties/add`
-
-NOTE: If was unable to locate property will return
-`STATUS 304 NOT MODIFIED`
-
-data:
-```
-{
-    "property": {
-        "address": "2210 12th street nw washington dc 20009"
-    }
-}
-```
-
-sample [BODY] response:
-```
-{
-    "created_at": "2015-03-15T21:30:58.087Z",
-    "updated_at": "2015-03-15T21:30:58.087Z",
-    "property": {
-        "image": {
-            "thumb": "/images/thumb/missing.png",
-            "medium": "/images/medium/missing.png",
-            "large": "/images/large/missing.png"
-        },
-        "id": 2,
-        "lotsize": 1124,
-        "sqft": 0,
-        "yearbuilt": 1890,
-        "total_rooms": null,
-        "bedrooms": 3,
-        "bathrooms": 2.5,
-        "actual_rooms": 0,
-        "address": {
-            "street_address": "2210 12th St, Washington, DC 20009"
-        },
-        "rooms": [
-            {
-                "id": 7,
-                "name": "Bedroom 1",
-                "sqft": null,
-                "dimensions": null,
-                "flooring_type": null,
-                "paint_color": null,
-                "items": []
-            },
-            {
-                "id": 8,
-                "name": "Bedroom 2",
-                "sqft": null,
-                "dimensions": null,
-                "flooring_type": null,
-                "paint_color": null,
-                "items": []
-            },
-            {
-                "id": 9,
-                "name": "Bedroom 3",
-                "sqft": null,
-                "dimensions": null,
-                "flooring_type": null,
-                "paint_color": null,
-                "items": []
-            },
-            {
-                "id": 10,
-                "name": "Bathroom 1",
-                "sqft": null,
-                "dimensions": null,
-                "flooring_type": null,
-                "paint_color": null,
-                "items": []
-            },
-            {
-                "id": 11,
-                "name": "Bathroom 2",
-                "sqft": null,
-                "dimensions": null,
-                "flooring_type": null,
-                "paint_color": null,
-                "items": []
-            },
-            {
-                "id": 12,
-                "name": "Bathroom 3",
-                "sqft": null,
-                "dimensions": null,
-                "flooring_type": null,
-                "paint_color": null,
-                "items": []
-            }
-        ],
-        "items": []
-    }
-}
-```
-
-####Edit or Verify a Property
-`STATUS 200 OK`
-from
-`PATCH [domain]/properties/[:id]`
-
-NOTE: If was unable to edit property will return
-`STATUS 304 NOT MODIFIED`
-
-data:
-```
-{
-    "property": {
-        "sqft": 100,
-        "lotsize": 1000,
-        "total_rooms": 9,
-        "bedrooms": 4,
-        "bathrooms": 3,
-        "street_address": "2 Main Street",
-        "city": "Portland",
-        "state": "OR",
-        "zipcode": "23814",
-        "updated_at": "2015-03-10T21:12:47.395Z"
-    }
-}
-```
-
-sample [BODY] response:
-```
-{
-    "property": {
-        "id": 10,
-        "created_at": "2015-03-10T21:12:36.270Z",
-        "rooms": [],
-        "sqft": 100,
-        "lotsize": 1000,
-        "total_rooms": 9,
-        "bedrooms": 4,
-        "bathrooms": 3,
-        "street_address": "2 Main Street",
-        "city": "Portland",
-        "state": "OR",
-        "zipcode": "23814",
-        "updated_at": "2015-03-10T21:12:47.395Z"
-    }
-}
-```
-
-####Reimport a property
-Note: This overwrites users existing property information
-will do this better later so user can choose if he wants
-to import
-`STATUS 200 OK`
-from
-`PATCH [domain]/properties/[:id]/reimport`
-
-NOTE: If was unable to edit property will return
-`STATUS 304 NOT MODIFIED`
-
-data:
-```
-{
-    "property": {
-        "street_address": "2 Main Street",
-        "city": "Portland",
-        "state": "OR",
-        "zipcode": "23814"
-    }
-}
-```
-
-sample [BODY] response:
-```
-{
-    "property": {
-        "id": 10,
-        "created_at": "2015-03-10T21:12:36.270Z",
-        "rooms": [],
-        "sqft": 100,
-        "lotsize": 1000,
-        "total_rooms": 9,
-        "bedrooms": 4,
-        "bathrooms": 3,
-        "street_address": "2 Main Street",
-        "city": "Portland",
-        "state": "OR",
-        "zipcode": "23814",
-        "updated_at": "2015-03-10T21:12:47.395Z"
-    }
-}
-```
-
-####Add a profile pic to property
-`STATUS 201 CREATED`
-from
-`POST [domain]/properties/[:id]/pic`
-
-Just need to send an image file under 2mb.
-Server will reformat the picture in these sizes
-```
-:large => "800x800",
-:medium => "300x300>",
-:thumb => "100x100>" 
-```
-
-if you ever want to get a picture and get this:
-`/images/:size/missing.png`
-picture was never added or an internal error occured
-
-ROOMS
------
-NOTE: requires a property id
-
-####Add a Room
-`STATUS 201 CREATED`
-from
-`POST [domain]/properties/[:id]/rooms`
-
-data:
-```
-{
-    "room": {
-        "name": "test room",
-        "sqft": null,
-        "dimensions": null,
-        "flooring_type": null,
-        "wall_type": null,
-        "paint_color": null
-    }
-}
-```
-
-sample [BODY] response:
-```
-{
-    "room": {
-        "id": 34,
-        "name": "test room",
-        "sqft": null,
-        "dimensions": null,
-        "flooring_type": null,
-        "wall_type": null,
-        "paint_color": null,
-        "created_at": "2015-03-11T01:57:51.793Z",
-        "updated_at": "2015-03-11T01:57:51.793Z",
-        "property_id": 15
-    }
-}
-```
-
-####Edit a room
-`STATUS 200 OK`
-from
-`PATCH [domain]/properties/[:id]/rooms/[:rid]`
-
-data:
-```
-{
-    "room": {
-        "name": "test room",
-        "sqft": null,
-        "dimensions": null,
-        "flooring_type": null,
-        "wall_type": null,
-        "paint_color": null
-    }
-}
-```
-
-sample [BODY] response:
-```
-{
-    "room": {
-        "id": 34,
-        "name": "test room",
-        "sqft": null,
-        "dimensions": null,
-        "flooring_type": null,
-        "wall_type": null,
-        "paint_color": null,
-        "created_at": "2015-03-11T01:57:51.793Z",
-        "updated_at": "2015-03-11T01:57:51.793Z",
-        "property_id": 15
-    }
-}
-```
-
-####Delete a room
-`STATUS 200 OK`
-from
-`DELETE [domain]/properties/[:id]/rooms/[:rid]`
-
-sample [BODY] response:
-```
-{
-    "message": "35 - Guest Bedroom Removed"
-}
-```
-
 ITEMS
 -----
 
