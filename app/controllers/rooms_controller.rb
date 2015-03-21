@@ -5,12 +5,19 @@ class RoomsController < ApplicationController
 
 
   def create
-    binding.pry
     @room = @property.rooms.new
     if @room.update( room_params )
       render json: { :room => @room }, status: :created
     else
       render json: { :error => "Could not update room" }, status: :not_modified
+    end
+  end
+
+  def index
+    if @rooms
+      render json: { :rooms => @rooms }, status: :ok
+    else
+      render json: { :error => "Could not find room" }, status: :not_found
     end
   end
 
@@ -61,21 +68,25 @@ class RoomsController < ApplicationController
 
   private
 
-  def image_params
-    params.require(:room).permit(:image)
-  end
+    def image_params
+      params.require(:room).permit(:image)
+    end
 
-  def room_params
-    params.require(:room).permit(:name, :sqft, :dimensions, :flooring_type, :wall_type,
-                                 :paint_color)
-  end
+    def room_params
+      params.require(:room).permit(:name, :sqft, :dimensions, :flooring_type, :wall_type,
+                                   :paint_color)
+    end
 
-  def set_room
-    @room = Room.find(params[:id])
-  end
+    def set_room
+      @room = Room.find(params[:id])
+    end
 
-  def set_property
-    @property = Property.find(params[:property_id])
-    binding.pry
-  end
+    def set_rooms
+      @rooms = Property.find(params[:property_id]).rooms
+    end
+
+    def set_property
+      @property = Property.find(params[:property_id])
+      binding.pry
+    end
 end
