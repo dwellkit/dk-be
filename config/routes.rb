@@ -14,7 +14,13 @@ Rails.application.routes.draw do
 
   #REFACTOR
   resources :properties do
-    resources :items, :except => [:create, :new, :show] do 
+    post '/pic', to: 'properties#pic'
+    post '/pictures', to: 'pictures#add_property_image'
+
+    resources :items, :except => [:create, :new, :show] do
+
+      #ADD ITEM PICTURES
+      post '/pictures', to: 'pictures#add_item_image'
       resources :warranties
     end
     resources :contacts, :insurances, :events, :warranties, :contacts
@@ -29,7 +35,7 @@ Rails.application.routes.draw do
     patch '/reimport', to: 'properties#reimport'
 
     #PROFILE PIC
-    post '/:id/profile', to: 'properties#pic'
+    # post '/:id/profile', to: 'properties#pic'
 
 
     #ITEM IMAGES
@@ -39,7 +45,7 @@ Rails.application.routes.draw do
     resources :rooms do
 
       #ROOM IMAGES
-      post '/images', to: 'rooms#add_images'
+      post '/images', to: 'pictures#add_room_image'
       get '/images', to: 'rooms#show_images'
 
       resources :items do

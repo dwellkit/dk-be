@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_property, only: [:edit, :reimport, :destroy, :pic, :show, :edit, :update, :add_image, :show_images]
+  before_action :set_property, only: [:edit, :reimport, :destroy, :show, :edit, :update, :add_image, :show_images]
+  before_action :set_property_pic, only: [:pic]
 
 
   def index
@@ -73,6 +74,7 @@ class PropertiesController < ApplicationController
 
 
   def pic
+    binding.pry
     if @property.update( pic_params )
       render json: { :pic => @property.profile.url(:medium)}
     else
@@ -102,7 +104,7 @@ class PropertiesController < ApplicationController
   private
 
     def image_params
-      params.require(:property).permit(:image)
+      params.require(:file).permit(:image)
     end
 
     def pic_params
@@ -115,6 +117,10 @@ class PropertiesController < ApplicationController
 
     def set_property
       @property = Property.find(params[:id])
+    end
+
+    def set_property_pic
+      @property = Property.find(params[:property_id])
     end
 
     def edit_property_params

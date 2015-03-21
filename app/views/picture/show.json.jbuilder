@@ -1,5 +1,5 @@
 
-json.images @pictures.each do |picture|
+json.image do
   json.id picture.id
   json.thumb picture.image.url(:thumb)
   json.medium picture.image.url(:medium)
