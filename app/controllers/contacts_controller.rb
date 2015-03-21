@@ -2,15 +2,7 @@ class ContactsController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_contact, only: [:show, :update, :destroy]
   before_action :set_property, only: [:create]
-  before_action :set_property_contacts, only: [:property_contacts, :index]
-
-  def property_contacts
-    if @contacts
-      render json: { :contacts => @contacts}
-    else
-      render json: {:error => "Unable to find contact" }, status: :unprocessable_entity
-    end
-  end
+  before_action :set_property_contacts, only: [:index]
 
   def index
     if @contacts
