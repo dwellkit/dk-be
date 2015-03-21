@@ -42,7 +42,6 @@ class ItemsController < ApplicationController
   end
 
   def add_image
-    binding.pry
     @picture = @item.pictures.new( image_params )
     @picture.update(:item_id => @item.id)
     if @picture.update_attribute(:picturable, @item)
@@ -54,7 +53,7 @@ class ItemsController < ApplicationController
 
   def all_images
     if @pictures = @item.pictures.all
-      render json: { :images => @pictures }
+      render "item/images.json.jbuilder", status: :ok
     else
       render json: { :error => "Couldn't find the Room's pictures"}
     end
