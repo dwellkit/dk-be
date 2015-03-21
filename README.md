@@ -68,24 +68,33 @@ PROPERTIES
 ----------
 ####Create a property
 `POST [domain]/properties`
++ property[address] | string
 
 #####Get a property
 `GET [domain]/properties/[:id]`
 
 ####Edit a property
 `PATCH [domain]/properties/[:id]`
++ property[sqft] | integer
++ property[lotsize] | integer
++ property[total_rooms] | integer
++ property[bedrooms] | integer
++ property[bathrooms] | float
 
 ####Reimport a property
 `PATCH [domain]/properties/[:id]`
++ property[address] | string
 
 ####Add image to property
 `POST [domain]/properties/[:id]/images`
+(ian)
 
 ####Delete a property image
 `DELETE [domain]/properties/[:id]/images/[:image_id]`
 
 ####Add profile pic to property
 `POST [domain]/properties[:id]/profile`
++ property[profile] | file
 
 ROOMS
 -----
@@ -129,7 +138,8 @@ EVENTS
 
 
 
-
+OLD ROUTES BELOW
+----------------
 
 
 ###Get users properties

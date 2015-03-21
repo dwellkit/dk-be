@@ -34,7 +34,7 @@ class PropertiesController < ApplicationController
   end
 
   def update
-    if @property.update( property_params )
+    if @property.update( edit_property_params )
       render json: { :property => @property}, status: :created
     else
       render json: { :error => "Unable to edit property"}, status: :not_modified
@@ -108,7 +108,7 @@ class PropertiesController < ApplicationController
 
     def edit_property_params
       params.require(:property).permit(:sqft, :lotsize, :totalrooms, :bedrooms,
-                                       :bathrooms, :street_address, :zipcode, :city, :state)
+                                       :bathrooms)
     end
 
     def property_params
