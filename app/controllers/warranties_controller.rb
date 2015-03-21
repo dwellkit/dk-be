@@ -26,7 +26,7 @@ class WarrantiesController < ApplicationController
   def create
     @warranty = @property.warranties.create
     if params[:item_id]
-      @warranty.update(:item_id => params[:iid])
+      @warranty.update(:item_id => params[:item_id])
     end
     if @warranty.update(warranty_params)
       if contact_params
@@ -34,18 +34,9 @@ class WarrantiesController < ApplicationController
         @contact.update_attribute(:reachable, @warranty)
         @contact.update(:warranty_id => @warranty.id)
       end
-      render json: { warranty: @warranty }, status: :created
+      render "warranty/index.json.jbuilder", status: :ok
     else
       render json: { :error => "Unable to create Warranty" }, status: :not_modified
-    end
-  end
-
-  def add_warranty
-    if @contact
-      @contact.update_attribute(:reachable, @warranty)
-      render "warranty/index.json.jbuilder", status: :accepted
-    else
-      render json: {:error => "Unable to add contact" }, status: :not_modified
     end
   end
 
