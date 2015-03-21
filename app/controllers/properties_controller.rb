@@ -1,9 +1,14 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_property, only: [:edit, :reimport, :destroy, :pic, :show, :edit, :add_image, :show_image]
+  before_action :set_property, only: [:edit, :reimport, :destroy, :pic, :show, :edit, :update, :add_image, :show_images]
 
 
   def index
+    if @properties = current_user.properties
+      render json: { :properties => @properties }, status: :ok
+    else
+      render json: { :error => "Unable to find property"}, status: :not_modified
+    end
   end
 
   def show
@@ -59,6 +64,11 @@ class PropertiesController < ApplicationController
   end
 
   def destroy
+    if @property.destroy!
+      render json: { :message => 'Your property has been removed' }
+    else
+      render json: { :error => 'Property could not be deleted' }
+    end
   end
 
 
@@ -80,7 +90,7 @@ class PropertiesController < ApplicationController
     end
   end
 
-  def show_image
+  def show_images
     if @pictures = @property.pictures.all
       render json: { :images => @pictures }
     else
@@ -104,12 +114,12 @@ class PropertiesController < ApplicationController
     end
 
     def set_property
-      @property = Property.find(params[:id])
+      @property = Property.find(params[:property_id])
     end
 
     def edit_property_params
       params.require(:property).permit(:sqft, :lotsize, :totalrooms, :bedrooms,
-                                       :bathrooms)
+                                       :bathrooms, :actual_rooms_count)
     end
 
     def property_params
