@@ -1,7 +1,8 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_room, only: [:update, :destroy, :add_image, :all_images]
-  before_action :set_property, only: [:create, :add_image, :all_images]
+  before_action :set_room, only: [:update, :destroy, :add_images, :show_images]
+  before_action :set_property, only: [:create, :add_images, :show_images, :index]
+  before_action :set_rooms, only: [:index]
 
 
   def create
@@ -14,6 +15,7 @@ class RoomsController < ApplicationController
   end
 
   def index
+    binding.pry
     if @rooms
       render json: { :rooms => @rooms }, status: :ok
     else
@@ -37,7 +39,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  def add_image
+  def add_images
     @picture = @room.pictures.new( image_params )
     @picture.update(:room_id => @room.id)
     if @picture.update_attribute(:picturable, @room)
@@ -47,17 +49,17 @@ class RoomsController < ApplicationController
     end
   end
 
-  def all_images
-    @pictures = Picture.where(:room_id => @room.id)
-    if @pictures
-      render "room/images.json.jbuilder", status: :ok
-    else
-      render json: { :error => "Couldn't find the Room's pictures"}
-    end
-  end
+  # def all_images
+  #   @pictures = Picture.where(:room_id => @room.id)
+  #   if @pictures
+  #     render "room/images.json.jbuilder", status: :ok
+  #   else
+  #     render json: { :error => "Couldn't find the Room's pictures"}
+  #   end
+  # end
 
-  def show_image
-    @picture = Picture.find(params[:xid])
+  def show_images
+    @picture = Picture.where(:room_id => @room.id)
     if @picture
       render json: { :image => @picture }, status: :ok
     else
@@ -77,7 +79,7 @@ class RoomsController < ApplicationController
     end
 
     def set_room
-      @room = Room.find(params[:id])
+      @room = Room.find(params[:room_id])
     end
 
     def set_rooms

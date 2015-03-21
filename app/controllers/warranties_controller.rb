@@ -5,6 +5,7 @@ class WarrantiesController < ApplicationController
   before_action :set_warranty, only: [:show, :update, :add_contact, :delete]
   before_action :set_contact, only: [:add_warranty]
   before_action :set_property, only: [:create]
+  before_action :set_warranties, only: [:index]
 
   def index
     if @warranties

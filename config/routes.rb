@@ -22,7 +22,6 @@ Rails.application.routes.draw do
     #PROPERTY IMAGES
     post '/images', to: 'properties#add_image'
     get '/images', to: 'properties#show_images'
-    delete '/images/:image_id', to: 'properties#delete_image'
 
     #REIMPORT PROPERTY
     patch '/reimport', to: 'properties#reimport'
