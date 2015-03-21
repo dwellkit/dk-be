@@ -2,7 +2,7 @@ class WarrantiesController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_warranties, only: [:index]
   before_action :set_item, only: [:show, :create, :add_contact]
-  before_action :set_warranty, only: [:show, :update, :add_contact, :delete]
+  before_action :set_warranty, only: [:show, :update, :add_contact, :destroy]
   before_action :set_contact, only: [:add_warranty]
   before_action :set_property, only: [:create]
   before_action :set_warranties, only: [:index]
@@ -48,7 +48,7 @@ class WarrantiesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     if @warranty.destroy!
       render json: { :message => "#{@warranty.id} - #{@warranty.name} Removed"}, status: :ok
     else
