@@ -4,8 +4,8 @@ class ItemsController < ApplicationController
   before_action :set_property_items, only: [:property_items]
   before_action :set_room_items, only: [:room_items]
   before_action :set_room, only: [:add_room_item]
-  before_action :set_property, only: [:add_room_item, :add_property_item]
-  before_action :set_item, only: [:destroy, :edit]
+  before_action :set_property, only: [:add_room_item, :add_property_item, :add_image]
+  before_action :set_item, only: [:destroy, :edit, :add_image, :all_images]
 
 
 
@@ -35,15 +35,46 @@ class ItemsController < ApplicationController
     else
       render json: { :error => "There was an error deleting the item"}, status: :not_modified
     end
-
   end
 
   def edit
     @item.update( item params ) #if then render
   end
 
+  def add_image
+    binding.pry
+    @picture = @item.pictures.new( image_params )
+    @picture.update(:item_id => @item.id)
+    if @picture.update_attribute(:picturable, @item)
+      render json: { :image => @picture.image.url(:thumb) }, status: :created
+    else
+      render json: { :error => "Couldn't add image" }, status: :not_modified
+    end
+  end
+
+  def all_images
+    if @pictures = @item.pictures.all
+      render json: { :images => @pictures }
+    else
+      render json: { :error => "Couldn't find the Room's pictures"}
+    end
+  end
+
+  def show_image
+    @picture = Picture.find(params[:xid])
+    if @picture
+      render json: { :image => @picture }, status: :ok
+    else
+      render json: { :error => "Couldn't find the picture"}
+    end
+  end
+
 
   private
+
+    def image_params
+      params.require(:item).permit(:image)
+    end
 
     def set_property_items
       @property = Property.find(params[:id])
@@ -56,11 +87,11 @@ class ItemsController < ApplicationController
     end
 
     def set_room
-      @room = Room.find(params[:rid])
+      @room = Room.find(params[:room_id])
     end
 
     def set_item
-      @item = Item.find(params[:iid])
+      @item = Item.find(params[:image_id])
     end
 
     def set_property

@@ -60,8 +60,49 @@ sample [BODY] response:
 }
 ```
 
+NEEDS
+    delete property image @ `properties#delete_image`
+
+
 PROPERTIES
 ----------
+####Create a property
+`POST [domain]/properties`
+
+#####Get a property
+`GET [domain]/properties/[:id]`
+
+####Edit a property
+`PATCH [domain]/properties/[:id]`
+
+####Reimport a property
+`PATCH [domain]/properties/[:id]`
+
+####Add image to property
+`POST [domain]/properties/[:id]/images`
+
+####Delete a property image
+`DELETE [domain]/properties/[:id]/images/[:image_id]`
+
+####Add profile pic to property
+`POST [domain]/properties[:id]/profile`
+
+ROOMS
+-----
+####Add a room
+`POST [domain]/properties/[:id]/rooms`
+
+####Edit a room
+`PATCH [domain]/properties/[:id]/rooms/[:rid]`
+
+####Delete a room
+`DELETE [domain]/properties/[:id]/rooms/[:rid]`
+
+
+
+
+
+
 ###Get users properties
 `STATUS 200 OK`
 from
