@@ -15,15 +15,16 @@ class InsurancesController < ApplicationController
   end
 
   def show
-      if @insurance
-        render "insurance/index.json.jbuilder", status: :ok
-      else
-        render json: { :error => "Unable to find policies" }, status: :unprocessable_entity
+    if @insurance
+      render "insurance/index.json.jbuilder", status: :ok
+    else
+      render json: { :error => "Unable to find policies" }, status: :unprocessable_entity
     end
   end
 
   def create
-    @insurance = @item.insurances.new(insurance_params)
+    binding.pry
+    @insurance = Insurance.new(insurance_params)
       if @insurance.save!
         if contact_params
           @contact = @insurance.contacts.new(contact_params)

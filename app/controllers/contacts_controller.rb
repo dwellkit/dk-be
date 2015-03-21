@@ -50,12 +50,12 @@ class ContactsController < ApplicationController
   private
 
   def set_property_contacts
-      @property = Property.find(params[:id])
+      @property = Property.find(params[:property_id])
       @contacts = @property.contacts.all
   end
 
   def set_property
-    @property = Property.find(params[:id])
+    @property = Property.find(params[:property_id])
   end
 
   def contact_params
@@ -63,7 +63,7 @@ class ContactsController < ApplicationController
   end
 
   def set_contact
-    @contact = Contact.find(params[:cid])
+    @contact = Contact.find(params[:id])
   end
 end
 

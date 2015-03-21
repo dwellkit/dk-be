@@ -1,23 +1,17 @@
 class EventsController < ApplicationController
   before_action :authenticate_user_from_token!
-  before_action :set_events, only: [:show]
+  before_action :set_events, only: [:index]
   before_action :set_event, only: [:destroy]
 
   def create
-    # via: https://github.com/mperham/sidekiq/wiki/Scheduled-Jobs
     @event = current_user.events.create(event_params)
-    EventNotifyJob.set(wait_until: @event.event_date - 5.days).perform_later(@event, 'soon')
-    EventNotifyJob.set(wait_until: @event.event_date - 1.day).perform_later(@event, 'imminent')
-    EventNotifyJob.set(wait_until: @event.event_date).perform_later(@event, 'day_of')
+    # EventNotifyJob.set(wait_until: @event.event_date - 5.days).perform_later(@event, 'soon')
+    # EventNotifyJob.set(wait_until: @event.event_date - 1.day).perform_later(@event, 'imminent')
+    # EventNotifyJob.set(wait_until: @event.event_date).perform_later(@event, 'day_of')
     render json: { :event => @event }
   end
 
-  def email
-    EventMailer.event_email(current_user).deliver_now
-    render json: { :message => "Email has been sent" }, status: :ok
-  end
-
-  def show
+  def index
     if @events
       render json: { :events => @events }, status: :ok
     else
@@ -44,7 +38,7 @@ class EventsController < ApplicationController
     end
 
     def set_event
-      @event = Event.find(params[:eid])
+      @event = Event.find(params[:id])
     end
 
 end

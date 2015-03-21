@@ -98,6 +98,35 @@ ROOMS
 ####Delete a room
 `DELETE [domain]/properties/[:id]/rooms/[:rid]`
 
+CONTACTS
+--------
+####Create a contact
+`POST [domain]/properties/[:id]/contacts`
+
+####Edit a contact
+`PATCH [domain]/properties/[:id]/contacts/[:cid]`
+
+####Delete a contact
+`DELETE [domain]/properties/[:id]/contacts/[:cid]`
+
+INSURANCE
+---------
+####team needs to talk about this one
+is insurance tied to items, or is it tied to properties?
+
+EVENTS
+------
+
+####Create an event
+`POST [domain]/properties/[:id]/events`
+
+####Delete an event
+`DELETE [domain]/properties/[:id]/events/[:eid]`
+
+####Get all events
+`GET [domain]/properties/[:id]/events`
+
+
 
 
 
