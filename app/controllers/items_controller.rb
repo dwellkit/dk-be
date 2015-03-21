@@ -3,9 +3,9 @@ class ItemsController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_property_items, only: [:property_items, :index]
   before_action :set_room_items, only: [:room_items]
-  before_action :set_room, only: [:add_room_item]
-  before_action :set_property, only: [:add_room_item, :create_property_item, :add_image]
-  before_action :set_item, only: [:destroy, :edit, :add_image, :all_images]
+  before_action :set_room, only: [:add_room_item, :create]
+  before_action :set_property, only: [:add_room_item, :create_property_item, :add_image, :create]
+  before_action :set_item, only: [:destroy, :add_image, :all_images, :update]
 
 
 
@@ -17,6 +17,14 @@ class ItemsController < ApplicationController
     render json: { :items => @items }, status: :ok
   end
 
+  def update
+    if @item.update( item_params )
+      render json: { :item => @item }, status: :ok
+    else
+      render json: { :error => "Unable to update item"}, status: :not_found
+    end
+  end
+
   def index
     render json: { :items => @items }, status: :ok
   end
@@ -24,12 +32,11 @@ class ItemsController < ApplicationController
   def create
     @item = @room.items.new
     @item.update(:property_id => @property.id)
-    @item.update( item_params ) #if then render
+    @item.update( item_params )
     render json: { :item => @item }, status: :created
   end
 
   def create_property_item
-    binding.pry
     @item = @property.items.create( item_params )
     render json: { :item => @item}, status: :created
   end
@@ -40,10 +47,6 @@ class ItemsController < ApplicationController
     else
       render json: { :error => "There was an error deleting the item"}, status: :not_modified
     end
-  end
-
-  def edit
-    @item.update( item params ) #if then render
   end
 
   def add_image
@@ -95,7 +98,7 @@ class ItemsController < ApplicationController
     end
 
     def set_item
-      @item = Item.find(params[:image_id])
+      @item = Item.find(params[:id])
     end
 
     def set_property
