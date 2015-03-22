@@ -102,7 +102,6 @@ class PropertiesController < ApplicationController
 
 
   private
-
     def image_params
       params.require(:file).permit(:image)
     end
@@ -131,5 +130,4 @@ class PropertiesController < ApplicationController
     def property_params
       params.require(:property).permit(:street_address, :city, :zipcode, :state)
     end
-
 end

@@ -2,7 +2,7 @@ class PicturesController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :set_item, :only => [:add_item_image]
   before_action :set_room, :only => [:add_room_image]
-  before_action :set_property, :only => [:add_property_image]
+  before_action :set_property, :only => [:add_property_image, :add_item_image, :add_room_image]
   before_action :set_picture, :only => [:destroy]
 
   def destroy
@@ -16,6 +16,7 @@ class PicturesController < ApplicationController
   def add_item_image
     @picture = @item.pictures.new( image_params )
     @picture.update(:item_id => @item.id)
+    @picture.update(:property_id => @property.id)
     if @picture.update_attribute(:picturable, @item)
       render json: { :image => @picture.image.url(:thumb) }, status: :created
     else
@@ -26,6 +27,7 @@ class PicturesController < ApplicationController
   def add_room_image
     @picture = @room.pictures.new( image_params )
     @picture.update(:room_id => @room.id)
+    @picture.update(:property_id => @property.id)
     if @picture.update_attribute(:picturable, @room)
       render json: { :image => @picture.image.url(:thumb) }, status: :created
     else
@@ -45,9 +47,8 @@ class PicturesController < ApplicationController
 
 
   private
-
     def image_params
-      params.require(:file).permit(:image)
+      params.require(:file).permit(:image, :name)
     end
 
     def set_picture
@@ -65,5 +66,4 @@ class PicturesController < ApplicationController
     def set_property
       @property = Property.find(params[:property_id])
     end
-
 end
