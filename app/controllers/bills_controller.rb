@@ -16,4 +16,8 @@ class BillsController < ApplicationController
       params.require(:bill).permit(:month, :bill_type, :amount_due)
     end
 
+    def set_property
+      @property = Property.find(params[:property_id])
+    end
+
 end

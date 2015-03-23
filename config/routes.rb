@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       #ADD ITEM PICTURES
       post '/pictures', to: 'pictures#add_item_image'
       resources :warranties
-      
+
     end
     resources :contacts, :insurances, :events, :warranties, :contacts
 
@@ -31,6 +31,9 @@ Rails.application.routes.draw do
     #ITEM IMAGES
     post 'items/:item_id/images', to: 'items#add_image'
     get 'items/:item_id/images', to: 'items#show_images'
+
+    #BILLS
+    get '/bills', to: 'bills#index'
 
     resources :rooms do
 
