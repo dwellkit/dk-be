@@ -9,6 +9,7 @@ class Property < ActiveRecord::Base
   has_many :pictures, as: :picturable
   has_many :contacts, as: :reachable
   has_many :events
+  has_many :bills
   #GENERATE MODEL DIAGRAM:
   # `bundle exec erd`
 
