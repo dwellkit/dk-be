@@ -26,7 +26,8 @@ class ItemsController < ApplicationController
   end
 
   def index
-    render json: { :items => @items }, status: :ok
+    # render json: { :items => @items }, status: :ok
+    render "item/index.json.jbuilder", status: :ok
   end
 
   def create
