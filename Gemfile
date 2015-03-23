@@ -27,6 +27,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #require httparty for zillow
 gem 'httparty'
 
+#sucker punch for a heroku workaround
+gem 'sucker_punch', '~> 1.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -55,7 +58,6 @@ gem 'aws-sdk', '< 2.0'
 gem 'figaro'
 
 # Use sidekiq for bg jobs
-gem 'sidekiq'
 
 gem 'redis'
 
