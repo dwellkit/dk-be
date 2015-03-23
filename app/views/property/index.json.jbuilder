@@ -32,7 +32,8 @@ json.property do
     json.dimensions room.dimensions
     json.flooring_type room.flooring_type
     json.paint_color room.paint_color
-    json.pictures room.picture.each do |picture|
+
+    json.pictures room.pictures.each do |picture|
       json.id picture.id
       json.thumb picture.image.url(:thumb)
       json.medium picture.image.url(:medium)
