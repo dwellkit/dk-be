@@ -1,4 +1,4 @@
-json.times @items.each do |item|
+json.items @items.each do |item|
   json.id item.id
   json.name item.name
   json.category item.category
