@@ -43,12 +43,14 @@ json.property do
     json.items room.items do |item|
       json.id item.id
       json.name item.name
+      json.price item.price
     end
   end
   json.items @property.items do |item|
+    json.id item.id
     json.name item.name
     json.category item.category
     json.serial_number item.serial_number
-    json.id item.id
+    json.price item.price
   end
 end
