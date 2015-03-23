@@ -58,7 +58,6 @@ gem 'aws-sdk', '< 2.0'
 gem 'figaro'
 
 # Use sidekiq for bg jobs
-gem 'sidekiq'
 
 gem 'redis'
 
