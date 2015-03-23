@@ -33,15 +33,24 @@ json.property do
     json.flooring_type room.flooring_type
     json.paint_color room.paint_color
 
+    json.pictures room.pictures.each do |picture|
+      json.id picture.id
+      json.thumb picture.image.url(:thumb)
+      json.medium picture.image.url(:medium)
+      json.large picture.image.url(:large)
+    end
+
     json.items room.items do |item|
       json.id item.id
       json.name item.name
+      json.price item.price
     end
   end
   json.items @property.items do |item|
+    json.id item.id
     json.name item.name
     json.category item.category
     json.serial_number item.serial_number
-    json.id item.id
+    json.price item.price
   end
 end
