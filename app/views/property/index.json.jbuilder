@@ -52,5 +52,12 @@ json.property do
     json.category item.category
     json.serial_number item.serial_number
     json.price item.price
+  
+    json.pictures item.pictures.each do |picture|
+      json.id picture.id
+      json.thumb picture.image.url(:thumb)
+      json.medium picture.image.url(:medium)
+      json.large picture.image.url(:large)
+    end
   end
 end
