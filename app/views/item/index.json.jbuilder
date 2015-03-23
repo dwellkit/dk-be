@@ -6,7 +6,7 @@ json.times @items.each do |item|
   json.serial_number item.serial_number
   json.price item.price
   json.condition item.condition
-  json.pictures @items.pictures.each do |picture|
+  json.pictures item.pictures.each do |picture|
     json.thumb picture.image.url(:thumb)
     json.medium picture.image.url(:medium)
     json.large picture.image.url(:large)
