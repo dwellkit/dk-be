@@ -7,10 +7,9 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.create(event_params)
     @event.update(:property_id => @property.id)
-    binding.pry
-    EventEmailerJob.set(wait_until: @event.event_date - 5.days).perform_later(@event, 'soon')
-    EventEmailerJob.set(wait_until: @event.event_date - 1.day).perform_later(@event, 'imminent')
-    EventEmailerJob.set(wait_until: @event.event_date).perform_later(@event, 'day_of')
+    # EventNotifyJob.set(wait_until: @event.event_date - 5.days).perform_later(@event, 'soon')
+    # EventNotifyJob.set(wait_until: @event.event_date - 1.day).perform_later(@event, 'imminent')
+    # EventNotifyJob.set(wait_until: @event.event_date).perform_later(@event, 'day_of')
     render json: { :event => @event }
   end
 
