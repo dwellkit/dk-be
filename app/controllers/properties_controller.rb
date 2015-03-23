@@ -74,7 +74,6 @@ class PropertiesController < ApplicationController
 
 
   def pic
-    binding.pry
     if @property.update( pic_params )
       render json: { :pic => @property.profile.url(:medium)}
     else
