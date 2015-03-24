@@ -45,12 +45,12 @@ class Property < ActiveRecord::Base
     end
     kitchen = self.rooms.create(:name => "Kitchen")
     kitchen.items.create(:name => "Oven", :category => "Appliances")
-    kitchen.items.create(:name => "Refridgerator", :category => "Appliances")
+    kitchen.items.create(:name => "Refrigerator", :category => "Appliances")
     kitchen.items.create(:name => "Stove", :category => "Appliances")
-
   end
 
   def create_items
     self.items.create(:name => "Roof", :category => "Architectural")
+    self.items.create(:name => "Exterior Siding", :category => "Architectural")
   end
 end
