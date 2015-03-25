@@ -39,7 +39,6 @@ class RoomsController < ApplicationController
   end
 
   def add_images
-    binding.pry
     @picture = @room.pictures.new( image_params )
     @picture.update(:room_id => @room.id)
     if @picture.update_attribute(:picturable, @room)
