@@ -27,6 +27,7 @@ class WarrantiesController < ApplicationController
     @warranty = @property.warranties.create
     if params[:item_id]
       @warranty.update(:item_id => params[:item_id])
+      Item.find(params[:item_id]).update(:warranty_id => @warranty.id)
     end
     if @warranty.update(warranty_params)
       if contact_params
