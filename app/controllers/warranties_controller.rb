@@ -59,8 +59,7 @@ class WarrantiesController < ApplicationController
 
   private
     def warranty_params
-      params.require(:warranty).permit(:name, :warranty_number, :description, :expiration_date, :url, :notes)
-    end
+      params.require(:warranty).permit(:name, :warranty_number, :description, :expiration_date, :url, :notes, :item_id)    end
 
     def contact_params
       if params[:contact]
